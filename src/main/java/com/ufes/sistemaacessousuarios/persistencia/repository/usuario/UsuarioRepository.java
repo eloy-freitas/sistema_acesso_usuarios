@@ -43,6 +43,19 @@ public class UsuarioRepository implements IUsuarioRepository{
     public void autorizarUsuario(long id) throws SQLException {
         this.usuarioDAO.autorizeUsuario(id);
     }
-    
-    
+
+    @Override
+    public List<Usuario> buscarTodosPorFlagAutorizado(boolean isAutorizado) throws SQLException {
+        return this.usuarioDAO.getAllByFlagAutorizado(isAutorizado);
+    }
+
+    @Override
+    public List<Usuario> buscarTodosPorFlagAdmin(boolean isAdmin) throws SQLException {
+        return this.usuarioDAO.getAllByFlagAdmin(isAdmin);
+    }
+
+    @Override
+    public boolean isAdmin(Usuario usuario) throws SQLException {
+        return this.usuarioDAO.isAdmin(usuario);
+    }
 }

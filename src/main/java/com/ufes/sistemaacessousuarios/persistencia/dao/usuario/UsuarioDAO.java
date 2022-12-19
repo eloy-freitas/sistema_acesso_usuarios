@@ -246,7 +246,175 @@ public class UsuarioDAO implements IUsuarioDAO{
             ConexaoSQLite.closeConnection(conexao, ps);
         }
     }
-    
+
+    @Override
+    public List<Usuario> getAllByFlagAutorizado(boolean isAutorizado) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        List<Usuario> usuarios = new ArrayList<>();
+        
+        try {
+            String query = ""
+                .concat("\n SELECT ")
+                .concat("\n     u.id_usuario")
+                .concat("\n     , u.nm_usuario")
+                .concat("\n     , u.nm_login")
+                .concat("\n     , u.ds_senha")
+                .concat("\n     , u.ds_email")
+                .concat("\n     , u.fl_admin")
+                .concat("\n     , u.fl_autorizado")
+                .concat("\n     , u.dt_cadastro")
+                .concat("\n     , u.dt_modificacao")
+                .concat("\n FROM usuario u ")
+                .concat("\n WHERE fl_autorizado = ?;");
+            
+            conexao = ConexaoSQLite.getConnection();
+            
+            ps = conexao.prepareStatement(query);
+            ps.setBoolean(1, isAutorizado);
+
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                throw new SQLException("Não há usuários cadastrados");
+            }
+            
+            do{
+                Long id = rs.getLong(1);
+                String nome = rs.getString(2);
+                String login = rs.getString(3);
+                String senha = rs.getString(4);
+                String email = rs.getString(5);
+                boolean isAdmin = rs.getBoolean(6);
+                boolean autorizado = rs.getBoolean(7);
+                LocalDate dataCadastro = rs.getDate(8).toLocalDate();
+                LocalDateTime dataModificacao = rs.getTimestamp(9).toLocalDateTime();
+
+                usuarios.add(
+                    new Usuario(
+                        id, 
+                        nome, 
+                        login, 
+                        senha, 
+                        email, 
+                        isAdmin, 
+                        autorizado, 
+                        dataModificacao, 
+                        dataCadastro
+                    )
+                );
+            }while(rs.next());
+   
+            return usuarios;
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao buscar usuários.\n"
+                    + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps, rs);
+        }
+    }
+
+    @Override
+    public List<Usuario> getAllByFlagAdmin(boolean isAdmin) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        List<Usuario> usuarios = new ArrayList<>();
+        
+        try {
+            String query = ""
+                .concat("\n SELECT ")
+                .concat("\n     u.id_usuario")
+                .concat("\n     , u.nm_usuario")
+                .concat("\n     , u.nm_login")
+                .concat("\n     , u.ds_senha")
+                .concat("\n     , u.ds_email")
+                .concat("\n     , u.fl_admin")
+                .concat("\n     , u.fl_autorizado")
+                .concat("\n     , u.dt_cadastro")
+                .concat("\n     , u.dt_modificacao")
+                .concat("\n FROM usuario u ")
+                .concat("\n WHERE fl_autorizado = ?;");
+            
+            conexao = ConexaoSQLite.getConnection();
+            
+            ps = conexao.prepareStatement(query);
+            ps.setBoolean(1, isAdmin);
+
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                throw new SQLException("Não há usuários cadastrados");
+            }
+            
+            do{
+                Long id = rs.getLong(1);
+                String nome = rs.getString(2);
+                String login = rs.getString(3);
+                String senha = rs.getString(4);
+                String email = rs.getString(5);
+                boolean admin = rs.getBoolean(6);
+                boolean autorizado = rs.getBoolean(7);
+                LocalDate dataCadastro = rs.getDate(8).toLocalDate();
+                LocalDateTime dataModificacao = rs.getTimestamp(9).toLocalDateTime();
+
+                usuarios.add(
+                    new Usuario(
+                        id, 
+                        nome, 
+                        login, 
+                        senha, 
+                        email, 
+                        admin, 
+                        autorizado, 
+                        dataModificacao, 
+                        dataCadastro
+                    )
+                );
+            }while(rs.next());
+   
+            return usuarios;
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao buscar usuários.\n"
+                    + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps, rs);
+        }
+    }
+
+    @Override
+    public boolean isAdmin(Usuario usuario) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String query = ""
+                .concat("\n SELECT u.fl_admin")
+                .concat("\n FROM usuario u ")
+                .concat("\n WHERE u.id_usuario = ?;");
+            
+            conexao = ConexaoSQLite.getConnection();
+            
+            ps = conexao.prepareStatement(query);
+            ps.setLong(1, usuario.getId());
+            
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                throw new SQLException("Usuário com id "
+                        + usuario.getId() + "não encontrado");
+            }
+
+            return rs.getBoolean(1);
+            
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao buscar usuário.\n"
+                    + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps, rs);
+        }
+    }
     
     
 }

@@ -11,5 +11,8 @@ public interface IUsuarioService {
     void deletar(long id) throws SQLException;
     Usuario buscarPorID(long id) throws SQLException;
     List<Usuario> buscarTodos() throws SQLException;
-    void autorizarUsuario(long id) throws SQLException;    
+    void autorizarUsuario(long id) throws SQLException;
+    List<Usuario> buscarTodosPorFlagAutorizado(boolean isAutorizado) throws SQLException;
+    List<Usuario> buscarTodosPorFlagAdmin(boolean isAdmin) throws SQLException;  
+    boolean isAdmin(Usuario usuario) throws SQLException;    
 }

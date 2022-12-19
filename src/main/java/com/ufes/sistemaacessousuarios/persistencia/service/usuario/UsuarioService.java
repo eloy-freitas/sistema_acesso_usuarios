@@ -43,4 +43,19 @@ public class UsuarioService implements IUsuarioService{
     public void autorizarUsuario(long id) throws SQLException {
         this.usuarioRepository.autorizarUsuario(id);
     }
+
+    @Override
+    public List<Usuario> buscarTodosPorFlagAutorizado(boolean isAutorizado) throws SQLException {
+        return this.usuarioRepository.buscarTodosPorFlagAutorizado(isAutorizado);
+    }
+
+    @Override
+    public List<Usuario> buscarTodosPorFlagAdmin(boolean isAdmin) throws SQLException {
+        return this.usuarioRepository.buscarTodosPorFlagAdmin(isAdmin);
+    }
+
+    @Override
+    public boolean isAdmin(Usuario usuario) throws SQLException {
+        return this.usuarioRepository.isAdmin(usuario);
+    }
 }

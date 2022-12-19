@@ -13,15 +13,23 @@ create table usuario(
 create table notificacao(
     id_notificacao integer primary key autoincrement,
     id_remetente integer not null,
+    id_tipo integer not null,
     ds_mensagem varchar(300),
-    fl_lida boolean,
     dt_envio timestamp,
-    FOREIGN KEY(id_remetente) REFERENCES usuario(id_usuario)
+    FOREIGN KEY(id_remetente) REFERENCES usuario(id_usuario),
+    FOREIGN KEY(id_tipo) REFERENCES tipo_notificacao(id_tipo)
 );
 
-create table notificacao_usuarios(
+create table tipo_notificacao(
+    id_tipo integer primary key autoincrement,
+    ds_tipo varchar(100)
+);
+
+create table usuarios_notificados(
     id_notificacao integer not null,
     id_destinatario integer not null,
+    fl_lida boolean,
     FOREIGN KEY(id_destinatario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY(id_remetente) REFERENCES usuario(id_remetente),
     FOREIGN KEY(id_notificacao) REFERENCES notificacao(id_notificacao)
 );

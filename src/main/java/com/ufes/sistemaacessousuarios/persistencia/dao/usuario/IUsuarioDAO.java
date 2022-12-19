@@ -12,4 +12,7 @@ public interface IUsuarioDAO {
     Usuario getByID(long id) throws SQLException;
     List<Usuario> getAll() throws SQLException;  
     void autorizeUsuario(long id) throws SQLException;
+    List<Usuario> getAllByFlagAutorizado(boolean isAutorizado) throws SQLException;
+    List<Usuario> getAllByFlagAdmin(boolean isAdmin) throws SQLException;  
+    boolean isAdmin(Usuario usuario) throws SQLException;
 }
