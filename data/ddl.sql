@@ -25,4 +25,3 @@ create table notificacao_usuarios(
     FOREIGN KEY(id_destinatario) REFERENCES usuario(id_usuario),
     FOREIGN KEY(id_notificacao) REFERENCES notificacao(id_notificacao)
 );
-

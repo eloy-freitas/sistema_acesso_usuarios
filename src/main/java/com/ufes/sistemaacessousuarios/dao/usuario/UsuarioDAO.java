@@ -67,7 +67,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             ps.setString(1, usuario.getSenha());
             ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
             ps.setLong(3, usuario.getId());
-            System.out.println(ps.toString());
+
             ps.executeUpdate();  
         } catch (SQLException ex) {
             throw new SQLException("Erro ao atualizar senha.\n" + ex.getMessage());

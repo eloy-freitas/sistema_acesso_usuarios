@@ -1,0 +1,41 @@
+package com.ufes.sistemaacessousuarios.repository.usuario;
+
+import com.ufes.sistemaacessousuarios.dao.usuario.IUsuarioDAO;
+import com.ufes.sistemaacessousuarios.dao.usuario.UsuarioDAO;
+import com.ufes.sistemaacessousuarios.model.Usuario;
+import java.sql.SQLException;
+import java.util.List;
+
+
+public class UsuarioRepository implements IUsuarioRepository{
+    private IUsuarioDAO usuarioDAO;
+    
+    public UsuarioRepository() {
+        this.usuarioDAO = new UsuarioDAO();
+    }
+
+    @Override
+    public void salvar(Usuario usuario) throws SQLException {
+        this.usuarioDAO.save(usuario);
+    }
+
+    @Override
+    public void atualizarSenha(Usuario usuario) throws SQLException {
+        this.usuarioDAO.updateSenha(usuario);
+    }
+
+    @Override
+    public void deletar(long id) throws SQLException {
+       this.usuarioDAO.delete(id);
+    }
+
+    @Override
+    public Usuario buscarPorID(long id) throws SQLException {
+        return this.usuarioDAO.getByID(id);
+    }
+
+    @Override
+    public List<Usuario> buscarTodos() throws SQLException {
+        return this.usuarioDAO.getAll();
+    }
+}
