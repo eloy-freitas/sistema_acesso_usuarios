@@ -24,6 +24,7 @@ public class Usuario {
         this.isAdmin = isAdmin;
         this.isAutorizado = isAutorizado;
         this.dataModificacao = dataModificacao;
+        this.dataLogin = null;
         this.dataCadastro = dataCadastro;
     }
     
@@ -40,7 +41,7 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
     }
 
-    public Usuario(String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDateTime dataLogin, LocalDate dataCadastro) {
+    public Usuario(String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDate dataCadastro) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
@@ -48,11 +49,9 @@ public class Usuario {
         this.isAdmin = isAdmin;
         this.isAutorizado = isAutorizado;
         this.dataModificacao = dataModificacao;
-        this.dataLogin = dataLogin;
+        this.dataLogin = null;
         this.dataCadastro = dataCadastro;
     }
-
-    
 
     public void setSenha(String senha) {
         this.senha = senha;
@@ -94,6 +93,20 @@ public class Usuario {
         return dataCadastro;
     }
 
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public boolean isIsAutorizado() {
+        return isAutorizado;
+    }
+
+    public LocalDateTime getDataLogin() {
+        return dataLogin;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Usuario{" + "id=" + id + ", nome=" + nome + ", senha=" + senha + ", email=" + email + ", dataCadastro=" + dataCadastro + '}';
