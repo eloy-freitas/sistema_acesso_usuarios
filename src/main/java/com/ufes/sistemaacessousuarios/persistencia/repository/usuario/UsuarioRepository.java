@@ -58,4 +58,14 @@ public class UsuarioRepository implements IUsuarioRepository{
     public boolean isAdmin(Usuario usuario) throws SQLException {
         return this.usuarioDAO.isAdmin(usuario);
     }
+
+    @Override
+    public boolean isAutorizado(Usuario usuario) throws SQLException {
+        return this.usuarioDAO.isAdmin(usuario);
+    }
+
+    @Override
+    public Usuario login(String login, String senha) throws SQLException {
+        return this.usuarioDAO.login(login, senha);
+    }
 }

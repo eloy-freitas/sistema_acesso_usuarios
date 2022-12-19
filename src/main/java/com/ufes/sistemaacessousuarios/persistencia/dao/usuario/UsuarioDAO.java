@@ -392,18 +392,17 @@ public class UsuarioDAO implements IUsuarioDAO{
             String query = ""
                 .concat("\n SELECT u.fl_admin")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE u.id_usuario = ?;");
+                .concat("\n WHERE u.nm_login = ?;");
             
             conexao = ConexaoSQLite.getConnection();
             
             ps = conexao.prepareStatement(query);
-            ps.setLong(1, usuario.getId());
+            ps.setString(1, usuario.getLogin());
             
             rs = ps.executeQuery();
             
             if (!rs.next()) {
-                throw new SQLException("Usuário com id "
-                        + usuario.getId() + "não encontrado");
+                throw new SQLException("Usuário não encontrado");
             }
 
             return rs.getBoolean(1);
@@ -416,5 +415,93 @@ public class UsuarioDAO implements IUsuarioDAO{
         }
     }
     
-    
+    @Override
+    public boolean isAutorizado(Usuario usuario) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String query = ""
+                .concat("\n SELECT u.fl_autorizado")
+                .concat("\n FROM usuario u ")
+                .concat("\n WHERE u.nm_login = ?;");
+            
+            conexao = ConexaoSQLite.getConnection();
+            
+            ps = conexao.prepareStatement(query);
+            ps.setString(1, usuario.getLogin());
+            
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                throw new SQLException("Usuário não encontrado");
+            }
+
+            return rs.getBoolean(1);
+            
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao buscar usuário.\n"
+                    + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps, rs);
+        }
+    }
+
+    @Override
+    public Usuario login(String login, String senha) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String query = ""
+                .concat("\n SELECT ")
+                .concat("\n     u.id_usuario")
+                .concat("\n     , u.nm_usuario")
+                .concat("\n     , u.ds_email")
+                .concat("\n     , u.fl_admin")
+                .concat("\n     , u.fl_autorizado")
+                .concat("\n     , u.dt_cadastro")
+                .concat("\n     , u.dt_modificacao")
+                .concat("\n FROM usuario u ")
+                .concat("\n WHERE u.nm_login = ?")
+                .concat("\n AND u.ds_senha = ?;");
+            
+            conexao = ConexaoSQLite.getConnection();
+            
+            ps = conexao.prepareStatement(query);
+            ps.setString(1, login);
+            ps.setString(2, senha);
+            
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                throw new SQLException("Usuário não encontrado");
+            }
+            
+            long id = rs.getLong(1);
+            String nome = rs.getString(2);
+            String email = rs.getString(3);
+            boolean isAdmin = rs.getBoolean(4);
+            boolean isAutorizado = rs.getBoolean(5);
+            LocalDate dataCadastro = rs.getDate(6).toLocalDate();
+            LocalDateTime dataModificacao = rs.getTimestamp(7).toLocalDateTime();
+           
+            return new Usuario(
+                id, 
+                nome, 
+                login, 
+                senha, 
+                email, 
+                isAdmin, 
+                isAutorizado, 
+                dataModificacao, 
+                dataCadastro
+            );
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao buscar usuário.\n"
+                    + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps, rs);
+        }
+    } 
 }

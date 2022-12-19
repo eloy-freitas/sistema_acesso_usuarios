@@ -15,4 +15,6 @@ public interface IUsuarioRepository {
     List<Usuario> buscarTodosPorFlagAutorizado(boolean isAutorizado) throws SQLException;
     List<Usuario> buscarTodosPorFlagAdmin(boolean isAdmin) throws SQLException;  
     boolean isAdmin(Usuario usuario) throws SQLException;
+    boolean isAutorizado(Usuario usuario) throws SQLException;
+    Usuario login(String login, String senha) throws SQLException;
 }

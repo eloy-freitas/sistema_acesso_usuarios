@@ -15,4 +15,6 @@ public interface IUsuarioDAO {
     List<Usuario> getAllByFlagAutorizado(boolean isAutorizado) throws SQLException;
     List<Usuario> getAllByFlagAdmin(boolean isAdmin) throws SQLException;  
     boolean isAdmin(Usuario usuario) throws SQLException;
+    boolean isAutorizado(Usuario usuario) throws SQLException;
+    Usuario login(String login, String senha) throws SQLException;
 }
