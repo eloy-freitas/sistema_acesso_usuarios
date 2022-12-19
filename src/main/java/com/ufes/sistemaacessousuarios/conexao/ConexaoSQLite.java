@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class ConexaoSQLite {
     
-    public static Connection getConnection() throws ClassNotFoundException, SQLException{
+    public static Connection getConnection() throws SQLException{
         Connection conexao = null;
         try {
             Dotenv env = Dotenv.configure()
