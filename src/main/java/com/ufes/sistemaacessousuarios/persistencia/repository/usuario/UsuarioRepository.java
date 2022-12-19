@@ -38,4 +38,11 @@ public class UsuarioRepository implements IUsuarioRepository{
     public List<Usuario> buscarTodos() throws SQLException {
         return this.usuarioDAO.getAll();
     }
+
+    @Override
+    public void autorizarUsuario(long id) throws SQLException {
+        this.usuarioDAO.autorizeUsuario(id);
+    }
+    
+    
 }

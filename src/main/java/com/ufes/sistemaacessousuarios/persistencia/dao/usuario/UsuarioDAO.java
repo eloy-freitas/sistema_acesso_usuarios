@@ -223,4 +223,30 @@ public class UsuarioDAO implements IUsuarioDAO{
             ConexaoSQLite.closeConnection(conexao, ps, rs);
         }
     }  
+
+    @Override
+    public void autorizeUsuario(long id) throws SQLException {
+        PreparedStatement ps = null;
+        String query = ""
+                .concat("\n UPDATE usuario SET")
+                .concat("\n fl_autorizado = ?")
+                .concat("\n , dt_modificacao = ?")
+                .concat("\n WHERE id_usuario = ?;");
+        try {
+            conexao = ConexaoSQLite.getConnection();
+            ps = conexao.prepareStatement(query);
+            ps.setBoolean(1, true);
+            ps.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setLong(3, id);
+
+            ps.executeUpdate();  
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao autorizar usuário.\n" + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps);
+        }
+    }
+    
+    
+    
 }

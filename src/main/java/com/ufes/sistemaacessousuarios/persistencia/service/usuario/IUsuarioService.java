@@ -10,5 +10,6 @@ public interface IUsuarioService {
     void atualizarSenha(Usuario usuario) throws SQLException;
     void deletar(long id) throws SQLException;
     Usuario buscarPorID(long id) throws SQLException;
-    List<Usuario> buscarTodos() throws SQLException;    
+    List<Usuario> buscarTodos() throws SQLException;
+    void autorizarUsuario(long id) throws SQLException;    
 }

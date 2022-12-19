@@ -38,4 +38,9 @@ public class UsuarioService implements IUsuarioService{
     public List<Usuario> buscarTodos() throws SQLException {
         return this.usuarioRepository.buscarTodos();
     }
+
+    @Override
+    public void autorizarUsuario(long id) throws SQLException {
+        this.usuarioRepository.autorizarUsuario(id);
+    }
 }
