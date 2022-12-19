@@ -12,6 +12,7 @@ public class Usuario {
     protected boolean isAdmin;
     protected boolean isAutorizado;
     protected LocalDateTime dataModificacao;
+    protected LocalDateTime dataLogin;
     protected LocalDate dataCadastro;
 
     public Usuario(long id, String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDate dataCadastro) {
@@ -25,8 +26,9 @@ public class Usuario {
         this.dataModificacao = dataModificacao;
         this.dataCadastro = dataCadastro;
     }
-
-    public Usuario(String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDate dataCadastro) {
+    
+    public Usuario(long id, String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDateTime dataLogin, LocalDate dataCadastro) {
+        this.id = id;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
@@ -34,8 +36,23 @@ public class Usuario {
         this.isAdmin = isAdmin;
         this.isAutorizado = isAutorizado;
         this.dataModificacao = dataModificacao;
+        this.dataLogin = dataLogin;
         this.dataCadastro = dataCadastro;
     }
+
+    public Usuario(String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDateTime dataLogin, LocalDate dataCadastro) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.email = email;
+        this.isAdmin = isAdmin;
+        this.isAutorizado = isAutorizado;
+        this.dataModificacao = dataModificacao;
+        this.dataLogin = dataLogin;
+        this.dataCadastro = dataCadastro;
+    }
+
+    
 
     public void setSenha(String senha) {
         this.senha = senha;

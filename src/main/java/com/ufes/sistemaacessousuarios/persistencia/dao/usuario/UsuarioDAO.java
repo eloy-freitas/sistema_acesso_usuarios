@@ -495,6 +495,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 isAdmin, 
                 isAutorizado, 
                 dataModificacao, 
+        LocalDateTime.now(),
                 dataCadastro
             );
         } catch (SQLException ex) {
