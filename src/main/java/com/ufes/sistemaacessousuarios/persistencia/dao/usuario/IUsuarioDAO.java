@@ -1,4 +1,4 @@
-package com.ufes.sistemaacessousuarios.dao.usuario;
+package com.ufes.sistemaacessousuarios.persistencia.dao.usuario;
 
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import java.sql.SQLException;

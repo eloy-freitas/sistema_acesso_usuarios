@@ -1,7 +1,7 @@
-package com.ufes.sistemaacessousuarios.repository.usuario;
+package com.ufes.sistemaacessousuarios.persistencia.repository.usuario;
 
-import com.ufes.sistemaacessousuarios.dao.usuario.IUsuarioDAO;
-import com.ufes.sistemaacessousuarios.dao.usuario.UsuarioDAO;
+import com.ufes.sistemaacessousuarios.persistencia.dao.usuario.IUsuarioDAO;
+import com.ufes.sistemaacessousuarios.persistencia.dao.usuario.UsuarioDAO;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import java.sql.SQLException;
 import java.util.List;
