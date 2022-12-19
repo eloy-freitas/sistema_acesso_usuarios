@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IUsuarioDAO {
     void save(Usuario usuario) throws SQLException;
-    void update(Usuario usuario) throws SQLException;
+    void updateSenha(Usuario usuario) throws SQLException;
     void delete(long id) throws SQLException;
     Usuario getByID(long id) throws SQLException;
     List<Usuario> getAll() throws SQLException;          

@@ -34,4 +34,16 @@ public class Usuario {
     public String getEmail() {
         return email;
     }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
+    @Override
+    public String toString() {
+        return "\nid=" + id + ", \nnome=" + nome + ", \nsenha=" + senha + ", \nemail=" + email;
+    }
+    
+    
+    
 }
