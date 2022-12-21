@@ -436,8 +436,12 @@ public class UsuarioDAO implements IUsuarioDAO{
             if (!rs.next()) {
                 throw new SQLException("Usuário não encontrado");
             }
+            
+            boolean result = rs.getBoolean(1);
 
-            return rs.getBoolean(1);
+            System.out.println(result);
+
+            return result;
             
         } catch (SQLException ex) {
             throw new SQLException("Erro ao buscar usuário.\n"

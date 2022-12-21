@@ -42,6 +42,14 @@ public class LoginPresenter {
                 }
             }    
         });
+        
+        this.view.getBtnCadastrar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cadastrar();
+            }
+            
+        });
     }   
     
     private void lerCampos(){
@@ -51,8 +59,7 @@ public class LoginPresenter {
         char[] senhaChar = this.view.getPfSenha().getPassword();
         for(char c : senhaChar){
             this.senha += String.valueOf(c);
-        }
-            
+        }       
     }
     
     private void entrar() throws SQLException{
@@ -60,10 +67,17 @@ public class LoginPresenter {
         Usuario usuario = this.usuarioService.login(login, senha);
         boolean result = this.usuarioService.isAutorizado(usuario);
         System.out.println(result);
-        if(result)
+        if(result){
             System.out.println("Login efetuado com sucesso!");
-        else
+            
+        }else{
             System.out.println("Aguardando autorização do admin!");
+            
+        }
+    }
+
+    private void cadastrar(){
+
     }
     
 }
