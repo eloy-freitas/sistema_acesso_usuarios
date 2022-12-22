@@ -3,7 +3,7 @@ package com.ufes.sistemaacessousuarios.presenter;
 
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
-import com.ufes.sistemaacessousuarios.view.usuario.LoginView;
+import com.ufes.sistemaacessousuarios.view.LoginView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -77,7 +77,7 @@ public class LoginPresenter {
     }
 
     private void cadastrar(){
-
+        new ManterUsuarioPresenter();
     }
     
 }
