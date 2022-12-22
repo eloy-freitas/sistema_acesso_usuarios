@@ -18,6 +18,7 @@ public class ManterUsuarioPresenter {
     private ManterUsuarioView view;
     private IUsuarioService usuarioService;
     private ManterUsuarioPresenterState estado;
+    private Usuario usuario;
     
 
     public ManterUsuarioPresenter() {
@@ -35,8 +36,19 @@ public class ManterUsuarioPresenter {
             public void actionPerformed(ActionEvent e) {
                 try{
                     salvar();
+                    JOptionPane.showMessageDialog(
+                        view,
+                        "Usuário cadastrado com sucesso!",
+                        "Sucesso!",
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
                 }catch(SQLException ex){
-                    JOptionPane.showMessageDialog(view, ex, "ERRO!",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(
+                        view, 
+                        ex, 
+                        "ERRO!",
+                        JOptionPane.ERROR_MESSAGE
+                    );
                 }      
             }  
         });
@@ -85,6 +97,10 @@ public class ManterUsuarioPresenter {
         );
     }
     
+    public void fechar(){
+        this.view.dispose();
+    }
+    
     public ManterUsuarioView getView() {
         return this.view;
     }
@@ -116,4 +132,12 @@ public class ManterUsuarioPresenter {
     public void setEstado(ManterUsuarioPresenterState estado){
         this.estado = estado;
     } 
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
