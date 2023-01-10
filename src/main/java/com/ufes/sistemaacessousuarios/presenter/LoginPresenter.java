@@ -82,7 +82,4 @@ public class LoginPresenter {
     public LoginView getView() {
         return view;
     }
-    
-     
-    
 }

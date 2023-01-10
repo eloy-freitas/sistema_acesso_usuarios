@@ -20,7 +20,6 @@ public class ManterUsuarioPresenter {
     private ManterUsuarioPresenterState estado;
     private Usuario usuario;
     
-
     public ManterUsuarioPresenter() {
         this.view = new ManterUsuarioView();
         initServices();  

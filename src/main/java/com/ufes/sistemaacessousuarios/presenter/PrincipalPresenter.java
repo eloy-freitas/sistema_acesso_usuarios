@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 
 
 public class PrincipalPresenter {
-
     private PrincipalView principalView;
     private LoginView loginView;
     private LoginPresenter loginPresenter;
@@ -19,7 +18,6 @@ public class PrincipalPresenter {
         loginView = new LoginView();
         initListeners();
     }
-    
     
     public void initListeners(){
         this.principalView.getMiSair().addActionListener(new ActionListener(){
@@ -44,17 +42,15 @@ public class PrincipalPresenter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 manterUsuarioPresenter = new ManterUsuarioPresenter();
-                principalView.add(manterUsuarioPresenter.getView());
+                principalView.getDpMenu().add(manterUsuarioPresenter.getView());
                 manterUsuarioPresenter.getView().setVisible(true);
             }
             
         });
     }
     
-    
     public void fechar(){
-        loginPresenter.getView().dispose();
-        loginPresenter = null;
+        principalView.dispose();
     }
     
 }
