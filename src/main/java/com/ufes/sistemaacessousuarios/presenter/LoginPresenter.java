@@ -21,7 +21,6 @@ public class LoginPresenter {
         this.view = new LoginView();
         initServices();
         initListeneres();
-        view.setVisible(true);
     }
     
     private void initServices(){

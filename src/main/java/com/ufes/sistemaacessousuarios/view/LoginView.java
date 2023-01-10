@@ -40,6 +40,7 @@ public class LoginView extends javax.swing.JInternalFrame {
         btnEntrar = new javax.swing.JButton();
 
         setClosable(true);
+        setIconifiable(true);
 
         lblTitulo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         lblTitulo.setText("Sistema de acesso ");

@@ -4,6 +4,8 @@
  */
 package com.ufes.sistemaacessousuarios.view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,6 +22,8 @@ public class PrincipalView extends javax.swing.JFrame {
      */
     public PrincipalView() {
         initComponents();
+        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(screensize.width, screensize.height);
     }
 
     /**

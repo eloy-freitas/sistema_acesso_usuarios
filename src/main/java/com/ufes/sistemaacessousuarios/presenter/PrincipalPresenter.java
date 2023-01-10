@@ -11,6 +11,7 @@ public class PrincipalPresenter {
     private PrincipalView principalView;
     private LoginView loginView;
     private LoginPresenter loginPresenter;
+    private ManterUsuarioPresenter manterUsuarioPresenter;
     
     public PrincipalPresenter() {
         principalView = new PrincipalView();
@@ -34,14 +35,26 @@ public class PrincipalPresenter {
                 if(loginPresenter == null){
                     loginPresenter = new LoginPresenter();
                     principalView.getDpMenu().add(loginPresenter.getView());
+                    loginPresenter.getView().setVisible(true);
                 }
             }
+        });
+        
+        this.principalView.getMiCadastrar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                manterUsuarioPresenter = new ManterUsuarioPresenter();
+                principalView.add(manterUsuarioPresenter.getView());
+                manterUsuarioPresenter.getView().setVisible(true);
+            }
+            
         });
     }
     
     
     public void fechar(){
-        this.principalView.dispose();
+        loginPresenter.getView().dispose();
+        loginPresenter = null;
     }
     
 }

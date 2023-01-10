@@ -26,8 +26,6 @@ public class ManterUsuarioPresenter {
         initServices();  
         initListeners();
         estado = new CadastroUsuarioState(this);
-        
-        this.view.setVisible(true);
     }
 
     private void initListeners(){
