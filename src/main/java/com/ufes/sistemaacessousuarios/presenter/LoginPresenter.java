@@ -79,5 +79,11 @@ public class LoginPresenter {
     private void cadastrar(){
         new ManterUsuarioPresenter();
     }
+
+    public LoginView getView() {
+        return view;
+    }
+    
+     
     
 }
