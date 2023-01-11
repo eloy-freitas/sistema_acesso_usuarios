@@ -61,7 +61,7 @@ public class UsuarioRepository implements IUsuarioRepository{
 
     @Override
     public boolean isAutorizado(Usuario usuario) throws SQLException {
-        return this.usuarioDAO.isAdmin(usuario);
+        return this.usuarioDAO.isAutorizado(usuario);
     }
 
     @Override
