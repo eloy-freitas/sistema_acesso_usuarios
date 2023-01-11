@@ -35,7 +35,7 @@ public class LoginView extends javax.swing.JInternalFrame {
         txtLogin = new javax.swing.JTextField();
         lblSenha = new javax.swing.JLabel();
         pfSenha = new javax.swing.JPasswordField();
-        btnCadastrar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         btnEntrar = new javax.swing.JButton();
 
         setClosable(true);
@@ -46,7 +46,7 @@ public class LoginView extends javax.swing.JInternalFrame {
 
         lblSenha.setText("Senha:");
 
-        btnCadastrar.setText("Cadastrar");
+        btnCancelar.setText("Cancelar");
 
         btnEntrar.setText("Entrar");
 
@@ -63,7 +63,7 @@ public class LoginView extends javax.swing.JInternalFrame {
                         .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnCadastrar)
+                            .addComponent(btnCancelar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnEntrar))
                         .addGroup(layout.createSequentialGroup()
@@ -86,16 +86,12 @@ public class LoginView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntrar)
-                    .addComponent(btnCadastrar))
+                    .addComponent(btnCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public JButton getBtnCadastrar() {
-        return btnCadastrar;
-    }
 
     public JButton getBtnEntrar() {
         return btnEntrar;
@@ -117,8 +113,12 @@ public class LoginView extends javax.swing.JInternalFrame {
         return txtLogin;
     }
 
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblSenha;

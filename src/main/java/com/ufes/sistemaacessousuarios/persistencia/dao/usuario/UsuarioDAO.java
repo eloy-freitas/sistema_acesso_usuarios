@@ -439,8 +439,6 @@ public class UsuarioDAO implements IUsuarioDAO{
             
             boolean result = rs.getBoolean(1);
 
-            System.out.println(result);
-
             return result;
             
         } catch (SQLException ex) {

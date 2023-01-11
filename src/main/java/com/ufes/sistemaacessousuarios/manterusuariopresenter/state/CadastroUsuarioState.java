@@ -1,10 +1,10 @@
-package com.ufes.sistemaacessousuarios.presenter.state;
+package com.ufes.sistemaacessousuarios.manterusuariopresenter.state;
 
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
-import com.ufes.sistemaacessousuarios.presenter.command.ManterUsuarioCommand;
-import com.ufes.sistemaacessousuarios.presenter.command.SalvarUsuarioCommand;
+import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.ManterUsuarioCommand;
+import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.SalvarUsuarioCommand;
 import java.sql.SQLException;
 
 

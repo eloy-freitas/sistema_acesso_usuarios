@@ -42,10 +42,10 @@ public class LoginPresenter {
             }    
         });
         
-        this.view.getBtnCadastrar().addActionListener(new ActionListener(){
+        this.view.getBtnCancelar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                cadastrar();
+                fechar();
             }
             
         });
@@ -65,7 +65,7 @@ public class LoginPresenter {
         lerCampos();
         Usuario usuario = this.usuarioService.login(login, senha);
         boolean result = this.usuarioService.isAutorizado(usuario);
-        System.out.println(result);
+        
         if(result){
             System.out.println("Login efetuado com sucesso!");
             
@@ -75,8 +75,8 @@ public class LoginPresenter {
         }
     }
 
-    private void cadastrar(){
-        new ManterUsuarioPresenter();
+    private void fechar(){
+        view.dispose();
     }
 
     public LoginView getView() {

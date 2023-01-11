@@ -1,4 +1,4 @@
-package com.ufes.sistemaacessousuarios.presenter.state;
+package com.ufes.sistemaacessousuarios.manterusuariopresenter.state;
 
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import java.sql.SQLException;
