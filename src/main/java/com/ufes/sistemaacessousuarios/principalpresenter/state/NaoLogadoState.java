@@ -5,7 +5,6 @@ import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.view.LoginView;
 import com.ufes.sistemaacessousuarios.view.ManterUsuarioView;
-import com.ufes.sistemaacessousuarios.view.PrincipalView;
 
 
 public class NaoLogadoState extends PrincipalPresenterState{
