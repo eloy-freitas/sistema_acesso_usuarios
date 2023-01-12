@@ -17,4 +17,5 @@ public interface IUsuarioService {
     boolean isAdmin(Usuario usuario) throws SQLException;   
     boolean isAutorizado(Usuario usuario) throws SQLException;
     Usuario login(String login, String senha) throws SQLException;
+    int buscarTotalNotificacoes(Usuario usuario) throws SQLException;
 }

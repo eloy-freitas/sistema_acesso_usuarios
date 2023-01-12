@@ -17,4 +17,5 @@ public interface IUsuarioDAO {
     boolean isAdmin(Usuario usuario) throws SQLException;
     boolean isAutorizado(Usuario usuario) throws SQLException;
     Usuario login(String login, String senha) throws SQLException;
+    int getTotalNotifications(Usuario usuario) throws SQLException;
 }
