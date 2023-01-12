@@ -2,7 +2,9 @@ package com.ufes.sistemaacessousuarios.presenter;
 
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
-import com.ufes.sistemaacessousuarios.principalpresenter.state.LogadoState;
+import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginAdminState;
+import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginNaoAutorizadoState;
+import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginUsuarioState;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.NaoLogadoState;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.PrincipalPresenterState;
 import com.ufes.sistemaacessousuarios.view.LoginView;
@@ -84,7 +86,13 @@ public class PrincipalPresenter implements LoginObserver{
     @Override
     public void updateLogin(Usuario usuario) {
         this.usuario = usuario;
-        this.estado = new LogadoState(this);
+        if(usuario.isAdmin()){
+            this.estado = new LoginAdminState(this);
+        }else if(usuario.isAutorizado()){
+            this.estado = new LoginUsuarioState(this);
+        }else{
+            this.estado = new LoginNaoAutorizadoState(this);
+        }
     }
    
     public void setEstado(PrincipalPresenterState estado) {

@@ -1,7 +1,9 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.view.PrincipalView;
+import java.sql.SQLException;
 
 
 public abstract class PrincipalPresenterState {
@@ -26,5 +28,31 @@ public abstract class PrincipalPresenterState {
     
     public void sair(){
         throw new RuntimeException("Operação inválida para o estado atual");
+    }
+    
+    public final String criarInfoUsuario(Usuario usuario){
+        String texto = ""
+                .concat((usuario.isAdmin()) ? "Administrador: " : "Usuário: ")
+                .concat(usuario.getLogin()); 
+        return texto;
+    }
+    
+    public final void decorarInfoUsuario(){
+        principalView.getLblInfoUsuario().setText(criarInfoUsuario(presenter.getUsuario()));
+    }
+    
+    public int totalNotificacoes() throws SQLException{
+        return presenter.getUsuarioService().buscarTotalNotificacoes(presenter.getUsuario());
+    }
+    
+    public void decorarBotaoNotificacoes(){
+        int total = 0;
+        try{
+            total = totalNotificacoes();
+        }catch(SQLException ex){
+            total = 0;
+        }
+        
+        principalView.getBtnNotificacoes().setText(total + " Notificações");
     }
 }
