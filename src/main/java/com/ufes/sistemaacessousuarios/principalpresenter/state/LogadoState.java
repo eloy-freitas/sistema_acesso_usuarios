@@ -3,6 +3,7 @@ package com.ufes.sistemaacessousuarios.principalpresenter.state;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.view.NaoAutorizadoView;
+import java.sql.SQLException;
 
 
 public class LogadoState extends PrincipalPresenterState{
@@ -18,7 +19,7 @@ public class LogadoState extends PrincipalPresenterState{
     }
     
     @Override
-    public void initComponents(){
+    public void initComponents() {
         principalView.getMiLogin().setEnabled(false);
         principalView.getMiCadastrar().setEnabled(false);
         principalView.getLblInfoUsuario().setText(criarInfoUsuario(usuario));
@@ -28,8 +29,17 @@ public class LogadoState extends PrincipalPresenterState{
             principalView.getBtnNotificacoes().setVisible(false);
             presenter.getPrincipalView().getDpMenu().add(naoAutorizadoView);
             naoAutorizadoView.setVisible(true);
-        }else
+        }else{
+            int totalNotificacoes = 0;
+            try{
+                 totalNotificacoes = presenter.getUsuarioService().buscarTotalNotificacoes(usuario);
+            }catch(SQLException ex){
+                throw new RuntimeException("Usuário não encontrado");
+            }
+            
+            principalView.getBtnNotificacoes().setText(totalNotificacoes + " Notificações");
             principalView.getBtnNotificacoes().setVisible(true);
+        }
     }
     
     private String criarInfoUsuario(Usuario usuario){

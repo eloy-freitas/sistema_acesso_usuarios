@@ -507,4 +507,43 @@ public class UsuarioDAO implements IUsuarioDAO{
             ConexaoSQLite.closeConnection(conexao, ps, rs);
         }
     } 
+
+    @Override
+    public int getTotalNotifications(Usuario usuario) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            String query = ""
+                .concat("\n SELECT ")
+                .concat("\n 	COUNT(un.id_notificacao) qtd_notificacoes ")
+                .concat("\n FROM usuario u")
+                .concat("\n LEFT JOIN usuarios_notificados un ")
+                .concat("\n ON u.id_usuario = un.id_destinatario")
+                .concat("\n WHERE u.id_usuario = ? AND un.fl_lida = 0;");
+
+            
+            conexao = ConexaoSQLite.getConnection();
+            
+            ps = conexao.prepareStatement(query);
+            ps.setLong(1, usuario.getId());
+            
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                throw new SQLException("Usuário não encontrado");
+            }
+            
+            int result = rs.getInt(1);
+
+            return result;
+            
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao buscar usuário.\n"
+                    + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps, rs);
+        }
+    }
+    
 }

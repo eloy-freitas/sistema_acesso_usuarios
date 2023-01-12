@@ -68,4 +68,10 @@ public class UsuarioRepository implements IUsuarioRepository{
     public Usuario login(String login, String senha) throws SQLException {
         return this.usuarioDAO.login(login, senha);
     }
+
+    @Override
+    public int buscarTotalNotificacoes(Usuario usuario) throws SQLException {
+        return this.usuarioDAO.getTotalNotifications(usuario);
+    }
+
 }
