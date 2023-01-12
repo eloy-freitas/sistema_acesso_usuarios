@@ -1,10 +1,12 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.view.PrincipalView;
 
 
 public abstract class PrincipalPresenterState {
     protected PrincipalPresenter presenter;
+    protected PrincipalView principalView;
 
     public PrincipalPresenterState(PrincipalPresenter presenter) {
         this.presenter = presenter;

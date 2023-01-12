@@ -4,34 +4,39 @@ import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.view.LoginView;
+import com.ufes.sistemaacessousuarios.view.PrincipalView;
 
 
 public class NaoLogadoState extends PrincipalPresenterState{
     private LoginPresenter loginPresenter;
     
+    
     public NaoLogadoState(PrincipalPresenter presenter) {
         super(presenter);
         loginPresenter = new LoginPresenter();
         loginPresenter.subscribe(presenter);
+        principalView = presenter.getPrincipalView();
         initComponents();
     }
     
      @Override
     public void initComponents(){
-        presenter.getPrincipalView().getMiLogin().setEnabled(true);
-        presenter.getPrincipalView().getMiCadastrar().setEnabled(true);
+        principalView.getMiLogin().setEnabled(true);
+        principalView.getMiCadastrar().setEnabled(true);
+        principalView.getBtnNotificacoes().setVisible(false);
+        principalView.getLblInfoUsuario().setVisible(false);
     }
     
     @Override
     public void sair(){
-        presenter.getPrincipalView().dispose();
+        principalView.dispose();
     }
     
     @Override
     public void login(){ 
         LoginView loginView = loginPresenter.getView();
         if(!loginView.isVisible()){
-            presenter.getPrincipalView().getDpMenu().add(loginView);
+            principalView.getDpMenu().add(loginView);
             loginView.setVisible(true);
         }  
     }
@@ -39,7 +44,7 @@ public class NaoLogadoState extends PrincipalPresenterState{
     @Override
     public void cadastrar(){
         presenter.setManterUsuarioPresenter(new ManterUsuarioPresenter());
-        presenter.getPrincipalView().getDpMenu().add(presenter.getManterUsuarioPresenter().getView());
+        principalView.getDpMenu().add(presenter.getManterUsuarioPresenter().getView());
         presenter.getManterUsuarioPresenter().getView().setVisible(true);
     }
 }

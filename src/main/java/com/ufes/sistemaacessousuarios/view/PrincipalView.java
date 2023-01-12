@@ -6,7 +6,9 @@ package com.ufes.sistemaacessousuarios.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -22,8 +24,8 @@ public class PrincipalView extends javax.swing.JFrame {
      */
     public PrincipalView() {
         initComponents();
-        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(screensize.width, screensize.height);
+        /*Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(screensize.width, screensize.height);*/
     }
 
     /**
@@ -37,6 +39,8 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
         dpMenu = new javax.swing.JDesktopPane();
+        lblInfoUsuario = new javax.swing.JLabel();
+        btnNotificacoes = new javax.swing.JButton();
         mnToolBar = new javax.swing.JMenuBar();
         mnUsuario = new javax.swing.JMenu();
         miLogin = new javax.swing.JMenuItem();
@@ -58,6 +62,7 @@ public class PrincipalView extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         javax.swing.GroupLayout dpMenuLayout = new javax.swing.GroupLayout(dpMenu);
         dpMenu.setLayout(dpMenuLayout);
@@ -67,8 +72,12 @@ public class PrincipalView extends javax.swing.JFrame {
         );
         dpMenuLayout.setVerticalGroup(
             dpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
+            .addGap(0, 451, Short.MAX_VALUE)
         );
+
+        lblInfoUsuario.setText("<tipo usuário>:<usuário>");
+
+        btnNotificacoes.setText("<Número> Notificações");
 
         mnUsuario.setText("Usuário");
 
@@ -94,10 +103,22 @@ public class PrincipalView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(dpMenu)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblInfoUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnNotificacoes)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dpMenu, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(dpMenu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblInfoUsuario)
+                    .addComponent(btnNotificacoes))
+                .addContainerGap())
         );
 
         pack();
@@ -157,9 +178,6 @@ public class PrincipalView extends javax.swing.JFrame {
     public JMenu getMnSair() {
         return mnSair;
     }
-
-
-    
     
     public JMenu getMnUsuario() {
         return mnUsuario;
@@ -169,11 +187,19 @@ public class PrincipalView extends javax.swing.JFrame {
         return mnToolBar;
     }
 
-    
+    public JButton getBtnNotificacoes() {
+        return btnNotificacoes;
+    }
+
+    public JLabel getLblInfoUsuario() {
+        return lblInfoUsuario;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNotificacoes;
     private javax.swing.JDesktopPane dpMenu;
     private javax.swing.JInternalFrame jInternalFrame1;
+    private javax.swing.JLabel lblInfoUsuario;
     private javax.swing.JMenuItem miCadastrar;
     private javax.swing.JMenuItem miLogin;
     private javax.swing.JMenuItem miSair;

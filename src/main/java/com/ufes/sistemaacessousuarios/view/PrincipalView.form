@@ -56,6 +56,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="mnToolBar"/>
@@ -78,11 +79,26 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="dpMenu" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblInfoUsuario" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnNotificacoes" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="dpMenu" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="dpMenu" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblInfoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNotificacoes" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -97,10 +113,20 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="487" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="451" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JLabel" name="lblInfoUsuario">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;tipo usu&#xe1;rio&gt;:&lt;usu&#xe1;rio&gt;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnNotificacoes">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;N&#xfa;mero&gt; Notifica&#xe7;&#xf5;es"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

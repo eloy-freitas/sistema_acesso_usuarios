@@ -74,8 +74,8 @@ public class LoginPresenter {
     private void entrar() throws SQLException{
         lerCampos();
         this.usuario = this.usuarioService.login(login, senha);
-        view.dispose();
         notificar();
+        view.dispose();      
     }
 
     public Usuario getUsuario() {

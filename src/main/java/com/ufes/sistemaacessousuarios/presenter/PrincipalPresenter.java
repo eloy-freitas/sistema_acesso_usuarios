@@ -14,8 +14,10 @@ public class PrincipalPresenter implements LoginObserver{
     private PrincipalView principalView;
     private ManterUsuarioPresenter manterUsuarioPresenter;
     private PrincipalPresenterState estado;
+    private Usuario usuario;
     
     public PrincipalPresenter() {
+        this.usuario = null;
         principalView = new PrincipalView();
         principalView.setVisible(true);
         initListeners();
@@ -73,10 +75,17 @@ public class PrincipalPresenter implements LoginObserver{
 
     @Override
     public void updateLogin(Usuario usuario) {
+        this.usuario = usuario;
         this.estado = new LogadoState(this);
     }
    
     public void setEstado(PrincipalPresenterState estado) {
         this.estado = estado;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
+    
 }
