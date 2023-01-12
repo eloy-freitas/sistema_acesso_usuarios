@@ -45,6 +45,8 @@ public class PrincipalView extends javax.swing.JFrame {
         mnUsuario = new javax.swing.JMenu();
         miLogin = new javax.swing.JMenuItem();
         miCadastrar = new javax.swing.JMenuItem();
+        mnConfiguracoes = new javax.swing.JMenu();
+        miAlterarSenha = new javax.swing.JMenuItem();
         mnSair = new javax.swing.JMenu();
         miSair = new javax.swing.JMenuItem();
 
@@ -88,6 +90,13 @@ public class PrincipalView extends javax.swing.JFrame {
         mnUsuario.add(miCadastrar);
 
         mnToolBar.add(mnUsuario);
+
+        mnConfiguracoes.setText("Configurações");
+
+        miAlterarSenha.setText("Alterar senha");
+        mnConfiguracoes.add(miAlterarSenha);
+
+        mnToolBar.add(mnConfiguracoes);
 
         mnSair.setText("Sair");
 
@@ -194,15 +203,27 @@ public class PrincipalView extends javax.swing.JFrame {
     public JLabel getLblInfoUsuario() {
         return lblInfoUsuario;
     }
+
+    public JMenuItem getMiAlterarSenha() {
+        return miAlterarSenha;
+    }
+
+    public JMenu getMnConfiguracoes() {
+        return mnConfiguracoes;
+    }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNotificacoes;
     private javax.swing.JDesktopPane dpMenu;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel lblInfoUsuario;
+    private javax.swing.JMenuItem miAlterarSenha;
     private javax.swing.JMenuItem miCadastrar;
     private javax.swing.JMenuItem miLogin;
     private javax.swing.JMenuItem miSair;
+    private javax.swing.JMenu mnConfiguracoes;
     private javax.swing.JMenu mnSair;
     private javax.swing.JMenuBar mnToolBar;
     private javax.swing.JMenu mnUsuario;
