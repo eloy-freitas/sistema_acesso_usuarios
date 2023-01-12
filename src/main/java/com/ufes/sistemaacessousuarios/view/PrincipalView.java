@@ -67,7 +67,7 @@ public class PrincipalView extends javax.swing.JFrame {
         );
         dpMenuLayout.setVerticalGroup(
             dpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 481, Short.MAX_VALUE)
+            .addGap(0, 487, Short.MAX_VALUE)
         );
 
         mnUsuario.setText("Usuário");
@@ -97,9 +97,7 @@ public class PrincipalView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dpMenu))
+            .addComponent(dpMenu, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
