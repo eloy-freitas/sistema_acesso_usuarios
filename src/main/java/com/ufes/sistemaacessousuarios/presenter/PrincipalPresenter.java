@@ -52,6 +52,14 @@ public class PrincipalPresenter implements LoginObserver{
             }
             
         });
+        
+        this.principalView.getMiAlterarSenha().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alterarSenha();
+            }
+            
+        });
     }
     
     public void initServices(){
@@ -68,6 +76,10 @@ public class PrincipalPresenter implements LoginObserver{
     
     public void login(){
         estado.login();
+    }
+    
+    public void alterarSenha(){
+        estado.alterarSenha();
     }
 
     public PrincipalView getPrincipalView() {

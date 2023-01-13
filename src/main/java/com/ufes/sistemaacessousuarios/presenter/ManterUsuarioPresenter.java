@@ -1,5 +1,6 @@
 package com.ufes.sistemaacessousuarios.presenter;
 
+import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.IUsuarioService;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
@@ -19,12 +20,21 @@ public class ManterUsuarioPresenter {
     private IUsuarioService usuarioService;
     private ManterUsuarioPresenterState estado;
     private Usuario usuario;
+    private String mensagemSalvarSucesso;
     
     public ManterUsuarioPresenter() {
         this.view = new ManterUsuarioView();
         initServices();  
         initListeners();
         estado = new CadastroUsuarioState(this);
+    }
+
+    public ManterUsuarioPresenter(Usuario usuario) {
+        this.usuario = usuario;
+        this.view = new ManterUsuarioView();
+        initServices();  
+        initListeners();
+        estado = new AlterarSenhaState(this);
     }
 
     private void initListeners(){
@@ -35,7 +45,7 @@ public class ManterUsuarioPresenter {
                     salvar();
                     JOptionPane.showMessageDialog(
                         view,
-                        "Usuário cadastrado com sucesso!",
+                        mensagemSalvarSucesso,
                         "Sucesso!",
                         JOptionPane.INFORMATION_MESSAGE
                     );
@@ -71,6 +81,14 @@ public class ManterUsuarioPresenter {
             }
         });
     }   
+
+    public String getMensagemSalvarSucesso() {
+        return mensagemSalvarSucesso;
+    }
+
+    public void setMensagemSalvarSucesso(String mensagemSalvarSucesso) {
+        this.mensagemSalvarSucesso = mensagemSalvarSucesso;
+    }
     
     public Usuario lerCampos(){
         String nome = view.getTxtNome().getText();
@@ -92,6 +110,38 @@ public class ManterUsuarioPresenter {
             LocalDateTime.now(), 
             LocalDate.now()
         );
+    }
+    
+    public Usuario lerCamposAtualizacao(){
+        String nome = view.getTxtNome().getText();
+        String login = view.getTxtUserName().getText();
+        String email = view.getTxtEmail().getText();
+        String senha = "";
+        char[] senhaChar = this.view.getPsSenha().getPassword();
+        for(char c : senhaChar){
+            senha += String.valueOf(c);
+        }    
+        
+        return new Usuario(
+            usuario.getId(),
+            nome,
+            login,
+            senha,
+            email, 
+            false,
+            false,
+            LocalDateTime.now(), 
+            LocalDate.now()
+        );
+    }
+    
+    public void carregarCampos(){
+        view.getTxtId().setText(String.valueOf(usuario.getId()));
+        view.getTxtNome().setText(usuario.getNome());
+        view.getTxtUserName().setText(usuario.getLogin());
+        view.getTxtEmail().setText(usuario.getEmail());
+        view.getLblDataCriacao().setText(usuario.getDataCadastro().toString());
+        view.getLblDataModificacao().setText(usuario.getDataModificacao().toString());
     }
     
     public void fechar(){

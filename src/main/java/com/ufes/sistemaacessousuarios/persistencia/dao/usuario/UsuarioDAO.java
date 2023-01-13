@@ -57,8 +57,8 @@ public class UsuarioDAO implements IUsuarioDAO{
     public void updateSenha(Usuario usuario) throws SQLException {
         PreparedStatement ps = null;
         String query = ""
-                .concat("\n UPDATE usuario SET")
-                .concat("\n ds_senha = ?")
+                .concat("\n UPDATE usuario")
+                .concat("\n SET ds_senha = ?")
                 .concat("\n , dt_modificacao = ?")
                 .concat("\n WHERE id_usuario = ?;");
         try {

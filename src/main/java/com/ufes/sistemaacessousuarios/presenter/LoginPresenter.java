@@ -56,8 +56,7 @@ public class LoginPresenter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fechar();
-            }
-            
+            }   
         });
     }   
     
