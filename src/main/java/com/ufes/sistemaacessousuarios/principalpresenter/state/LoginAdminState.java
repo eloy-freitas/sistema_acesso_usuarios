@@ -2,7 +2,6 @@ package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
-import com.ufes.sistemaacessousuarios.principalpresenter.state.PrincipalPresenterState;
 import com.ufes.sistemaacessousuarios.view.ManterUsuarioView;
 
 
@@ -43,6 +42,7 @@ public class LoginAdminState extends PrincipalPresenterState{
     
     @Override
     public void cadastrar(){
+        manterUsuarioPresenter = new ManterUsuarioPresenter();
         ManterUsuarioView manterUsuarioView = manterUsuarioPresenter.getView();
         if(!manterUsuarioView.isVisible()){
             principalView.getDpMenu().add(manterUsuarioView);

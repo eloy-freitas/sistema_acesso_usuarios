@@ -41,6 +41,7 @@ public class LoginUsuarioState extends PrincipalPresenterState{
     
     @Override
     public void cadastrar(){
+        manterUsuarioPresenter = new ManterUsuarioPresenter();
         ManterUsuarioView manterUsuarioView = manterUsuarioPresenter.getView();
         if(!manterUsuarioView.isVisible()){
             principalView.getDpMenu().add(manterUsuarioView);
