@@ -49,7 +49,7 @@ public class ManterUsuarioPresenter {
                         "Sucesso!",
                         JOptionPane.INFORMATION_MESSAGE
                     );
-                }catch(SQLException ex){
+                }catch(SQLException | NullPointerException ex){
                     JOptionPane.showMessageDialog(
                         view, 
                         ex, 
@@ -90,7 +90,7 @@ public class ManterUsuarioPresenter {
         this.mensagemSalvarSucesso = mensagemSalvarSucesso;
     }
     
-    public Usuario lerCampos(){
+    public Usuario lerCampos() throws NullPointerException{
         String nome = view.getTxtNome().getText();
         String login = view.getTxtUserName().getText();
         String email = view.getTxtEmail().getText();
@@ -98,8 +98,20 @@ public class ManterUsuarioPresenter {
         char[] senhaChar = this.view.getPsSenha().getPassword();
         for(char c : senhaChar){
             senha += String.valueOf(c);
-        }    
+        }  
         
+        if(nome.isBlank())
+            throw new NullPointerException("nome inválido");
+        
+        if(login.isBlank())
+            throw new NullPointerException("username inválido");
+        
+        if(email.isBlank())
+            throw new NullPointerException("email inválido");
+        
+        if(senha.isBlank())
+            throw new NullPointerException("senha inválida");
+            
         return new Usuario(
             nome,
             login,
@@ -112,7 +124,7 @@ public class ManterUsuarioPresenter {
         );
     }
     
-    public Usuario lerCamposAtualizacao(){
+    public Usuario lerCamposAtualizacao() throws NullPointerException{
         String nome = view.getTxtNome().getText();
         String login = view.getTxtUserName().getText();
         String email = view.getTxtEmail().getText();
@@ -121,6 +133,18 @@ public class ManterUsuarioPresenter {
         for(char c : senhaChar){
             senha += String.valueOf(c);
         }    
+        
+        if(nome.isBlank())
+            throw new NullPointerException("nome inválido");
+        
+        if(login.isBlank())
+            throw new NullPointerException("username inválido");
+        
+        if(email.isBlank())
+            throw new NullPointerException("email inválido");
+        
+        if(senha.isBlank())
+            throw new NullPointerException("senha inválida");
         
         return new Usuario(
             usuario.getId(),
