@@ -45,6 +45,7 @@ public class PrincipalView extends javax.swing.JFrame {
         mnUsuario = new javax.swing.JMenu();
         miLogin = new javax.swing.JMenuItem();
         miCadastrar = new javax.swing.JMenuItem();
+        miBuscarUsuarios = new javax.swing.JMenuItem();
         mnConfiguracoes = new javax.swing.JMenu();
         miAlterarSenha = new javax.swing.JMenuItem();
         mnSair = new javax.swing.JMenu();
@@ -88,6 +89,9 @@ public class PrincipalView extends javax.swing.JFrame {
 
         miCadastrar.setText("Cadastrar");
         mnUsuario.add(miCadastrar);
+
+        miBuscarUsuarios.setText("Buscar usuários");
+        mnUsuario.add(miBuscarUsuarios);
 
         mnToolBar.add(mnUsuario);
 
@@ -211,6 +215,11 @@ public class PrincipalView extends javax.swing.JFrame {
     public JMenu getMnConfiguracoes() {
         return mnConfiguracoes;
     }
+
+    public JMenuItem getMiBuscarUsuarios() {
+        return miBuscarUsuarios;
+    }
+    
     
     
     
@@ -220,6 +229,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel lblInfoUsuario;
     private javax.swing.JMenuItem miAlterarSenha;
+    private javax.swing.JMenuItem miBuscarUsuarios;
     private javax.swing.JMenuItem miCadastrar;
     private javax.swing.JMenuItem miLogin;
     private javax.swing.JMenuItem miSair;

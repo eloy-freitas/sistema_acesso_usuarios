@@ -21,6 +21,8 @@ public class LoginUsuarioState extends PrincipalPresenterState{
         principalView.getLblInfoUsuario().setVisible(true);
         principalView.getBtnNotificacoes().setVisible(true);
         principalView.getMiAlterarSenha().setEnabled(true);
+        principalView.getMiBuscarUsuarios().setEnabled(false);
+        principalView.getMiBuscarUsuarios().setVisible(false);
     }
 
     @Override

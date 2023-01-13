@@ -37,6 +37,11 @@
                 <Property name="text" type="java.lang.String" value="Cadastrar"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miBuscarUsuarios">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buscar usu&#xe1;rios"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnConfiguracoes">

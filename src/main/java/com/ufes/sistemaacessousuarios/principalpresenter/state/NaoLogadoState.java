@@ -27,6 +27,8 @@ public class NaoLogadoState extends PrincipalPresenterState{
         principalView.getBtnNotificacoes().setVisible(false);
         principalView.getLblInfoUsuario().setVisible(false);
         principalView.getMiAlterarSenha().setEnabled(false);
+        principalView.getMiBuscarUsuarios().setEnabled(false);
+        principalView.getMiBuscarUsuarios().setVisible(false);
     }
     
     @Override
