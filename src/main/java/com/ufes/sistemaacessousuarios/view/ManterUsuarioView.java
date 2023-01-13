@@ -48,9 +48,9 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        lblDescDataCriacao = new javax.swing.JLabel();
         lblDataCriacao = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lblDescDataModificacao = new javax.swing.JLabel();
         lblDataModificacao = new javax.swing.JLabel();
 
         setClosable(true);
@@ -79,11 +79,11 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
 
         btnEditar.setText("Editar");
 
-        jLabel7.setText("Data de criação:");
+        lblDescDataCriacao.setText("Data de criação:");
 
         lblDataCriacao.setText("<data>");
 
-        jLabel8.setText("Data de modificação:");
+        lblDescDataModificacao.setText("Data de modificação:");
 
         lblDataModificacao.setText("<data>");
 
@@ -136,12 +136,12 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
                         .addComponent(btnSalvar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel7)
+                        .addComponent(lblDescDataCriacao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblDataCriacao))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel8)
+                        .addComponent(lblDescDataModificacao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblDataModificacao)))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -173,11 +173,11 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
                     .addComponent(cbAutorizado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(lblDescDataCriacao)
                     .addComponent(lblDataCriacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
+                    .addComponent(lblDescDataModificacao)
                     .addComponent(lblDataModificacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -243,10 +243,14 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
         return txtUserName;
     }
 
+    public JLabel getLblDescDataCriacao() {
+        return lblDescDataCriacao;
+    }
 
+    public JLabel getLblDescDataModificacao() {
+        return lblDescDataModificacao;
+    }
 
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
@@ -259,10 +263,10 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel lblDataCriacao;
     private javax.swing.JLabel lblDataModificacao;
+    private javax.swing.JLabel lblDescDataCriacao;
+    private javax.swing.JLabel lblDescDataModificacao;
     private javax.swing.JPasswordField psSenha;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtId;

@@ -17,6 +17,7 @@ public class AlterarSenhaState extends ManterUsuarioPresenterState{
     @Override
     public void initComponents(){
         presenter.setMensagemSalvarSucesso("Senha alterda com sucesso!");
+        manterUsuarioView.setTitle("Alterar senha");
         manterUsuarioView.getTxtUserName().setEnabled(false);
         manterUsuarioView.getTxtEmail().setEnabled(false);
         manterUsuarioView.getTxtNome().setEnabled(false);
@@ -24,8 +25,8 @@ public class AlterarSenhaState extends ManterUsuarioPresenterState{
         manterUsuarioView.getBtnExcluir().setEnabled(false);
         manterUsuarioView.getCbAdmin().setVisible(false);
         manterUsuarioView.getCbAutorizado().setVisible(false);
-        manterUsuarioView.getLblDataCriacao().setVisible(false);
-        manterUsuarioView.getLblDataModificacao().setVisible(false);
+        manterUsuarioView.getLblDataCriacao().setVisible(true);
+        manterUsuarioView.getLblDataModificacao().setVisible(true);
         manterUsuarioView.getTxtId().setEditable(false);
         
     }

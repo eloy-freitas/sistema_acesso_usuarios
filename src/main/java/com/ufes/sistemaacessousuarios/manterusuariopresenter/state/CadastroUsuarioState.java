@@ -21,6 +21,7 @@ public class CadastroUsuarioState extends ManterUsuarioPresenterState{
     @Override
     public void initComponents(){
         presenter.setMensagemSalvarSucesso("Usuário cadastrado com sucesso!");
+        manterUsuarioView.setTitle("Cadastrar Usuário");
         manterUsuarioView.getBtnEditar().setEnabled(false);
         manterUsuarioView.getBtnExcluir().setEnabled(false);
         manterUsuarioView.getCbAdmin().setVisible(false);
@@ -28,6 +29,8 @@ public class CadastroUsuarioState extends ManterUsuarioPresenterState{
         manterUsuarioView.getLblDataCriacao().setVisible(false);
         manterUsuarioView.getLblDataModificacao().setVisible(false);
         manterUsuarioView.getTxtId().setEditable(false);
+        manterUsuarioView.getLblDescDataCriacao().setVisible(false);
+        manterUsuarioView.getLblDescDataModificacao().setVisible(false);
     }
     
     @Override

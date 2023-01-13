@@ -39,6 +39,7 @@ public class BuscarUsuarioView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("Buscar usuários");
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
