@@ -26,6 +26,7 @@ public class NaoLogadoState extends PrincipalPresenterState{
         principalView.getMiCadastrar().setEnabled(true);
         principalView.getBtnNotificacoes().setVisible(false);
         principalView.getLblInfoUsuario().setVisible(false);
+        principalView.getMiAlterarSenha().setEnabled(false);
     }
     
     @Override
