@@ -185,39 +185,36 @@ public class UsuarioDAO implements IUsuarioDAO{
             
             rs = ps.executeQuery();
             
-            if (!rs.next()) {
-                throw new SQLException("Não há usuários cadastrados");
-            }
-            
-            do{
-                Long id = rs.getLong(1);
-                String nome = rs.getString(2);
-                String login = rs.getString(3);
-                String senha = rs.getString(4);
-                String email = rs.getString(5);
-                boolean isAdmin = rs.getBoolean(6);
-                boolean isAutorizado = rs.getBoolean(7);
-                LocalDate dataCadastro = rs.getDate(8).toLocalDate();
-                LocalDateTime dataModificacao = rs.getTimestamp(9).toLocalDateTime();
+            if (rs.next()) {
+                do{
+                    Long id = rs.getLong(1);
+                    String nome = rs.getString(2);
+                    String login = rs.getString(3);
+                    String senha = rs.getString(4);
+                    String email = rs.getString(5);
+                    boolean isAdmin = rs.getBoolean(6);
+                    boolean isAutorizado = rs.getBoolean(7);
+                    LocalDate dataCadastro = rs.getDate(8).toLocalDate();
+                    LocalDateTime dataModificacao = rs.getTimestamp(9).toLocalDateTime();
 
-                usuarios.add(
-                    new Usuario(
-                        id, 
-                        nome, 
-                        login, 
-                        senha, 
-                        email, 
-                        isAdmin, 
-                        isAutorizado, 
-                        dataModificacao, 
-                        dataCadastro
-                    )
-                );
-            }while(rs.next());
-   
+                    usuarios.add(
+                        new Usuario(
+                            id, 
+                            nome, 
+                            login, 
+                            senha, 
+                            email, 
+                            isAdmin, 
+                            isAutorizado, 
+                            dataModificacao, 
+                            dataCadastro
+                        )
+                    );
+                }while(rs.next());
+            }
             return usuarios;
         } catch (SQLException ex) {
-            throw new SQLException("Erro ao buscar usuário.\n"
+            throw new SQLException("Erro ao buscar usuários.\n"
                     + ex.getMessage());
         } finally {
             ConexaoSQLite.closeConnection(conexao, ps, rs);

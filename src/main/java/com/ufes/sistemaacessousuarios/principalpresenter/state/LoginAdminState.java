@@ -1,11 +1,14 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.view.BuscarUsuarioView;
 import com.ufes.sistemaacessousuarios.view.ManterUsuarioView;
 
 
 public class LoginAdminState extends PrincipalPresenterState{
+    private BuscarUsuarioPresenter buscarUsuarioPresenter;
     
     public LoginAdminState(PrincipalPresenter presenter) {
         super(presenter);
@@ -50,5 +53,15 @@ public class LoginAdminState extends PrincipalPresenterState{
             principalView.getDpMenu().add(manterUsuarioView);
             manterUsuarioView.setVisible(true);
         }   
+    }
+    
+    @Override
+    public void buscarUsuarios(){
+        buscarUsuarioPresenter  = new BuscarUsuarioPresenter();
+        BuscarUsuarioView buscarUsuarioView = buscarUsuarioPresenter.getView();
+        if(!buscarUsuarioView.isVisible()){
+            principalView.getDpMenu().add(buscarUsuarioView);
+            buscarUsuarioView.setVisible(true);
+        }  
     }
 }

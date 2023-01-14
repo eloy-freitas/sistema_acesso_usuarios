@@ -65,9 +65,7 @@ public class PrincipalPresenter implements LoginObserver{
         this.principalView.getMiBuscarUsuarios().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                BuscarUsuarioView buscarUsuarioView = new BuscarUsuarioView();
-                principalView.getDpMenu().add(buscarUsuarioView);
-                buscarUsuarioView.setVisible(true);
+                buscarUsuarios();
             }
             
         });
@@ -93,6 +91,10 @@ public class PrincipalPresenter implements LoginObserver{
     
     public void alterarSenha(){
         estado.alterarSenha();
+    }
+    
+    public void buscarUsuarios(){
+        estado.buscarUsuarios();
     }
 
     public PrincipalView getPrincipalView() {
