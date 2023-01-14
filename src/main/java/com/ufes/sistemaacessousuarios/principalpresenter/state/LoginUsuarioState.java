@@ -33,7 +33,6 @@ public class LoginUsuarioState extends PrincipalPresenterState{
     @Override
     public void alterarSenha(){
         manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
-        manterUsuarioPresenter.carregarCampos();
         ManterUsuarioView manterUsuarioView = manterUsuarioPresenter.getView();
         if(!manterUsuarioView.isVisible()){
             principalView.getDpMenu().add(manterUsuarioView);

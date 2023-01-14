@@ -34,6 +34,7 @@ public class ManterUsuarioPresenter {
         this.view = new ManterUsuarioView();
         initServices();  
         initListeners();
+        carregarCampos();
         estado = new AlterarSenhaState(this);
     }
 
@@ -117,9 +118,9 @@ public class ManterUsuarioPresenter {
             login,
             senha,
             email, 
-            false,
-            false,
-            LocalDateTime.now(), 
+            view.getCbAdmin().isSelected(),
+            view.getCbAutorizado().isSelected(),
+            LocalDateTime.now(),
             LocalDate.now()
         );
     }
@@ -128,12 +129,7 @@ public class ManterUsuarioPresenter {
         String nome = view.getTxtNome().getText();
         String login = view.getTxtUserName().getText();
         String email = view.getTxtEmail().getText();
-        String senha = "";
-        char[] senhaChar = this.view.getPsSenha().getPassword();
-        for(char c : senhaChar){
-            senha += String.valueOf(c);
-        }    
-        
+
         if(nome.isBlank())
             throw new NullPointerException("nome inválido");
         
@@ -143,27 +139,27 @@ public class ManterUsuarioPresenter {
         if(email.isBlank())
             throw new NullPointerException("email inválido");
         
-        if(senha.isBlank())
-            throw new NullPointerException("senha inválida");
         
         return new Usuario(
             usuario.getId(),
             nome,
             login,
-            senha,
+            "",
             email, 
-            false,
-            false,
-            LocalDateTime.now(), 
-            LocalDate.now()
+            view.getCbAdmin().isSelected(),
+            view.getCbAutorizado().isSelected(),
+            LocalDateTime.now(),
+            null
         );
     }
     
-    public void carregarCampos(){
+    private void carregarCampos(){
         view.getTxtId().setText(String.valueOf(usuario.getId()));
         view.getTxtNome().setText(usuario.getNome());
         view.getTxtUserName().setText(usuario.getLogin());
         view.getTxtEmail().setText(usuario.getEmail());
+        view.getCbAdmin().setSelected(usuario.isAdmin());
+        view.getCbAutorizado().setSelected(usuario.isAutorizado());
         view.getLblDataCriacao().setText(usuario.getDataCadastro().toString());
         view.getLblDataModificacao().setText(usuario.getDataModificacao().toString());
     }

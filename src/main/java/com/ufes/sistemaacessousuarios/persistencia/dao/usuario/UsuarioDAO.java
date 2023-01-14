@@ -52,7 +52,38 @@ public class UsuarioDAO implements IUsuarioDAO{
             ConexaoSQLite.closeConnection(conexao, ps);
         }
     }
+    
+    @Override
+    public void update(Usuario usuario) throws SQLException {
+        PreparedStatement ps = null;
+        String query = ""
+                .concat("\n UPDATE usuario ")
+                .concat("\n SET nm_usuario = ?")
+                .concat("\n 	, ds_email = ?")
+                .concat("\n 	, nm_login = ?")
+                .concat("\n 	, fl_admin = ?")
+                .concat("\n 	, fl_autorizado = ?")
+                .concat("\n 	, dt_modificacao = ?")
+                .concat("\n WHERE id_usuario = ?");
+        try {
+            conexao = ConexaoSQLite.getConnection();
+            ps = conexao.prepareStatement(query);
+            ps.setString(1, usuario.getNome());
+            ps.setString(2, usuario.getLogin());
+            ps.setString(3, usuario.getEmail());
+            ps.setBoolean(4, usuario.isAdmin());
+            ps.setBoolean(5, usuario.isAutorizado());
+            ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setLong(7, usuario.getId());
 
+            ps.executeUpdate();  
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao usuário senha.\n" + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps);
+        }
+    }
+    
     @Override
     public void updateSenha(Usuario usuario) throws SQLException {
         PreparedStatement ps = null;

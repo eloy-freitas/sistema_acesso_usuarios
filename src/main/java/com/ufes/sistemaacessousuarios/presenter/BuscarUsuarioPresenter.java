@@ -7,6 +7,7 @@ import com.ufes.sistemaacessousuarios.view.BuscarUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import javax.swing.JOptionPane;
@@ -20,9 +21,11 @@ public class BuscarUsuarioPresenter {
     private IUsuarioService usuarioService;
     private DefaultTableModel tmUsuarios;
     private List<Usuario> usuarios;
+    private List<BuscarUsuarioObserver> observers;
     
     public BuscarUsuarioPresenter() {
         view = new BuscarUsuarioView();
+        observers = new ArrayList<>();
         initServices();
         try {
             usuarios = usuarioService.buscarTodos();
@@ -133,20 +136,28 @@ public class BuscarUsuarioPresenter {
         try {
             Object id = tabela.getModel().getValueAt(linha, 0);
             usuario = usuarioService.buscarPorID(Long.parseLong(id.toString()));
-            new ManterUsuarioPresenter(usuario);
+            for(BuscarUsuarioObserver observer: observers)
+                observer.visualizarUsuario(usuario);
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(view,
-                    "Erro ao buscar funcionário.\n\n"
+                    "Erro ao buscar usuario.\n\n"
                     + ex.getMessage(),
                     "ERRO",
                     JOptionPane.ERROR_MESSAGE);
         } catch(ArrayIndexOutOfBoundsException e){
             JOptionPane.showMessageDialog(view,
-                    "Você deve selecionar um funcionário.\n\n",
+                    "Você deve selecionar um usuario.\n\n",
                     "ERRO",
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public void subscribe(BuscarUsuarioObserver observer){
+        if(!this.observers.contains(observer))
+            this.observers.add(observer);
+        else
+            throw new RuntimeException("Observador já foi inscrito");
     }
     
 }
