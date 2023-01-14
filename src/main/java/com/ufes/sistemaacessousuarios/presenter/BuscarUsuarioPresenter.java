@@ -16,7 +16,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 
-public class BuscarUsuarioPresenter {
+public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
     private BuscarUsuarioView view;
     private IUsuarioService usuarioService;
     private DefaultTableModel tmUsuarios;
@@ -27,6 +27,11 @@ public class BuscarUsuarioPresenter {
         view = new BuscarUsuarioView();
         observers = new ArrayList<>();
         initServices();
+        atualizarTabela();
+        initListeners();
+    }
+    
+    private void atualizarTabela(){
         try {
             usuarios = usuarioService.buscarTodos();
         } catch (SQLException ex) {
@@ -38,11 +43,15 @@ public class BuscarUsuarioPresenter {
         }
         initTabela();
         popularTabela();
-        initListeners();
     }
     
     private void initServices(){
         usuarioService = new UsuarioService();
+    }
+
+    @Override
+    public void atualizarUsuario() {
+        atualizarTabela();
     }
     
     private void initListeners(){

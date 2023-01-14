@@ -25,7 +25,8 @@ public class EditarUsuarioState extends ManterUsuarioPresenterState{
         manterUsuarioView.getBtnEditar().setEnabled(false);
         manterUsuarioView.getBtnSalvar().setEnabled(true);
         manterUsuarioView.getBtnExcluir().setEnabled(false);
-        manterUsuarioView.getPsSenha().setEnabled(true);
+        manterUsuarioView.getPsSenha().setVisible(false);
+        manterUsuarioView.getLblSenha().setVisible(false);
         manterUsuarioView.getCbAdmin().setVisible(true);
         manterUsuarioView.getCbAutorizado().setVisible(true);
         manterUsuarioView.getCbAdmin().setEnabled(true);
@@ -41,7 +42,8 @@ public class EditarUsuarioState extends ManterUsuarioPresenterState{
         Usuario usuario = presenter.lerCamposAtualizacao();
         presenter.setUsuario(usuario);
         command.executar();
-        presenter.fechar();
+        presenter.notificar();
+        presenter.setEstado(new VisualizarUsuarioState(presenter));
     }
     
     @Override

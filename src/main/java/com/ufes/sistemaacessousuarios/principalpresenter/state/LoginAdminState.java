@@ -71,6 +71,7 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     @Override
     public void visualizarUsuario(Usuario usuario) {
         manterUsuarioPresenter = new ManterUsuarioPresenter(usuario);
+        manterUsuarioPresenter.subscribe(buscarUsuarioPresenter);
         manterUsuarioPresenter.setEstado(new VisualizarUsuarioState(manterUsuarioPresenter));
         ManterUsuarioView manterUsuarioView = manterUsuarioPresenter.getView();
         principalView.getDpMenu().add(manterUsuarioView);

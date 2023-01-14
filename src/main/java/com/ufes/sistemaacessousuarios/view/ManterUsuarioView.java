@@ -36,7 +36,7 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
         psSenha = new javax.swing.JPasswordField();
         txtEmail = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -61,7 +61,7 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
 
         jLabel2.setText("nome:");
 
-        jLabel4.setText("senha:");
+        lblSenha.setText("senha:");
 
         jLabel5.setText("email:");
 
@@ -114,7 +114,7 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtUserName)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
+                                .addComponent(lblSenha)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(psSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(13, Short.MAX_VALUE))
@@ -165,7 +165,7 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(psSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel4)
+                    .addComponent(lblSenha)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -251,6 +251,11 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
         return lblDescDataModificacao;
     }
 
+    public JLabel getLblSenha() {
+        return lblSenha;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
@@ -260,13 +265,13 @@ public class ManterUsuarioView extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox cbAutorizado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lblDataCriacao;
     private javax.swing.JLabel lblDataModificacao;
     private javax.swing.JLabel lblDescDataCriacao;
     private javax.swing.JLabel lblDescDataModificacao;
+    private javax.swing.JLabel lblSenha;
     private javax.swing.JPasswordField psSenha;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtId;

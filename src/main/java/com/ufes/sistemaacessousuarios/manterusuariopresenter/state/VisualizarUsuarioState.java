@@ -20,6 +20,8 @@ public class VisualizarUsuarioState extends ManterUsuarioPresenterState{
         manterUsuarioView.getBtnSalvar().setEnabled(false);
         manterUsuarioView.getBtnExcluir().setEnabled(true);
         manterUsuarioView.getCbAdmin().setVisible(true);
+        manterUsuarioView.getPsSenha().setVisible(false);
+        manterUsuarioView.getLblSenha().setVisible(false);
         manterUsuarioView.getPsSenha().setEnabled(false);
         manterUsuarioView.getCbAutorizado().setVisible(true);
         manterUsuarioView.getCbAdmin().setEnabled(false);

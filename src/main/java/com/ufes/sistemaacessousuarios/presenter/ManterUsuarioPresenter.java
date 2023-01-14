@@ -12,7 +12,10 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import kotlin.collections.ArrayDeque;
 
 public class ManterUsuarioPresenter {
     
@@ -21,6 +24,7 @@ public class ManterUsuarioPresenter {
     private ManterUsuarioPresenterState estado;
     private Usuario usuario;
     private String mensagemSalvarSucesso;
+    private List<ManterUsuarioObserver> manterUsuarioObservers;
     
     public ManterUsuarioPresenter() {
         this.view = new ManterUsuarioView();
@@ -193,7 +197,22 @@ public class ManterUsuarioPresenter {
     }
     
     private void initServices(){
+        manterUsuarioObservers = new ArrayList<>();
         this.usuarioService = new UsuarioService();
+    }
+    
+    public void notificar(){
+        if(!manterUsuarioObservers.isEmpty()){
+            for(ManterUsuarioObserver observer: manterUsuarioObservers)
+            observer.atualizarUsuario();
+        }
+    }
+    
+    public void subscribe(ManterUsuarioObserver observer){
+        if(!this.manterUsuarioObservers.contains(observer))
+            this.manterUsuarioObservers.add(observer);
+        else
+            throw new RuntimeException("Observador já foi inscrito");
     }
     
     public void setEstado(ManterUsuarioPresenterState estado){
