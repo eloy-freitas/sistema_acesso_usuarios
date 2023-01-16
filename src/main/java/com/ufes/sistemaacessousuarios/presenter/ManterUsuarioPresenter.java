@@ -12,7 +12,11 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+
 
 public class ManterUsuarioPresenter {
     
@@ -21,6 +25,7 @@ public class ManterUsuarioPresenter {
     private ManterUsuarioPresenterState estado;
     private Usuario usuario;
     private String mensagemSalvarSucesso;
+    private List<ManterUsuarioObserver> manterUsuarioObservers;
     
     public ManterUsuarioPresenter() {
         this.view = new ManterUsuarioView();
@@ -34,6 +39,7 @@ public class ManterUsuarioPresenter {
         this.view = new ManterUsuarioView();
         initServices();  
         initListeners();
+        carregarCampos();
         estado = new AlterarSenhaState(this);
     }
 
@@ -117,9 +123,9 @@ public class ManterUsuarioPresenter {
             login,
             senha,
             email, 
-            false,
-            false,
-            LocalDateTime.now(), 
+            view.getCbAdmin().isSelected(),
+            view.getCbAutorizado().isSelected(),
+            LocalDateTime.now(),
             LocalDate.now()
         );
     }
@@ -128,12 +134,7 @@ public class ManterUsuarioPresenter {
         String nome = view.getTxtNome().getText();
         String login = view.getTxtUserName().getText();
         String email = view.getTxtEmail().getText();
-        String senha = "";
-        char[] senhaChar = this.view.getPsSenha().getPassword();
-        for(char c : senhaChar){
-            senha += String.valueOf(c);
-        }    
-        
+
         if(nome.isBlank())
             throw new NullPointerException("nome inválido");
         
@@ -143,29 +144,31 @@ public class ManterUsuarioPresenter {
         if(email.isBlank())
             throw new NullPointerException("email inválido");
         
-        if(senha.isBlank())
-            throw new NullPointerException("senha inválida");
         
         return new Usuario(
             usuario.getId(),
             nome,
             login,
-            senha,
+            "",
             email, 
-            false,
-            false,
-            LocalDateTime.now(), 
-            LocalDate.now()
+            view.getCbAdmin().isSelected(),
+            view.getCbAutorizado().isSelected(),
+            LocalDateTime.now(),
+            null
         );
     }
     
-    public void carregarCampos(){
+    private void carregarCampos(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         view.getTxtId().setText(String.valueOf(usuario.getId()));
         view.getTxtNome().setText(usuario.getNome());
         view.getTxtUserName().setText(usuario.getLogin());
         view.getTxtEmail().setText(usuario.getEmail());
-        view.getLblDataCriacao().setText(usuario.getDataCadastro().toString());
-        view.getLblDataModificacao().setText(usuario.getDataModificacao().toString());
+        view.getCbAdmin().setSelected(usuario.isAdmin());
+        view.getCbAutorizado().setSelected(usuario.isAutorizado());
+        view.getLblDataCriacao().setText(usuario.getDataCadastro().format(formatter));
+        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        view.getLblDataModificacao().setText(usuario.getDataModificacao().format(formatter));
     }
     
     public void fechar(){
@@ -197,7 +200,22 @@ public class ManterUsuarioPresenter {
     }
     
     private void initServices(){
+        manterUsuarioObservers = new ArrayList<>();
         this.usuarioService = new UsuarioService();
+    }
+    
+    public void notificar(){
+        if(!manterUsuarioObservers.isEmpty()){
+            for(ManterUsuarioObserver observer: manterUsuarioObservers)
+            observer.atualizarUsuario();
+        }
+    }
+    
+    public void subscribe(ManterUsuarioObserver observer){
+        if(!this.manterUsuarioObservers.contains(observer))
+            this.manterUsuarioObservers.add(observer);
+        else
+            throw new RuntimeException("Observador já foi inscrito");
     }
     
     public void setEstado(ManterUsuarioPresenterState estado){

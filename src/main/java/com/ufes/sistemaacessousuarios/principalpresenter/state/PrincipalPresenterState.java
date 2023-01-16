@@ -36,6 +36,10 @@ public abstract class PrincipalPresenterState {
         throw new RuntimeException("Operação inválida para o estado atual");
     }
     
+    public void buscarUsuarios(){
+        throw new RuntimeException("Operação inválida para o estado atual");
+    }
+    
     public final String criarInfoUsuario(Usuario usuario){
         String texto = ""
                 .concat((usuario.isAdmin()) ? "Administrador: " : "Usuário: ")

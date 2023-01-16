@@ -18,4 +18,6 @@ public interface IUsuarioDAO {
     boolean isAutorizado(Usuario usuario) throws SQLException;
     Usuario login(String login, String senha) throws SQLException;
     int getTotalNotifications(Usuario usuario) throws SQLException;
+    void update(Usuario usuario) throws SQLException;
+    List<Usuario> getByNome(String nome) throws SQLException;
 }

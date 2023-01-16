@@ -18,4 +18,6 @@ public interface IUsuarioRepository {
     boolean isAutorizado(Usuario usuario) throws SQLException;
     Usuario login(String login, String senha) throws SQLException;
     int buscarTotalNotificacoes(Usuario usuario) throws SQLException;
+    void atualizarUsuario(Usuario usuario) throws SQLException;
+    List<Usuario> buscarPorNome(String nome) throws SQLException;
 }

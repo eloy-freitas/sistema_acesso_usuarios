@@ -22,7 +22,10 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
         principalView.getBtnNotificacoes().setVisible(false);
         principalView.getLblInfoUsuario().setVisible(true);
         presenter.getPrincipalView().getDpMenu().add(naoAutorizadoView);
+        principalView.getMiBuscarUsuarios().setEnabled(false);
+        principalView.getMiBuscarUsuarios().setVisible(false);
         naoAutorizadoView.setVisible(true);
+        
     }
     
     @Override

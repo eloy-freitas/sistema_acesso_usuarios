@@ -51,7 +51,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtUserName" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSenha" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="psSenha" min="-2" pref="167" max="-2" attributes="0"/>
                           </Group>
@@ -80,13 +80,13 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblDescDataCriacao" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblDataCriacao" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblDescDataModificacao" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblDataModificacao" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -117,7 +117,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="psSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtUserName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -127,12 +127,12 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDescDataCriacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblDataCriacao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDescDataModificacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblDataModificacao" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="9" max="32767" attributes="0"/>
@@ -162,7 +162,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtNome">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="lblSenha">
       <Properties>
         <Property name="text" type="java.lang.String" value="senha:"/>
       </Properties>
@@ -213,7 +213,7 @@
         <Property name="text" type="java.lang.String" value="Editar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
+    <Component class="javax.swing.JLabel" name="lblDescDataCriacao">
       <Properties>
         <Property name="text" type="java.lang.String" value="Data de cria&#xe7;&#xe3;o:"/>
       </Properties>
@@ -223,7 +223,7 @@
         <Property name="text" type="java.lang.String" value="&lt;data&gt;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
+    <Component class="javax.swing.JLabel" name="lblDescDataModificacao">
       <Properties>
         <Property name="text" type="java.lang.String" value="Data de modifica&#xe7;&#xe3;o:"/>
       </Properties>

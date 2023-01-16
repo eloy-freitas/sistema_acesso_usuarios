@@ -74,4 +74,14 @@ public class UsuarioRepository implements IUsuarioRepository{
         return this.usuarioDAO.getTotalNotifications(usuario);
     }
 
+    @Override
+    public void atualizarUsuario(Usuario usuario) throws SQLException {
+        this.usuarioDAO.update(usuario);
+    }
+
+    @Override
+    public List<Usuario> buscarPorNome(String nome) throws SQLException {
+        return this.usuarioDAO.getByNome(nome);
+    }
+    
 }

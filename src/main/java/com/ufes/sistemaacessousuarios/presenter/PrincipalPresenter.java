@@ -7,6 +7,7 @@ import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginNaoAutorizad
 import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginUsuarioState;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.NaoLogadoState;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.PrincipalPresenterState;
+import com.ufes.sistemaacessousuarios.view.BuscarUsuarioView;
 import com.ufes.sistemaacessousuarios.view.PrincipalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,6 +61,16 @@ public class PrincipalPresenter implements LoginObserver{
             }
             
         });
+        
+        this.principalView.getMiBuscarUsuarios().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buscarUsuarios();
+            }
+            
+        });
+        
+
     }
     
     public void initServices(){
@@ -80,6 +91,10 @@ public class PrincipalPresenter implements LoginObserver{
     
     public void alterarSenha(){
         estado.alterarSenha();
+    }
+    
+    public void buscarUsuarios(){
+        estado.buscarUsuarios();
     }
 
     public PrincipalView getPrincipalView() {

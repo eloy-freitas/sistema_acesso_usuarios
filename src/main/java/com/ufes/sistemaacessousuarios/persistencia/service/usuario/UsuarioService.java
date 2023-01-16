@@ -74,4 +74,15 @@ public class UsuarioService implements IUsuarioService{
         return this.usuarioRepository.buscarTotalNotificacoes(usuario);
     }
     
+    @Override
+    public void atualizarUsuario(Usuario usuario) throws SQLException {
+        this.usuarioRepository.atualizarUsuario(usuario);
+    }
+
+    @Override
+    public List<Usuario> buscarPorNOme(String nome) throws SQLException {
+        return this.usuarioRepository.buscarPorNome(nome);
+    }
+    
+    
 }
