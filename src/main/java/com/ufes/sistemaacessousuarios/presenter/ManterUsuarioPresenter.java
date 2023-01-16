@@ -12,10 +12,11 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import kotlin.collections.ArrayDeque;
+
 
 public class ManterUsuarioPresenter {
     
@@ -158,14 +159,16 @@ public class ManterUsuarioPresenter {
     }
     
     private void carregarCampos(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         view.getTxtId().setText(String.valueOf(usuario.getId()));
         view.getTxtNome().setText(usuario.getNome());
         view.getTxtUserName().setText(usuario.getLogin());
         view.getTxtEmail().setText(usuario.getEmail());
         view.getCbAdmin().setSelected(usuario.isAdmin());
         view.getCbAutorizado().setSelected(usuario.isAutorizado());
-        view.getLblDataCriacao().setText(usuario.getDataCadastro().toString());
-        view.getLblDataModificacao().setText(usuario.getDataModificacao().toString());
+        view.getLblDataCriacao().setText(usuario.getDataCadastro().format(formatter));
+        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        view.getLblDataModificacao().setText(usuario.getDataModificacao().format(formatter));
     }
     
     public void fechar(){
