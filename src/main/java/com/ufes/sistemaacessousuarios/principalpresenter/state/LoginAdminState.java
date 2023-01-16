@@ -59,10 +59,12 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     @Override
     public void buscarUsuarios(){
-        buscarUsuarioPresenter = new BuscarUsuarioPresenter();
-        buscarUsuarioPresenter.subscribe(this);
+        if(buscarUsuarioPresenter == null)
+            buscarUsuarioPresenter = new BuscarUsuarioPresenter();
+        
         BuscarUsuarioView buscarUsuarioView = buscarUsuarioPresenter.getView();
         if(!buscarUsuarioView.isVisible()){
+            buscarUsuarioPresenter.subscribe(this);
             principalView.getDpMenu().add(buscarUsuarioView);
             buscarUsuarioView.setVisible(true);
         }  

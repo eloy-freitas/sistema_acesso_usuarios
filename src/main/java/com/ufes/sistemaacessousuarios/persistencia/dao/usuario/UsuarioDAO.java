@@ -190,6 +190,73 @@ public class UsuarioDAO implements IUsuarioDAO{
     }
 
     @Override
+    public List<Usuario> getByNome(String nome) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Usuario> usuarios = new ArrayList<>();
+        
+        try {
+            String query = ""
+                .concat("\n SELECT ")
+                .concat("\n     u.id_usuario")
+                .concat("\n     , u.nm_usuario")
+                .concat("\n     , u.nm_login")
+                .concat("\n     , u.ds_email")
+                .concat("\n     , u.fl_admin")
+                .concat("\n     , u.fl_autorizado")
+                .concat("\n     , u.dt_cadastro")
+                .concat("\n     , u.dt_modificacao")
+                .concat("\n FROM usuario u ")
+                .concat("\n WHERE u.nm_usuario LIKE ?;");
+            
+            conexao = ConexaoSQLite.getConnection();
+            
+            ps = conexao.prepareStatement(query);
+            ps.setString(1, "%" + nome + "%");
+            
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                throw new SQLException("Usuário com nome "
+                        + nome + "não encontrado");
+            }
+            
+            do{
+                Long id = rs.getLong(1);
+                String nomeResult = rs.getString(2);
+                String login = rs.getString(3);
+                String email = rs.getString(4);
+                boolean isAdmin = rs.getBoolean(5);
+                boolean isAutorizado = rs.getBoolean(6);
+                LocalDate dataCadastro = rs.getDate(7).toLocalDate();
+                LocalDateTime dataModificacao = rs.getTimestamp(8).toLocalDateTime();
+                usuarios.add(
+                    new Usuario(
+                        id, 
+                        nomeResult, 
+                        login, 
+                        "", 
+                        email, 
+                        isAdmin, 
+                        isAutorizado, 
+                        dataModificacao, 
+                        dataCadastro
+                    )
+                );
+            }while(rs.next());
+            
+           
+            return usuarios;
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao buscar usuário.\n"
+                    + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps, rs);
+        }
+    }
+    
+    
+    @Override
     public List<Usuario> getAll() throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;

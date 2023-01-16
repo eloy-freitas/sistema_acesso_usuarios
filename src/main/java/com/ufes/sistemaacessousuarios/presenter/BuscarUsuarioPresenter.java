@@ -31,6 +31,24 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         initListeners();
     }
     
+    private String lerCampoBusca(){     
+         return this.view.getTxtNome().getText();
+    }
+    
+    private void atualizarTabelaFiltrada(String nome){
+        try {
+            usuarios = usuarioService.buscarPorNOme(nome);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(view,
+                    "Erro ao listar os usuários.\n\n"
+                    + ex.getMessage(),
+                    "ERRO",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        initTabela();
+        popularTabela();
+    }
+    
     private void atualizarTabela(){
         try {
             usuarios = usuarioService.buscarTodos();
@@ -58,7 +76,8 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         view.getBtnBuscar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                String nome = lerCampoBusca();
+                atualizarTabelaFiltrada(nome);
             }
         });
         
@@ -68,6 +87,13 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
                 visualizarDetalhesUsuarios();
             }
             
+        });
+        
+        view.getBtnAtualizar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                atualizarTabela();
+            }
         });
     }
     

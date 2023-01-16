@@ -37,6 +37,7 @@ public class BuscarUsuarioView extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         btnVisualizar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -84,6 +85,8 @@ public class BuscarUsuarioView extends javax.swing.JInternalFrame {
 
         btnBuscar.setText("Buscar");
 
+        btnAtualizar.setText("Atualizar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,6 +105,8 @@ public class BuscarUsuarioView extends javax.swing.JInternalFrame {
                         .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -116,7 +121,9 @@ public class BuscarUsuarioView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(srcPainel, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVisualizar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVisualizar)
+                    .addComponent(btnAtualizar))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -124,7 +131,7 @@ public class BuscarUsuarioView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public JButton getBtnBuscar() {
-        return btnVisualizar;
+        return btnBuscar;
     }
 
     public JTable getTblUsuarios() {
@@ -142,10 +149,15 @@ public class BuscarUsuarioView extends javax.swing.JInternalFrame {
     public JButton getBtnVisualizar() {
         return btnVisualizar;
     }
+
+    public JButton getBtnAtualizar() {
+        return btnAtualizar;
+    }
     
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnVisualizar;
     private javax.swing.JLabel jLabel1;
