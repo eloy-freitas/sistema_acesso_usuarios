@@ -53,6 +53,14 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
     }
 
+    public void setIsAutorizado(boolean isAutorizado) {
+        this.isAutorizado = isAutorizado;
+    }
+    
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }

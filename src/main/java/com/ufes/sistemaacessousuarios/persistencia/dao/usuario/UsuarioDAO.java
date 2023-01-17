@@ -64,7 +64,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n 	, fl_admin = ?")
                 .concat("\n 	, fl_autorizado = ?")
                 .concat("\n 	, dt_modificacao = ?")
-                .concat("\n WHERE id_usuario = ? AND u.fl_ativo = 1;");
+                .concat("\n WHERE id_usuario = ? AND fl_ativo = 1;");
         try {
             conexao = ConexaoSQLite.getConnection();
             ps = conexao.prepareStatement(query);
@@ -91,7 +91,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n UPDATE usuario")
                 .concat("\n SET ds_senha = ?")
                 .concat("\n , dt_modificacao = ?")
-                .concat("\n WHERE id_usuario = ? AND u.fl_ativo = 1;");
+                .concat("\n WHERE id_usuario = ? AND fl_ativo = 1;");
         try {
             conexao = ConexaoSQLite.getConnection();
             ps = conexao.prepareStatement(query);

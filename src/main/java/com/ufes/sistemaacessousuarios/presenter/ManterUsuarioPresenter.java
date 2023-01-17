@@ -104,6 +104,11 @@ public class ManterUsuarioPresenter {
         });
     }   
 
+    public List<ManterUsuarioObserver> getManterUsuarioObservers() {
+        return manterUsuarioObservers;
+    }
+    
+    
     public String getMensagemSalvarSucesso() {
         return mensagemSalvarSucesso;
     }
