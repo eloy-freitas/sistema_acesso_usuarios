@@ -28,7 +28,7 @@ public abstract class ManterUsuarioPresenterState {
         throw new RuntimeException("Operação inválida para o estado atual");
     }
     
-    public void excluir(){
+    public void excluir() throws SQLException{
         throw new RuntimeException("Operação inválida para o estado atual");
     }
     

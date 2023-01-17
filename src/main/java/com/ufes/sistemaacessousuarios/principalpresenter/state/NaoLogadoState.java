@@ -47,6 +47,7 @@ public class NaoLogadoState extends PrincipalPresenterState{
     
     @Override
     public void cadastrar(){
+        manterUsuarioPresenter.limparCampos();
         ManterUsuarioView manterUsuarioView = manterUsuarioPresenter.getView();
         if(!manterUsuarioView.isVisible()){
             principalView.getDpMenu().add(manterUsuarioView);

@@ -49,7 +49,7 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     @Override
     public void cadastrar(){
-        manterUsuarioPresenter = new ManterUsuarioPresenter();
+        manterUsuarioPresenter.limparCampos();
         ManterUsuarioView manterUsuarioView = manterUsuarioPresenter.getView();
         if(!manterUsuarioView.isVisible()){
             principalView.getDpMenu().add(manterUsuarioView);

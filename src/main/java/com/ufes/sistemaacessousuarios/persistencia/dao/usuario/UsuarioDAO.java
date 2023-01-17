@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class UsuarioDAO implements IUsuarioDAO{
         String query = ""
                 .concat("\n INSERT INTO usuario(")
                 .concat("\n     nm_usuario")
-                .concat("\n     , nm_login")
+                .concat("\n     , nm_username")
                 .concat("\n     , ds_senha")
                 .concat("\n     , ds_email")
                 .concat("\n     , fl_admin")
@@ -43,7 +43,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             ps.setString(4, usuario.getEmail());
             ps.setBoolean(5, usuario.isAdmin());
             ps.setBoolean(6, usuario.isAutorizado());
-            ps.setDate(7, Date.valueOf(usuario.getDataCadastro()));
+            ps.setTimestamp(7, Timestamp.valueOf(usuario.getDataCadastro()));
             ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
             ps.executeUpdate();  
         } catch (SQLException ex) {
@@ -60,11 +60,11 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n UPDATE usuario ")
                 .concat("\n SET nm_usuario = ?")
                 .concat("\n 	, ds_email = ?")
-                .concat("\n 	, nm_login = ?")
+                .concat("\n 	, nm_username = ?")
                 .concat("\n 	, fl_admin = ?")
                 .concat("\n 	, fl_autorizado = ?")
                 .concat("\n 	, dt_modificacao = ?")
-                .concat("\n WHERE id_usuario = ?");
+                .concat("\n WHERE id_usuario = ? AND u.fl_ativo = 1;");
         try {
             conexao = ConexaoSQLite.getConnection();
             ps = conexao.prepareStatement(query);
@@ -91,7 +91,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n UPDATE usuario")
                 .concat("\n SET ds_senha = ?")
                 .concat("\n , dt_modificacao = ?")
-                .concat("\n WHERE id_usuario = ?;");
+                .concat("\n WHERE id_usuario = ? AND u.fl_ativo = 1;");
         try {
             conexao = ConexaoSQLite.getConnection();
             ps = conexao.prepareStatement(query);
@@ -113,13 +113,17 @@ public class UsuarioDAO implements IUsuarioDAO{
         
         try {
             String query = ""
-                .concat("\n DELETE FROM usuario")
+                .concat("\n UPDATE usuario")
+                .concat("\n SET fl_ativo = 0,")
+                .concat("\n dt_modificacao = ?")
                 .concat("\n WHERE id_usuario = ?;");
             
             conexao = ConexaoSQLite.getConnection();
             
             ps = conexao.prepareStatement(query);
-            ps.setLong(1, id);
+            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setLong(2, id);
+            
             
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -139,7 +143,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             String query = ""
                 .concat("\n SELECT ")
                 .concat("\n     u.nm_usuario")
-                .concat("\n     , u.nm_login")
+                .concat("\n     , u.nm_username")
                 .concat("\n     , u.ds_senha")
                 .concat("\n     , u.ds_email")
                 .concat("\n     , u.fl_admin")
@@ -147,7 +151,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n     , u.dt_cadastro")
                 .concat("\n     , u.dt_modificacao")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE u.id_usuario = ?;");
+                .concat("\n WHERE u.id_usuario = ? AND u.fl_ativo = 1;");
             
             conexao = ConexaoSQLite.getConnection();
             
@@ -167,7 +171,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             String email = rs.getString(4);
             boolean isAdmin = rs.getBoolean(5);
             boolean isAutorizado = rs.getBoolean(6);
-            LocalDate dataCadastro = rs.getDate(7).toLocalDate();
+            LocalDateTime dataCadastro = rs.getTimestamp(7).toLocalDateTime();
             LocalDateTime dataModificacao = rs.getTimestamp(8).toLocalDateTime();
            
             return new Usuario(
@@ -200,14 +204,14 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n SELECT ")
                 .concat("\n     u.id_usuario")
                 .concat("\n     , u.nm_usuario")
-                .concat("\n     , u.nm_login")
+                .concat("\n     , u.nm_username")
                 .concat("\n     , u.ds_email")
                 .concat("\n     , u.fl_admin")
                 .concat("\n     , u.fl_autorizado")
                 .concat("\n     , u.dt_cadastro")
                 .concat("\n     , u.dt_modificacao")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE u.nm_usuario LIKE ?;");
+                .concat("\n WHERE u.nm_usuario LIKE ? AND u.fl_ativo = 1;");
             
             conexao = ConexaoSQLite.getConnection();
             
@@ -228,7 +232,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 String email = rs.getString(4);
                 boolean isAdmin = rs.getBoolean(5);
                 boolean isAutorizado = rs.getBoolean(6);
-                LocalDate dataCadastro = rs.getDate(7).toLocalDate();
+                LocalDateTime dataCadastro = rs.getTimestamp(7).toLocalDateTime();
                 LocalDateTime dataModificacao = rs.getTimestamp(8).toLocalDateTime();
                 usuarios.add(
                     new Usuario(
@@ -268,15 +272,15 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n SELECT ")
                 .concat("\n     u.id_usuario")
                 .concat("\n     , u.nm_usuario")
-                .concat("\n     , u.nm_login")
+                .concat("\n     , u.nm_username")
                 .concat("\n     , u.ds_senha")
                 .concat("\n     , u.ds_email")
                 .concat("\n     , u.fl_admin")
                 .concat("\n     , u.fl_autorizado")
                 .concat("\n     , u.dt_cadastro")
                 .concat("\n     , u.dt_modificacao")
-                .concat("\n FROM usuario u ");
-            
+                .concat("\n FROM usuario u")
+                .concat("\n WHERE u.fl_ativo = 1;");
             conexao = ConexaoSQLite.getConnection();
             
             ps = conexao.prepareStatement(query);
@@ -292,7 +296,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                     String email = rs.getString(5);
                     boolean isAdmin = rs.getBoolean(6);
                     boolean isAutorizado = rs.getBoolean(7);
-                    LocalDate dataCadastro = rs.getDate(8).toLocalDate();
+                    LocalDateTime dataCadastro = rs.getTimestamp(8).toLocalDateTime();
                     LocalDateTime dataModificacao = rs.getTimestamp(9).toLocalDateTime();
 
                     usuarios.add(
@@ -354,7 +358,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n SELECT ")
                 .concat("\n     u.id_usuario")
                 .concat("\n     , u.nm_usuario")
-                .concat("\n     , u.nm_login")
+                .concat("\n     , u.nm_username")
                 .concat("\n     , u.ds_senha")
                 .concat("\n     , u.ds_email")
                 .concat("\n     , u.fl_admin")
@@ -362,7 +366,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n     , u.dt_cadastro")
                 .concat("\n     , u.dt_modificacao")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE fl_autorizado = ?;");
+                .concat("\n WHERE fl_autorizado = ? AND u.fl_ativo = 1;");
             
             conexao = ConexaoSQLite.getConnection();
             
@@ -383,7 +387,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 String email = rs.getString(5);
                 boolean isAdmin = rs.getBoolean(6);
                 boolean autorizado = rs.getBoolean(7);
-                LocalDate dataCadastro = rs.getDate(8).toLocalDate();
+                LocalDateTime dataCadastro = rs.getTimestamp(8).toLocalDateTime();
                 LocalDateTime dataModificacao = rs.getTimestamp(9).toLocalDateTime();
 
                 usuarios.add(
@@ -422,7 +426,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n SELECT ")
                 .concat("\n     u.id_usuario")
                 .concat("\n     , u.nm_usuario")
-                .concat("\n     , u.nm_login")
+                .concat("\n     , u.nm_username")
                 .concat("\n     , u.ds_senha")
                 .concat("\n     , u.ds_email")
                 .concat("\n     , u.fl_admin")
@@ -430,7 +434,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n     , u.dt_cadastro")
                 .concat("\n     , u.dt_modificacao")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE fl_autorizado = ?;");
+                .concat("\n WHERE fl_autorizado = ? AND u.fl_ativo = 1;");
             
             conexao = ConexaoSQLite.getConnection();
             
@@ -451,7 +455,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 String email = rs.getString(5);
                 boolean admin = rs.getBoolean(6);
                 boolean autorizado = rs.getBoolean(7);
-                LocalDate dataCadastro = rs.getDate(8).toLocalDate();
+                LocalDateTime dataCadastro = rs.getTimestamp(8).toLocalDateTime();
                 LocalDateTime dataModificacao = rs.getTimestamp(9).toLocalDateTime();
 
                 usuarios.add(
@@ -487,7 +491,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             String query = ""
                 .concat("\n SELECT u.fl_admin")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE u.nm_login = ?;");
+                .concat("\n WHERE u.nm_username = ? AND u.fl_ativo = 1;");
             
             conexao = ConexaoSQLite.getConnection();
             
@@ -519,7 +523,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             String query = ""
                 .concat("\n SELECT u.fl_autorizado")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE u.nm_login = ?;");
+                .concat("\n WHERE u.nm_username = ? AND u.fl_ativo = 1;");
             
             conexao = ConexaoSQLite.getConnection();
             
@@ -560,8 +564,8 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n     , u.dt_cadastro")
                 .concat("\n     , u.dt_modificacao")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE u.nm_login = ?")
-                .concat("\n AND u.ds_senha = ?;");
+                .concat("\n WHERE u.nm_username = ?")
+                .concat("\n AND u.ds_senha = ? AND u.fl_ativo = 1;");
             
             conexao = ConexaoSQLite.getConnection();
             
@@ -580,7 +584,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             String email = rs.getString(3);
             boolean isAdmin = rs.getBoolean(4);
             boolean isAutorizado = rs.getBoolean(5);
-            LocalDate dataCadastro = rs.getDate(6).toLocalDate();
+            LocalDateTime dataCadastro = rs.getTimestamp(6).toLocalDateTime();
             LocalDateTime dataModificacao = rs.getTimestamp(7).toLocalDateTime();
            
             return new Usuario(
