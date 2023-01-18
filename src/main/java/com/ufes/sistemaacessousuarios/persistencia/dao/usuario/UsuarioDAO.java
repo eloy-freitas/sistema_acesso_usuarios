@@ -59,8 +59,8 @@ public class UsuarioDAO implements IUsuarioDAO{
         String query = ""
                 .concat("\n UPDATE usuario ")
                 .concat("\n SET nm_usuario = ?")
-                .concat("\n 	, ds_email = ?")
                 .concat("\n 	, nm_username = ?")
+                .concat("\n 	, ds_email = ?")
                 .concat("\n 	, fl_admin = ?")
                 .concat("\n 	, fl_autorizado = ?")
                 .concat("\n 	, dt_modificacao = ?")

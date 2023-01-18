@@ -7,6 +7,7 @@ import com.ufes.sistemaacessousuarios.view.BuscarUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -92,6 +93,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         view.getBtnAtualizar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                view.getTxtNome().setText("");
                 atualizarTabela();
             }
         });
@@ -108,15 +110,15 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
 
     private void popularTabela() {
         limpaTabela();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         if(!usuarios.isEmpty()){
             ListIterator<Usuario> iterator = this.usuarios.listIterator();
             while (iterator.hasNext()) {
                 Usuario usuario = iterator.next();
                 tmUsuarios.addRow(new Object[]{
-                    usuario.getId(),
                     usuario.getNome(),
-                    usuario.getLogin(),
-                    usuario.getEmail(),
+                    usuario.getDataModificacao().format(formatter),
+                    usuario.getDataCadastro().format(formatter),
                     usuario.isAdmin(),
                     usuario.isAutorizado()
                 });
@@ -124,14 +126,13 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         }
     }
     
-    private void initTabela() {
+    private void initTabela() { 
         JTable tabela = view.getTblUsuarios();
         tmUsuarios = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"id", "nome", "username", "email", "admin", "autorizado"}
+                new String[]{"nome", "data modificação","data cadastro", "admin", "autorizado"}
         ){
             Class[] types = new Class [] {
-                java.lang.Long.class,
                 java.lang.String.class,
                 java.lang.String.class,
                 java.lang.String.class,
@@ -139,7 +140,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
                 java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             @Override
