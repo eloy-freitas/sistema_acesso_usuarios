@@ -171,13 +171,32 @@ public class ManterUsuarioPresenter {
         if(email.isBlank())
             throw new NullPointerException("email inválido");
         
-        
         return new Usuario(
             usuario.getId(),
             nome,
             login,
             "",
             email, 
+            view.getCbAdmin().isSelected(),
+            view.getCbAutorizado().isSelected(),
+            LocalDateTime.now(),
+            null
+        );
+    }
+    
+    public Usuario lerCamposAtualizacaoSenha() throws NullPointerException{
+        String senha = "";
+        char[] senhaChar = this.view.getPsSenha().getPassword();
+        for(char c : senhaChar){
+            senha += String.valueOf(c);
+        }  
+        
+        return new Usuario(
+            usuario.getId(),
+            "",
+            "",
+            senha,
+            "", 
             view.getCbAdmin().isSelected(),
             view.getCbAutorizado().isSelected(),
             LocalDateTime.now(),
@@ -227,7 +246,7 @@ public class ManterUsuarioPresenter {
     
     private void initServices(){
         manterUsuarioObservers = new ArrayList<>();
-        this.usuarioService = new UsuarioService();
+        usuarioService = new UsuarioService();
     }
     
     public void notificar(){
@@ -238,10 +257,7 @@ public class ManterUsuarioPresenter {
     }
     
     public void subscribe(ManterUsuarioObserver observer){
-        if(!this.manterUsuarioObservers.contains(observer))
-            this.manterUsuarioObservers.add(observer);
-        else
-            throw new RuntimeException("Observador já foi inscrito");
+        manterUsuarioObservers.add(observer);
     }
     
     public void setEstado(ManterUsuarioPresenterState estado){

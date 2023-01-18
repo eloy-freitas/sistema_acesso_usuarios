@@ -192,10 +192,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
     }
     
     public void subscribe(BuscarUsuarioObserver observer){
-        if(!this.observers.contains(observer))
-            this.observers.add(observer);
-        else
-            throw new RuntimeException("Observador já foi inscrito");
+        this.observers.add(observer);
     }
     
 }
