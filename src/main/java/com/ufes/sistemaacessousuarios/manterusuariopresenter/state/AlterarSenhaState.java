@@ -33,7 +33,7 @@ public class AlterarSenhaState extends ManterUsuarioPresenterState{
     
     @Override
     public void salvar() throws SQLException{
-        Usuario usuario = presenter.lerCamposAtualizacao();
+        Usuario usuario = presenter.lerCamposAtualizacaoSenha();
         presenter.setUsuario(usuario);
         command.executar();
         presenter.fechar();
