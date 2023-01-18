@@ -7,7 +7,6 @@ import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginNaoAutorizad
 import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginUsuarioState;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.NaoLogadoState;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.PrincipalPresenterState;
-import com.ufes.sistemaacessousuarios.view.BuscarUsuarioView;
 import com.ufes.sistemaacessousuarios.view.PrincipalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
