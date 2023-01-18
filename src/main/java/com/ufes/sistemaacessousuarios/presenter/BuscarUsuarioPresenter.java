@@ -116,6 +116,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
             while (iterator.hasNext()) {
                 Usuario usuario = iterator.next();
                 tmUsuarios.addRow(new Object[]{
+                    usuario.getId(),
                     usuario.getNome(),
                     usuario.getDataModificacao().format(formatter),
                     usuario.getDataCadastro().format(formatter),
@@ -130,9 +131,10 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         JTable tabela = view.getTblUsuarios();
         tmUsuarios = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"nome", "data modificação","data cadastro", "admin", "autorizado"}
+                new String[]{"id","nome", "data modificação","data cadastro", "admin", "autorizado"}
         ){
             Class[] types = new Class [] {
+                java.lang.Long.class,
                 java.lang.String.class,
                 java.lang.String.class,
                 java.lang.String.class,
@@ -140,7 +142,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
                 java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             @Override
