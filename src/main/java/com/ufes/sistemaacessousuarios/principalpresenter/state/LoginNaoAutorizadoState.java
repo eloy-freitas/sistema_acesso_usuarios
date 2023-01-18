@@ -44,8 +44,7 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     
     @Override
     public void sair(){
-        if(naoAutorizadoView.isVisible())
-            naoAutorizadoView.dispose();
+        presenter.fecharJanelasInternas();
         presenter.setEstado(new NaoLogadoState(presenter));
     }
     

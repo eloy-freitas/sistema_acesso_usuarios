@@ -27,6 +27,7 @@ public class LoginUsuarioState extends PrincipalPresenterState{
 
     @Override
     public void sair(){
+        presenter.fecharJanelasInternas();
         presenter.setEstado(new NaoLogadoState(presenter));
     }
     

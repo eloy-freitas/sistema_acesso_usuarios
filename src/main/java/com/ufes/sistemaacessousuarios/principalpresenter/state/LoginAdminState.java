@@ -35,6 +35,7 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     @Override
     public void sair(){
+        presenter.fecharJanelasInternas();
         presenter.setEstado(new NaoLogadoState(presenter));
     }
     

@@ -10,6 +10,7 @@ import com.ufes.sistemaacessousuarios.principalpresenter.state.PrincipalPresente
 import com.ufes.sistemaacessousuarios.view.PrincipalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JInternalFrame;
 
 
 public class PrincipalPresenter implements LoginObserver{
@@ -68,8 +69,12 @@ public class PrincipalPresenter implements LoginObserver{
             }
             
         });
-        
-
+    }
+    
+    public void fecharJanelasInternas(){
+        if(principalView.getDpMenu().getAllFrames().length > 0)
+            for(JInternalFrame frame : principalView.getDpMenu().getAllFrames())
+                frame.dispose();
     }
     
     public void initServices(){
@@ -111,6 +116,7 @@ public class PrincipalPresenter implements LoginObserver{
     @Override
     public void updateLogin(Usuario usuario) {
         this.usuario = usuario;
+        fecharJanelasInternas();
         if(usuario.isAdmin()){
             this.estado = new LoginAdminState(this);
         }else if(usuario.isAutorizado()){
