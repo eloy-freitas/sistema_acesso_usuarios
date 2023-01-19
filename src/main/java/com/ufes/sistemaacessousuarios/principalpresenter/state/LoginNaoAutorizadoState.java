@@ -1,5 +1,6 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.view.NaoAutorizadoView;
 
@@ -9,7 +10,9 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     
     public LoginNaoAutorizadoState(PrincipalPresenter presenter) {
         super(presenter);
-        principalView = presenter.getPrincipalView();
+        manterUsuarioPresenter = new ManterUsuarioPresenter(
+            presenter.getUsuario()
+        );
         naoAutorizadoView = new NaoAutorizadoView();
         initComponents();
     }
@@ -17,21 +20,28 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     @Override
     public void initComponents(){
         decorarInfoUsuario();
+        presenter.getPrincipalView().getDpMenu().add(naoAutorizadoView);
         principalView.getMiLogin().setEnabled(false);
+        principalView.getMiAlterarSenha().setEnabled(true);
         principalView.getMiCadastrar().setEnabled(false);
         principalView.getBtnNotificacoes().setVisible(false);
         principalView.getLblInfoUsuario().setVisible(true);
-        presenter.getPrincipalView().getDpMenu().add(naoAutorizadoView);
         principalView.getMiBuscarUsuarios().setEnabled(false);
         principalView.getMiBuscarUsuarios().setVisible(false);
         naoAutorizadoView.setVisible(true);
-        
+    }
+    
+    @Override
+    public void alterarSenha(){
+        if(!manterUsuarioPresenter.getView().isVisible()){
+            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
+            manterUsuarioPresenter.getView().setVisible(true);
+        }  
     }
     
     @Override
     public void sair(){
-        if(naoAutorizadoView.isVisible())
-            naoAutorizadoView.dispose();
+        presenter.fecharJanelasInternas();
         presenter.setEstado(new NaoLogadoState(presenter));
     }
     

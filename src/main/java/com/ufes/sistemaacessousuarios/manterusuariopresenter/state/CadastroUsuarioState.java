@@ -37,8 +37,10 @@ public class CadastroUsuarioState extends ManterUsuarioPresenterState{
     public void salvar() throws SQLException{
         Usuario usuario = presenter.lerCampos();
         presenter.setUsuario(usuario);
-        this.command.executar();
-        this.presenter.fechar();
+        command.executar();
+        if(!presenter.getManterUsuarioObservers().isEmpty())
+            presenter.notificar();
+        presenter.fechar();
     }
     
     @Override

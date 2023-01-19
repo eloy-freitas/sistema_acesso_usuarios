@@ -1,10 +1,15 @@
 package com.ufes.sistemaacessousuarios.manterusuariopresenter.state;
 
+import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.ExcluirUsuarioCommand;
+import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.ManterUsuarioCommand;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
+import java.sql.SQLException;
 
 
 public class VisualizarUsuarioState extends ManterUsuarioPresenterState{
-
+    
+    private ManterUsuarioCommand command;
+    
     public VisualizarUsuarioState(ManterUsuarioPresenter presenter) {
         super(presenter);
         initComponents();
@@ -42,5 +47,11 @@ public class VisualizarUsuarioState extends ManterUsuarioPresenterState{
          presenter.setEstado(new EditarUsuarioState(presenter));
     }
     
+    public void excluir() throws SQLException{
+        command = new ExcluirUsuarioCommand(presenter);
+        command.executar();
+        presenter.notificar();
+        presenter.fechar();
+    }
     
 }

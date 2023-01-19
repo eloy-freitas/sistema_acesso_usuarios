@@ -1,6 +1,6 @@
 package com.ufes.sistemaacessousuarios.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 
 public class Usuario {
@@ -13,9 +13,9 @@ public class Usuario {
     protected boolean isAutorizado;
     protected LocalDateTime dataModificacao;
     protected LocalDateTime dataLogin;
-    protected LocalDate dataCadastro;
+    protected LocalDateTime dataCadastro;
 
-    public Usuario(long id, String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDate dataCadastro) {
+    public Usuario(long id, String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDateTime dataCadastro) {
         this.id = id;
         this.nome = nome;
         this.login = login;
@@ -28,7 +28,7 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
     }
     
-    public Usuario(long id, String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDateTime dataLogin, LocalDate dataCadastro) {
+    public Usuario(long id, String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDateTime dataLogin, LocalDateTime dataCadastro) {
         this.id = id;
         this.nome = nome;
         this.login = login;
@@ -41,7 +41,7 @@ public class Usuario {
         this.dataCadastro = dataCadastro;
     }
 
-    public Usuario(String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDate dataCadastro) {
+    public Usuario(String nome, String login, String senha, String email, boolean isAdmin, boolean isAutorizado, LocalDateTime dataModificacao, LocalDateTime dataCadastro) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
@@ -51,6 +51,14 @@ public class Usuario {
         this.dataModificacao = dataModificacao;
         this.dataLogin = null;
         this.dataCadastro = dataCadastro;
+    }
+
+    public void setIsAutorizado(boolean isAutorizado) {
+        this.isAutorizado = isAutorizado;
+    }
+    
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public void setSenha(String senha) {
@@ -89,7 +97,7 @@ public class Usuario {
         return dataModificacao;
     }
 
-    public LocalDate getDataCadastro() {
+    public LocalDateTime getDataCadastro() {
         return dataCadastro;
     }
 

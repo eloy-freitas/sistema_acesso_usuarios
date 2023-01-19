@@ -14,6 +14,8 @@ public abstract class PrincipalPresenterState {
 
     public PrincipalPresenterState(PrincipalPresenter presenter) {
         this.presenter = presenter;
+        manterUsuarioPresenter = new ManterUsuarioPresenter();
+        principalView = this.presenter.getPrincipalView();
     }
     
     public void initComponents(){

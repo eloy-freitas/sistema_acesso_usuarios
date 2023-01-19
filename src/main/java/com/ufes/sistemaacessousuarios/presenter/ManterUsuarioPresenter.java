@@ -10,7 +10,6 @@ import com.ufes.sistemaacessousuarios.view.ManterUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -76,7 +75,23 @@ public class ManterUsuarioPresenter {
         this.view.getBtnExcluir().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                excluir();
+                try {
+                    excluir();
+                    JOptionPane.showMessageDialog(
+                        view,
+                        "Usuário excluido com sucesso!",
+                        "Sucesso!",
+                        JOptionPane.INFORMATION_MESSAGE
+                    );
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(
+                        view, 
+                        "Falha ao excluir usuários!" + ex, 
+                        "ERRO!",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                }
+                
             }
         });
         
@@ -88,12 +103,24 @@ public class ManterUsuarioPresenter {
         });
     }   
 
+    public List<ManterUsuarioObserver> getManterUsuarioObservers() {
+        return manterUsuarioObservers;
+    }
+    
+    
     public String getMensagemSalvarSucesso() {
         return mensagemSalvarSucesso;
     }
 
     public void setMensagemSalvarSucesso(String mensagemSalvarSucesso) {
         this.mensagemSalvarSucesso = mensagemSalvarSucesso;
+    }
+    
+    public void limparCampos(){
+        view.getTxtNome().setText("");
+        view.getTxtUserName().setText("");
+        view.getTxtEmail().setText("");
+        view.getPsSenha().setText("");
     }
     
     public Usuario lerCampos() throws NullPointerException{
@@ -126,7 +153,7 @@ public class ManterUsuarioPresenter {
             view.getCbAdmin().isSelected(),
             view.getCbAutorizado().isSelected(),
             LocalDateTime.now(),
-            LocalDate.now()
+            LocalDateTime.now()
         );
     }
     
@@ -144,7 +171,6 @@ public class ManterUsuarioPresenter {
         if(email.isBlank())
             throw new NullPointerException("email inválido");
         
-        
         return new Usuario(
             usuario.getId(),
             nome,
@@ -158,8 +184,28 @@ public class ManterUsuarioPresenter {
         );
     }
     
+    public Usuario lerCamposAtualizacaoSenha() throws NullPointerException{
+        String senha = "";
+        char[] senhaChar = this.view.getPsSenha().getPassword();
+        for(char c : senhaChar){
+            senha += String.valueOf(c);
+        }  
+        
+        return new Usuario(
+            usuario.getId(),
+            "",
+            "",
+            senha,
+            "", 
+            view.getCbAdmin().isSelected(),
+            view.getCbAutorizado().isSelected(),
+            LocalDateTime.now(),
+            null
+        );
+    }
+    
     private void carregarCampos(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         view.getTxtId().setText(String.valueOf(usuario.getId()));
         view.getTxtNome().setText(usuario.getNome());
         view.getTxtUserName().setText(usuario.getLogin());
@@ -167,7 +213,6 @@ public class ManterUsuarioPresenter {
         view.getCbAdmin().setSelected(usuario.isAdmin());
         view.getCbAutorizado().setSelected(usuario.isAutorizado());
         view.getLblDataCriacao().setText(usuario.getDataCadastro().format(formatter));
-        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         view.getLblDataModificacao().setText(usuario.getDataModificacao().format(formatter));
     }
     
@@ -191,7 +236,7 @@ public class ManterUsuarioPresenter {
         this.estado.cancelar();
     }
     
-    private void excluir(){
+    private void excluir() throws SQLException{
         this.estado.excluir();
     }
     
@@ -201,7 +246,7 @@ public class ManterUsuarioPresenter {
     
     private void initServices(){
         manterUsuarioObservers = new ArrayList<>();
-        this.usuarioService = new UsuarioService();
+        usuarioService = new UsuarioService();
     }
     
     public void notificar(){
@@ -212,10 +257,7 @@ public class ManterUsuarioPresenter {
     }
     
     public void subscribe(ManterUsuarioObserver observer){
-        if(!this.manterUsuarioObservers.contains(observer))
-            this.manterUsuarioObservers.add(observer);
-        else
-            throw new RuntimeException("Observador já foi inscrito");
+        manterUsuarioObservers.add(observer);
     }
     
     public void setEstado(ManterUsuarioPresenterState estado){

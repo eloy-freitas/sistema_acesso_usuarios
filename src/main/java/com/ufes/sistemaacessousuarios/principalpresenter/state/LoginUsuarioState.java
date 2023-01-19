@@ -2,13 +2,13 @@ package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
-import com.ufes.sistemaacessousuarios.view.ManterUsuarioView;
-
 
 public class LoginUsuarioState extends PrincipalPresenterState{
     public LoginUsuarioState(PrincipalPresenter presenter) {
         super(presenter);
-        principalView = presenter.getPrincipalView();
+        manterUsuarioPresenter = new ManterUsuarioPresenter(
+            presenter.getUsuario()
+        );
         initComponents();
     }
     
@@ -27,27 +27,15 @@ public class LoginUsuarioState extends PrincipalPresenterState{
 
     @Override
     public void sair(){
+        presenter.fecharJanelasInternas();
         presenter.setEstado(new NaoLogadoState(presenter));
     }
     
     @Override
     public void alterarSenha(){
-        manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
-        ManterUsuarioView manterUsuarioView = manterUsuarioPresenter.getView();
-        if(!manterUsuarioView.isVisible()){
-            principalView.getDpMenu().add(manterUsuarioView);
-            manterUsuarioView.setVisible(true);
+        if(!manterUsuarioPresenter.getView().isVisible()){
+            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
+            manterUsuarioPresenter.getView().setVisible(true);
         }  
     }
-    
-    @Override
-    public void cadastrar(){
-        manterUsuarioPresenter = new ManterUsuarioPresenter();
-        ManterUsuarioView manterUsuarioView = manterUsuarioPresenter.getView();
-        if(!manterUsuarioView.isVisible()){
-            principalView.getDpMenu().add(manterUsuarioView);
-            manterUsuarioView.setVisible(true);
-        }   
-    }
-    
 }
