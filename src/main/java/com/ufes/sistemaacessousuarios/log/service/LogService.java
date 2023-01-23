@@ -8,11 +8,16 @@ import com.ufes.sistemaacessousuarios.log.adapter.ILogAdapter;
 
 public class LogService {
     private ILogAdapter logAdapter;
-
+    private String file;
     public LogService() throws IOException {
-        logAdapter = new LogCSVAdapter("log/syslog.csv");
+        file = "log/syslog.csv";
+        logAdapter = new LogCSVAdapter(file);
     }
 
+    public void setFile(String file) {
+        this.file = file;
+    }
+    
     public void setLogAdapter(ILogAdapter logAdapter) {
         this.logAdapter = logAdapter;
     }
