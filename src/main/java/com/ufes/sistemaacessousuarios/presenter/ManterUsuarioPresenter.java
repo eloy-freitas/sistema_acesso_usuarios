@@ -25,6 +25,7 @@ public class ManterUsuarioPresenter {
     private Usuario usuario;
     private String mensagemSalvarSucesso;
     private List<ManterUsuarioObserver> manterUsuarioObservers;
+    private List<NotificarUsuarioObserver> notificarUsuarioObservers;
     
     public ManterUsuarioPresenter() {
         this.view = new ManterUsuarioView();
@@ -40,6 +41,12 @@ public class ManterUsuarioPresenter {
         initListeners();
         carregarCampos();
         estado = new AlterarSenhaState(this);
+    }
+    
+    private void initServices(){
+        manterUsuarioObservers = new ArrayList<>();
+        notificarUsuarioObservers = new ArrayList<>();
+        usuarioService = new UsuarioService();
     }
 
     private void initListeners(){
@@ -244,11 +251,6 @@ public class ManterUsuarioPresenter {
         this.estado.editar();
     }
     
-    private void initServices(){
-        manterUsuarioObservers = new ArrayList<>();
-        usuarioService = new UsuarioService();
-    }
-    
     public void notificar(){
         if(!manterUsuarioObservers.isEmpty()){
             for(ManterUsuarioObserver observer: manterUsuarioObservers)
@@ -256,8 +258,19 @@ public class ManterUsuarioPresenter {
         }
     }
     
-    public void subscribe(ManterUsuarioObserver observer){
+    public void notificarNovoUsuario(Usuario usuario) throws SQLException{
+        if(!notificarUsuarioObservers.isEmpty()){
+            for(NotificarUsuarioObserver observer: notificarUsuarioObservers)
+            observer.notificarNovoUsuario(usuario);
+        }
+    }
+    
+    public void subscribeManterUsuarioObserver(ManterUsuarioObserver observer){
         manterUsuarioObservers.add(observer);
+    }
+    
+    public void subscribeNotificarUsuarioObserver(NotificarUsuarioObserver observer){
+        notificarUsuarioObservers.add(observer);
     }
     
     public void setEstado(ManterUsuarioPresenterState estado){
@@ -271,4 +284,10 @@ public class ManterUsuarioPresenter {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public List<NotificarUsuarioObserver> getNotificarUsuarioObservers() {
+        return notificarUsuarioObservers;
+    }
+    
+    
 }

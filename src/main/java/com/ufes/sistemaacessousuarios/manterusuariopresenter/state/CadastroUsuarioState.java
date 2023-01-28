@@ -38,6 +38,8 @@ public class CadastroUsuarioState extends ManterUsuarioPresenterState{
         Usuario usuario = presenter.lerCampos();
         presenter.setUsuario(usuario);
         command.executar();
+        if(!presenter.getNotificarUsuarioObservers().isEmpty())
+            presenter.notificarNovoUsuario(usuario);
         if(!presenter.getManterUsuarioObservers().isEmpty())
             presenter.notificar();
         presenter.fechar();
