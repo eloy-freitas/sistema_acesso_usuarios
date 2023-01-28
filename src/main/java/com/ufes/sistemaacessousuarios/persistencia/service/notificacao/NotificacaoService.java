@@ -1,6 +1,7 @@
 package com.ufes.sistemaacessousuarios.persistencia.service.notificacao;
 
 import com.ufes.sistemaacessousuarios.model.Notificacao;
+import com.ufes.sistemaacessousuarios.model.NotificacaoDTO;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.repository.notificacao.INotificacaoRepository;
 import com.ufes.sistemaacessousuarios.persistencia.repository.notificacao.NotificacaoRepository;
@@ -54,5 +55,20 @@ public class NotificacaoService implements INotificacaoService{
     public Usuario buscarPorUsername(String username) throws SQLException {
         return notificacaoRepository.buscarPorUsername(username);
     }
-    
+
+    @Override
+    public List<NotificacaoDTO> buscarTodasNotificacoes() throws SQLException {
+        return notificacaoRepository.buscarTodasNotificacoes();
+    }
+
+    @Override
+    public List<NotificacaoDTO> buscarNotificacoesPorUsername(String username) throws SQLException {
+        return notificacaoRepository.buscarNotificacoesPorUsername(username);
+    }
+
+    @Override
+    public int totalNotificacoes(String username) throws SQLException {
+        return notificacaoRepository.totalNotificacoes(username);
+    }
+
 }

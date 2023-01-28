@@ -54,7 +54,9 @@ public abstract class PrincipalPresenterState {
     }
     
     public int totalNotificacoes() throws SQLException{
-        return presenter.getUsuarioService().buscarTotalNotificacoes(presenter.getUsuario());
+        return presenter
+                .getNotificacaoService()
+                .totalNotificacoes(presenter.getUsuario().getLogin());
     }
     
     public void decorarBotaoNotificacoes(){
