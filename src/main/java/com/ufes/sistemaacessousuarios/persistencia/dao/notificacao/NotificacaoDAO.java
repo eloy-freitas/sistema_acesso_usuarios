@@ -163,13 +163,13 @@ public class NotificacaoDAO implements INotificacaoDAO{
                 .concat("\n LEFT join usuario d ON un.id_destinatario = d.id_usuario")
                 .concat("\n LEFT join usuario r ON un.id_remetente = r.id_usuario")
                 .concat("\n LEFT join notificacao n ON un.id_notificacao = n.id_notificacao")
-                .concat("\n WHERE d.fl_ativo = 1 AND r.fl_ativo = 1")
+                .concat("\n WHERE d.fl_ativo = 1")
+                .concat("\n AND r.fl_ativo = 1")
                 .concat("\n AND d.nm_username = ?");
             
             conexao = ConexaoSQLite.getConnection();
             
             ps = conexao.prepareStatement(query);
-            
             
             ps.setString(1, username);
             
@@ -183,8 +183,14 @@ public class NotificacaoDAO implements INotificacaoDAO{
                     Long idDestinatario = rs.getLong(4);
                     String destinatarioUsername = rs.getString(5);
                     boolean flLida = rs.getBoolean(6);
-                    LocalDateTime dataVisualizacao = rs.getTimestamp(7).toLocalDateTime();
-                    LocalDateTime dataEnvio = rs.getTimestamp(9).toLocalDateTime();
+                    LocalDateTime dataVisualizacao;
+                    try{
+                        dataVisualizacao = rs.getTimestamp(7).toLocalDateTime();
+                    }catch(Exception e){
+                        dataVisualizacao = null;
+                    }
+                    
+                    LocalDateTime dataEnvio = rs.getTimestamp(8).toLocalDateTime();
 
                     notificacoes.add(
                         new NotificacaoDTO(

@@ -72,6 +72,14 @@ public class PrincipalPresenter implements LoginObserver, NotificarUsuarioObserv
             }
             
         });
+        
+        this.principalView.getBtnNotificacoes().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                visualizarNotificacoes();
+            }
+            
+        });
     }
     
     public void fecharJanelasInternas(){
@@ -104,6 +112,10 @@ public class PrincipalPresenter implements LoginObserver, NotificarUsuarioObserv
     
     public void buscarUsuarios(){
         estado.buscarUsuarios();
+    }
+    
+    public void visualizarNotificacoes(){
+        estado.visualizarNotificacoes();
     }
 
     public PrincipalView getPrincipalView() {

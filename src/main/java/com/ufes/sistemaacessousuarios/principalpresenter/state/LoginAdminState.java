@@ -6,6 +6,7 @@ import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioObserver;
 import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
 
 
 public class LoginAdminState extends PrincipalPresenterState implements BuscarUsuarioObserver{
@@ -71,6 +72,15 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
         manterUsuarioPresenter.setEstado(new VisualizarUsuarioState(manterUsuarioPresenter));
         principalView.getDpMenu().add(manterUsuarioPresenter.getView());
         manterUsuarioPresenter.getView().setVisible(true);
+    }
+    
+    @Override
+    public void visualizarNotificacoes(){
+        VisualizarNotificacoesPresenter visualizarNotificacoesPresenter;
+        visualizarNotificacoesPresenter = new VisualizarNotificacoesPresenter(presenter.getUsuario());
+        principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
+        visualizarNotificacoesPresenter.getView().setVisible(true);
+        
     }
 
 }
