@@ -1,3 +1,4 @@
+
 create table usuario(
 	id_usuario integer primary key autoincrement,
     nm_usuario varchar(100),
@@ -12,17 +13,18 @@ create table usuario(
 );
 
 create table notificacao(
-    id_notificacao integer primary key autoincrement,
-    ds_mensagem varchar(300),
-    dt_envio timestamp
+    id_notificacao timestamp primary key, 
+    fl_tipo int not null,
+    ds_mensagem varchar(300)
 );
 
 create table usuarios_notificados(
-    id_notificacao integer not null,
+    id_notificacao timestamp not null,
     id_destinatario integer not null,
     id_remetente integer not null,
     fl_lida boolean default 0,
-    df_leitura timestamp,
+    dt_visualizacao timestamp,
+    dt_envio timestamp,
     FOREIGN KEY(id_destinatario) REFERENCES usuario(id_usuario),
     FOREIGN KEY(id_remetente) REFERENCES usuario(id_usuario),
     FOREIGN KEY(id_notificacao) REFERENCES notificacao(id_notificacao)
