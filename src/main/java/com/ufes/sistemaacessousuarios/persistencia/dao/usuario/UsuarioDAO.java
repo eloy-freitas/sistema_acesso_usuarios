@@ -497,7 +497,7 @@ public class UsuarioDAO implements IUsuarioDAO{
                 .concat("\n     , u.dt_cadastro")
                 .concat("\n     , u.dt_modificacao")
                 .concat("\n FROM usuario u ")
-                .concat("\n WHERE fl_autorizado = ? AND u.fl_ativo = 1;");
+                .concat("\n WHERE fl_admin = ? AND u.fl_ativo = 1;");
             
             conexao = ConexaoSQLite.getConnection();
             
