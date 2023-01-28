@@ -3,6 +3,7 @@ package com.ufes.sistemaacessousuarios.model;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Log {
@@ -29,6 +30,20 @@ public class Log {
         this.hora = hora;
         this.usuario = usuario;
     }
+    
+    private String formatarHora(LocalTime hora){
+        DateTimeFormatter horaFormater = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return horaFormater.format(hora);
+    }
+    
+    private String formatarData(LocalDate data){
+        DateTimeFormatter dataFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return dataFormater.format(data);
+    }
+    
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
     public String getMensagem() {
         return mensagem;
@@ -42,12 +57,12 @@ public class Log {
         return nome;
     }
 
-    public LocalDate getData() {
-        return data;
+    public String getData() {
+        return formatarData(data);
     }
 
-    public LocalTime getHora() {
-        return hora;
+    public String getHora() {
+        return formatarHora(hora);
     }
 
     public String getUsuario() {

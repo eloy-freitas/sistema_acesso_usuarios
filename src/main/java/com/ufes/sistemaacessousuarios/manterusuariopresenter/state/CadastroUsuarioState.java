@@ -5,7 +5,10 @@ import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.ManterUsuarioCommand;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.SalvarUsuarioCommand;
+import com.ufes.sistemaacessousuarios.model.Log;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 public class CadastroUsuarioState extends ManterUsuarioPresenterState{
@@ -38,8 +41,20 @@ public class CadastroUsuarioState extends ManterUsuarioPresenterState{
         Usuario usuario = presenter.lerCampos();
         presenter.setUsuario(usuario);
         command.executar();
+        
+        if(!presenter.getLogObservers().isEmpty())
+            presenter.notificarLogObservers(
+                new Log(
+                    "Cadastro", 
+                    null, 
+                    LocalDate.now(),
+                    LocalTime.now(),
+                    usuario.getLogin()
+                )
+            );
+        
         if(!presenter.getManterUsuarioObservers().isEmpty())
-            presenter.notificar();
+            presenter.notificarManterUsuarioObservers();
         presenter.fechar();
     }
     

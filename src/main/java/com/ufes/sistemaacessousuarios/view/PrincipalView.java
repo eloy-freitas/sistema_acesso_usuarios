@@ -47,6 +47,9 @@ public class PrincipalView extends javax.swing.JFrame {
         miCadastrar = new javax.swing.JMenuItem();
         miBuscarUsuarios = new javax.swing.JMenuItem();
         mnConfiguracoes = new javax.swing.JMenu();
+        mnLog = new javax.swing.JMenu();
+        miJSON = new javax.swing.JMenuItem();
+        miCSV = new javax.swing.JMenuItem();
         miAlterarSenha = new javax.swing.JMenuItem();
         mnSair = new javax.swing.JMenu();
         miSair = new javax.swing.JMenuItem();
@@ -96,6 +99,16 @@ public class PrincipalView extends javax.swing.JFrame {
         mnToolBar.add(mnUsuario);
 
         mnConfiguracoes.setText("Configurações");
+
+        mnLog.setText("Alterar Log");
+
+        miJSON.setText("JSON");
+        mnLog.add(miJSON);
+
+        miCSV.setText("CSV");
+        mnLog.add(miCSV);
+
+        mnConfiguracoes.add(mnLog);
 
         miAlterarSenha.setText("Alterar senha");
         mnConfiguracoes.add(miAlterarSenha);
@@ -219,8 +232,18 @@ public class PrincipalView extends javax.swing.JFrame {
     public JMenuItem getMiBuscarUsuarios() {
         return miBuscarUsuarios;
     }
-    
-    
+
+    public JMenuItem getMiCSV() {
+        return miCSV;
+    }
+
+    public JMenuItem getMiJSON() {
+        return miJSON;
+    }
+
+    public JMenu getMnLog() {
+        return mnLog;
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,10 +253,13 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JLabel lblInfoUsuario;
     private javax.swing.JMenuItem miAlterarSenha;
     private javax.swing.JMenuItem miBuscarUsuarios;
+    private javax.swing.JMenuItem miCSV;
     private javax.swing.JMenuItem miCadastrar;
+    private javax.swing.JMenuItem miJSON;
     private javax.swing.JMenuItem miLogin;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenu mnConfiguracoes;
+    private javax.swing.JMenu mnLog;
     private javax.swing.JMenu mnSair;
     private javax.swing.JMenuBar mnToolBar;
     private javax.swing.JMenu mnUsuario;

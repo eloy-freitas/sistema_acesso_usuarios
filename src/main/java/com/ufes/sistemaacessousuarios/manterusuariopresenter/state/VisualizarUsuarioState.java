@@ -50,7 +50,7 @@ public class VisualizarUsuarioState extends ManterUsuarioPresenterState{
     public void excluir() throws SQLException{
         command = new ExcluirUsuarioCommand(presenter);
         command.executar();
-        presenter.notificar();
+        presenter.notificarManterUsuarioObservers();
         presenter.fechar();
     }
     

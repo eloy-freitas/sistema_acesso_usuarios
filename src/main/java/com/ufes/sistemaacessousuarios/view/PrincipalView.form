@@ -49,6 +49,23 @@
             <Property name="text" type="java.lang.String" value="Configura&#xe7;&#xf5;es"/>
           </Properties>
           <SubComponents>
+            <Menu class="javax.swing.JMenu" name="mnLog">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Alterar Log"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="miJSON">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="JSON"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="miCSV">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="CSV"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="miAlterarSenha">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alterar senha"/>

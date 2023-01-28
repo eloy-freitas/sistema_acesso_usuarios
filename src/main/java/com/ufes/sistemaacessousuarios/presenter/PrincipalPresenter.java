@@ -1,5 +1,7 @@
 package com.ufes.sistemaacessousuarios.presenter;
 
+import com.ufes.sistemaacessousuarios.log.service.LogService;
+import com.ufes.sistemaacessousuarios.model.Log;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginAdminState;
@@ -10,14 +12,19 @@ import com.ufes.sistemaacessousuarios.principalpresenter.state.PrincipalPresente
 import com.ufes.sistemaacessousuarios.view.PrincipalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 
-public class PrincipalPresenter implements LoginObserver{
+public class PrincipalPresenter implements LoginObserver, LogObserver{
     private PrincipalView principalView;
     private ManterUsuarioPresenter manterUsuarioPresenter;
     private PrincipalPresenterState estado;
     private UsuarioService usuarioService;
+    private LogService logService;
     private Usuario usuario;
     private int totalNotificacoes;
     
@@ -69,6 +76,38 @@ public class PrincipalPresenter implements LoginObserver{
             }
             
         });
+        
+        this.principalView.getMiJSON().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    logService.setJSONLogger();
+                }catch(IOException ex){
+                    JOptionPane.showMessageDialog(principalView,
+                        "".concat("Erro com o arquivo de log: ")
+                          .concat(logService.getFile()),
+                    "ERRO",
+                    JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            
+        });
+        
+        this.principalView.getMiCSV().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    logService.setCSVLogger();
+                }catch(IOException ex){
+                    JOptionPane.showMessageDialog(principalView,
+                        "".concat("Erro com o arquivo de log: ")
+                          .concat(logService.getFile()),
+                    "ERRO",
+                    JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            
+        });
     }
     
     public void fecharJanelasInternas(){
@@ -78,7 +117,18 @@ public class PrincipalPresenter implements LoginObserver{
     }
     
     public void initServices(){
-        this.usuarioService = new UsuarioService();
+        usuarioService = new UsuarioService();
+        try{
+            logService = new LogService();
+        }catch(IOException ex){
+            JOptionPane.showMessageDialog(principalView,
+                ""
+                .concat("Erro com o arquivo de log: ")
+                .concat(logService.getFile())
+                .concat(ex.getMessage()),
+            "ERRO",
+            JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     
     public void sair(){
@@ -145,7 +195,20 @@ public class PrincipalPresenter implements LoginObserver{
     public void setTotalNotificacoes(int totalNotificacoes) {
         this.totalNotificacoes = totalNotificacoes;
     }
-    
-    
-    
+
+    @Override
+    public void escreverLog(Log log) {
+        try {
+            log.setUsuario(usuario.getLogin());
+            logService.escreverLog(log);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(principalView,
+                "".concat("Erro com o arquivo de log: ")
+                  .concat(logService.getFile())
+                  .concat(ex.getMessage()),
+            "ERRO",
+            JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
 }

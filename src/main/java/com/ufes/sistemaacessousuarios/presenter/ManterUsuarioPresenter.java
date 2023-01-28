@@ -6,6 +6,7 @@ import com.ufes.sistemaacessousuarios.persistencia.service.usuario.IUsuarioServi
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.CadastroUsuarioState;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.ManterUsuarioPresenterState;
+import com.ufes.sistemaacessousuarios.model.Log;
 import com.ufes.sistemaacessousuarios.view.ManterUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,7 @@ public class ManterUsuarioPresenter {
     private ManterUsuarioPresenterState estado;
     private Usuario usuario;
     private String mensagemSalvarSucesso;
+    private List<LogObserver> logObservers;
     private List<ManterUsuarioObserver> manterUsuarioObservers;
     
     public ManterUsuarioPresenter() {
@@ -246,18 +248,35 @@ public class ManterUsuarioPresenter {
     
     private void initServices(){
         manterUsuarioObservers = new ArrayList<>();
+        logObservers = new ArrayList<>();
         usuarioService = new UsuarioService();
     }
     
-    public void notificar(){
+    public void notificarManterUsuarioObservers(){
         if(!manterUsuarioObservers.isEmpty()){
             for(ManterUsuarioObserver observer: manterUsuarioObservers)
             observer.atualizarUsuario();
         }
     }
     
-    public void subscribe(ManterUsuarioObserver observer){
+    public void notificarLogObservers(Log log){
+        if(!logObservers.isEmpty()){
+            for(LogObserver observer: logObservers)
+            observer.escreverLog(log);
+        }
+    }
+
+    public List<LogObserver> getLogObservers() {
+        return logObservers;
+    }
+    
+    
+    public void subscribeManterUsuarioObservers(ManterUsuarioObserver observer){
         manterUsuarioObservers.add(observer);
+    }
+    
+    public void subscribeLogObservers(LogObserver observer){
+        logObservers.add(observer);
     }
     
     public void setEstado(ManterUsuarioPresenterState estado){

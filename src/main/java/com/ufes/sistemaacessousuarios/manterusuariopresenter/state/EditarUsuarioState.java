@@ -42,7 +42,7 @@ public class EditarUsuarioState extends ManterUsuarioPresenterState{
         Usuario usuario = presenter.lerCamposAtualizacao();
         presenter.setUsuario(usuario);
         command.executar();
-        presenter.notificar();
+        presenter.notificarManterUsuarioObservers();
         presenter.setEstado(new VisualizarUsuarioState(presenter));
     }
     

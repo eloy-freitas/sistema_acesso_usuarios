@@ -36,15 +36,13 @@ public class LogCSVAdapter implements ILogAdapter{
 
     @Override
     public void writeLog(Log log) throws IOException{
-        DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter horaFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         List<String[]> data = new ArrayList<>();
         data.add(
             new String[] {
                 log.getOperacao(), 
                 log.getNome(),
-                log.getData().format(dataFormatter),
-                log.getHora().format(horaFormatter),
+                log.getData(),
+                log.getHora(),
                 log.getUsuario(), 
                 log.getMensagem()
             }
