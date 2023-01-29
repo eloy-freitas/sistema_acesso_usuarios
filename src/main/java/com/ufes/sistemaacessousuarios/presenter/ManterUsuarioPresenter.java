@@ -7,9 +7,11 @@ import com.ufes.sistemaacessousuarios.persistencia.service.usuario.IUsuarioServi
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.CadastroUsuarioState;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.ManterUsuarioPresenterState;
+import com.ufes.sistemaacessousuarios.validadorsenha.ValidadorSenhaService;
 import com.ufes.sistemaacessousuarios.view.ManterUsuarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +23,7 @@ import javax.swing.JOptionPane;
 public class ManterUsuarioPresenter {
     
     private ManterUsuarioView view;
+    private ValidadorSenhaService validadorSenhaService;
     private IUsuarioService usuarioService;
     private ManterUsuarioPresenterState estado;
     private Usuario usuario;
@@ -48,6 +51,7 @@ public class ManterUsuarioPresenter {
         manterUsuarioObservers = new ArrayList<>();
         notificarUsuarioObservers = new ArrayList<>();
         usuarioService = new UsuarioService();
+        validadorSenhaService = new ValidadorSenhaService();
     }
 
     private void initListeners(){
@@ -62,14 +66,23 @@ public class ManterUsuarioPresenter {
                         "Sucesso!",
                         JOptionPane.INFORMATION_MESSAGE
                     );
-                }catch(SQLException | NullPointerException ex){
+                }catch(SQLException | NullPointerException  ex){
                     JOptionPane.showMessageDialog(
                         view, 
                         ex, 
                         "ERRO!",
                         JOptionPane.ERROR_MESSAGE
                     );
-                }      
+                } catch(IOException exx){
+                    JOptionPane.showMessageDialog(
+                            view, 
+                            ""
+                                .concat("Senha inválida: \n")
+                                .concat(exx.getMessage()),
+                            "ERRO!",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                } 
             }  
         });
         
@@ -131,7 +144,7 @@ public class ManterUsuarioPresenter {
         view.getPsSenha().setText("");
     }
     
-    public Usuario lerCampos() throws NullPointerException{
+    public Usuario lerCampos() throws IOException{
         String nome = view.getTxtNome().getText();
         String login = view.getTxtUserName().getText();
         String email = view.getTxtEmail().getText();
@@ -142,21 +155,23 @@ public class ManterUsuarioPresenter {
         }  
         
         if(nome.isBlank())
-            throw new NullPointerException("nome inválido");
+            throw new IOException("nome não pode ser vázio");
         
         if(login.isBlank())
-            throw new NullPointerException("username inválido");
+            throw new IOException("username não pode ser vázio");
         
         if(email.isBlank())
-            throw new NullPointerException("email inválido");
+            throw new IOException("email não pode ser vázio");
         
         if(senha.isBlank())
-            throw new NullPointerException("senha inválida");
+            throw new IOException("senha não pode ser vázio");
         
-        List<String> validacao = new ValidadorSenha().validar(senha);
-        for(String s : validacao)
-            System.out.println(s);
-
+        try{
+            validadorSenhaService.validar(senha);
+        }catch(IOException ex){
+            throw new IOException(ex.getMessage());
+        }
+        
         return new Usuario(
             nome,
             login,
@@ -175,13 +190,13 @@ public class ManterUsuarioPresenter {
         String email = view.getTxtEmail().getText();
 
         if(nome.isBlank())
-            throw new NullPointerException("nome inválido");
+            throw new NullPointerException("nome não pode ser vázio");
         
         if(login.isBlank())
-            throw new NullPointerException("username inválido");
+            throw new NullPointerException("username não pode ser vázio");
         
         if(email.isBlank())
-            throw new NullPointerException("email inválido");
+            throw new NullPointerException("email não pode ser vázio");
         
         return new Usuario(
             usuario.getId(),
@@ -196,12 +211,18 @@ public class ManterUsuarioPresenter {
         );
     }
     
-    public Usuario lerCamposAtualizacaoSenha() throws NullPointerException{
+    public Usuario lerCamposAtualizacaoSenha() throws IOException{
         String senha = "";
         char[] senhaChar = this.view.getPsSenha().getPassword();
         for(char c : senhaChar){
             senha += String.valueOf(c);
         }  
+        
+        try{
+            validadorSenhaService.validar(senha);
+        }catch(IOException ex){
+            throw new IOException(ex.getMessage());
+        }
         
         return new Usuario(
             usuario.getId(),
@@ -240,7 +261,7 @@ public class ManterUsuarioPresenter {
         return usuarioService;
     }
     
-    private void salvar() throws SQLException{
+    private void salvar() throws SQLException, IOException{
         this.estado.salvar();
     }
     

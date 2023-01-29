@@ -3,6 +3,7 @@ package com.ufes.sistemaacessousuarios.manterusuariopresenter.state;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.AlterarSenhaCommand;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
+import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -32,8 +33,13 @@ public class AlterarSenhaState extends ManterUsuarioPresenterState{
     }
     
     @Override
-    public void salvar() throws SQLException{
-        Usuario usuario = presenter.lerCamposAtualizacaoSenha();
+    public void salvar() throws SQLException, IOException{
+        Usuario usuario;
+        try{
+            usuario = presenter.lerCamposAtualizacaoSenha();
+        }catch(IOException ex){
+            throw new IOException(ex);
+        }
         presenter.setUsuario(usuario);
         command.executar();
         presenter.fechar();

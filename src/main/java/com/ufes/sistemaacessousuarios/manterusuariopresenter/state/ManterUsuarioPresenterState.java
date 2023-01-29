@@ -3,6 +3,7 @@ package com.ufes.sistemaacessousuarios.manterusuariopresenter.state;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.ManterUsuarioCommand;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.view.ManterUsuarioView;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public abstract class ManterUsuarioPresenterState {
@@ -16,7 +17,7 @@ public abstract class ManterUsuarioPresenterState {
         this.manterUsuarioView = this.presenter.getView();
     }
     
-    public void salvar() throws SQLException{
+    public void salvar() throws SQLException, IOException{
         throw new RuntimeException("Operação inválida para o estado atual");
     }
     
