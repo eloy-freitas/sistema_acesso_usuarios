@@ -348,6 +348,21 @@ public class NotificacaoDAO implements INotificacaoDAO{
 
     @Override
     public void readNotificacao(String idNotificacao) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement ps = null;
+        String query = ""
+                .concat("\n UPDATE usuarios_notificados ")
+                .concat("\n SET fl_lida = 1")
+                .concat("\n WHERE id_notificacao = ?");
+        try {
+            conexao = ConexaoSQLite.getConnection();
+            ps = conexao.prepareStatement(query);
+            ps.setString(1, idNotificacao);
+
+            ps.executeUpdate();  
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao usuário senha.\n" + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps);
+        }
     }
 }

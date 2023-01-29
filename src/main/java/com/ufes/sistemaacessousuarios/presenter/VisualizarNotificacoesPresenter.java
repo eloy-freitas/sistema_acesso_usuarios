@@ -182,7 +182,9 @@ public class VisualizarNotificacoesPresenter {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
         Date data = df.parse(id.toString());
         long epoch = data.getTime();
-        dto = notificacaoService.buscarNotificacaoPorID(String.valueOf(epoch));
+        String strEpoch = String.valueOf(epoch);
+        dto = notificacaoService.buscarNotificacaoPorID(strEpoch);
+        notificacaoService.visualizarNotificacao(strEpoch);
         for(VisualizarNotificacoesObserver observer : notificacoesObservers)
             observer.visualizarNotificacao(dto);
     }

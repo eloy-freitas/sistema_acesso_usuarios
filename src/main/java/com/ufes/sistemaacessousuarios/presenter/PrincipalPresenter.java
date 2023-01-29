@@ -175,6 +175,7 @@ public class PrincipalPresenter implements LoginObserver, NotificarUsuarioObserv
 
     @Override
     public void visualizarNotificacao(NotificacaoDTO dto) {
+        estado.decorarBotaoNotificacoes();
         VisualizarNotificacaoPresenter visualizarNotificacaoPresenter;
         visualizarNotificacaoPresenter = new VisualizarNotificacaoPresenter(dto);
         principalView.getDpMenu().add(visualizarNotificacaoPresenter.getView());
