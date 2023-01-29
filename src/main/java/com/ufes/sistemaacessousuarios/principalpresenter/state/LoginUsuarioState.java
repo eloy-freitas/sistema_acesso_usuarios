@@ -2,6 +2,7 @@ package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
 
 public class LoginUsuarioState extends PrincipalPresenterState{
     public LoginUsuarioState(PrincipalPresenter presenter) {
@@ -37,5 +38,14 @@ public class LoginUsuarioState extends PrincipalPresenterState{
             principalView.getDpMenu().add(manterUsuarioPresenter.getView());
             manterUsuarioPresenter.getView().setVisible(true);
         }  
+    }
+    
+    @Override
+    public void visualizarNotificacoes(){
+        VisualizarNotificacoesPresenter visualizarNotificacoesPresenter;
+        visualizarNotificacoesPresenter = new VisualizarNotificacoesPresenter(presenter.getUsuario());
+        visualizarNotificacoesPresenter.subscribeNotificacaoObserver(presenter);
+        principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
+        visualizarNotificacoesPresenter.getView().setVisible(true);
     }
 }

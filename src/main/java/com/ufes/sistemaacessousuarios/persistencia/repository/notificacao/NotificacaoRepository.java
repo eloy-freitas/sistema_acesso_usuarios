@@ -8,6 +8,7 @@ import com.ufes.sistemaacessousuarios.persistencia.dao.notificacao.NotificacaoDA
 import com.ufes.sistemaacessousuarios.persistencia.dao.usuario.IUsuarioDAO;
 import com.ufes.sistemaacessousuarios.persistencia.dao.usuario.UsuarioDAO;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +65,16 @@ public class NotificacaoRepository  implements INotificacaoRepository{
     public int totalNotificacoes(String username) throws SQLException {
         return notificacaoDAO.getTotalNotifies(username);
     }
-    
-    
+
+    @Override
+    public void visualizarNotificacao(String idNotificacao) throws SQLException {
+        notificacaoDAO.readNotificacao(idNotificacao);
+    }
+
+    @Override
+    public NotificacaoDTO buscarNotificacaoPorID(String idNotificacao) throws SQLException {
+        return notificacaoDAO.getNotficacaoByID(idNotificacao);
+        
+    }
+
 }

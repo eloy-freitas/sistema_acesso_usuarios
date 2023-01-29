@@ -78,9 +78,9 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     public void visualizarNotificacoes(){
         VisualizarNotificacoesPresenter visualizarNotificacoesPresenter;
         visualizarNotificacoesPresenter = new VisualizarNotificacoesPresenter(presenter.getUsuario());
+        visualizarNotificacoesPresenter.subscribeNotificacaoObserver(presenter);
         principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
         visualizarNotificacoesPresenter.getView().setVisible(true);
-        
     }
 
 }

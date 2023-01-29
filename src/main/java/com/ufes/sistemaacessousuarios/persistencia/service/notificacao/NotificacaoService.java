@@ -71,4 +71,13 @@ public class NotificacaoService implements INotificacaoService{
         return notificacaoRepository.totalNotificacoes(username);
     }
 
+    @Override
+    public NotificacaoDTO buscarNotificacaoPorID(String idNotificacao) throws SQLException {
+        return notificacaoRepository.buscarNotificacaoPorID(idNotificacao);
+    }
+
+    @Override
+    public void visualizarNotificacao(String idNotificacao) throws SQLException {
+        notificacaoRepository.visualizarNotificacao(idNotificacao);
+    }
 }

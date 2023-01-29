@@ -8,9 +8,16 @@ import com.ufes.sistemaacessousuarios.view.VisualizarNotificacoesView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -23,6 +30,7 @@ public class VisualizarNotificacoesPresenter {
     private List<NotificacaoDTO> notificacoes;
     private VisualizarNotificacoesView view;
     private DefaultTableModel tmNotificacoes;
+    private List<VisualizarNotificacoesObserver> notificacoesObservers;
 
     public VisualizarNotificacoesPresenter(Usuario usuario) {
         this.usuario = usuario;
@@ -34,6 +42,7 @@ public class VisualizarNotificacoesPresenter {
     
     public void initServices(){
         notificacaoService = new NotificacaoService();
+        notificacoesObservers = new ArrayList<>();
     }
     
     public void initListeners(){
@@ -48,7 +57,23 @@ public class VisualizarNotificacoesPresenter {
         view.getBtnVisualizar().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-            
+                try {
+                    visualizarDetalhesNotificacao();
+                    
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(view,
+                            "Erro ao buscar usuario.\n\n"
+                            + ex.getMessage(),
+                            "ERRO",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch(ArrayIndexOutOfBoundsException ex){
+                    JOptionPane.showMessageDialog(view,
+                            "Você deve selecionar um usuario.\n\n",
+                            "ERRO",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (ParseException ex) {
+                  
+                }
             }
         });
         
@@ -77,7 +102,7 @@ public class VisualizarNotificacoesPresenter {
     
     private void popularTabela() {
         limpaTabela();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS");
         if(!notificacoes.isEmpty()){
             ListIterator<NotificacaoDTO> iterator = this.notificacoes.listIterator();
             while (iterator.hasNext()) {
@@ -145,4 +170,20 @@ public class VisualizarNotificacoesPresenter {
         view.dispose();
     }
     
+    public void subscribeNotificacaoObserver(VisualizarNotificacoesObserver observer){
+        notificacoesObservers.add(observer);
+    }
+    
+    private void visualizarDetalhesNotificacao() throws SQLException, ArrayIndexOutOfBoundsException, ParseException{
+        JTable tabela = view.getTblNotificacoes();
+        int linha = tabela.getSelectedRow();
+        NotificacaoDTO dto;
+        Object id = tabela.getModel().getValueAt(linha, 0);
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");
+        Date data = df.parse(id.toString());
+        long epoch = data.getTime();
+        dto = notificacaoService.buscarNotificacaoPorID(String.valueOf(epoch));
+        for(VisualizarNotificacoesObserver observer : notificacoesObservers)
+            observer.visualizarNotificacao(dto);
+    }
 }

@@ -31,7 +31,6 @@ public class VisualizarNotificacaoView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         lblRemetente = new javax.swing.JLabel();
-        lblEmailRemetente = new javax.swing.JLabel();
         lblDataEnvio = new javax.swing.JLabel();
         lblDataVisualizacao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -39,9 +38,10 @@ public class VisualizarNotificacaoView extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         btnAutorizar = new javax.swing.JButton();
 
-        lblRemetente.setText("remetente:<username>");
+        setClosable(true);
+        setIconifiable(true);
 
-        lblEmailRemetente.setText("e-mail do remetente: <e-mail>");
+        lblRemetente.setText("remetente:<username>");
 
         lblDataEnvio.setText("data de envio: <data de envio>");
 
@@ -63,18 +63,16 @@ public class VisualizarNotificacaoView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDataVisualizacao, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblRemetente, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEmailRemetente, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                            .addComponent(lblDataEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAutorizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblRemetente, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblDataEnvio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -83,13 +81,11 @@ public class VisualizarNotificacaoView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblRemetente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblEmailRemetente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDataEnvio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDataVisualizacao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
@@ -116,10 +112,6 @@ public class VisualizarNotificacaoView extends javax.swing.JInternalFrame {
         return lblDataVisualizacao;
     }
 
-    public JLabel getLblEmailRemetente() {
-        return lblEmailRemetente;
-    }
-
     public JLabel getLblRemetente() {
         return lblRemetente;
     }
@@ -134,7 +126,6 @@ public class VisualizarNotificacaoView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDataEnvio;
     private javax.swing.JLabel lblDataVisualizacao;
-    private javax.swing.JLabel lblEmailRemetente;
     private javax.swing.JLabel lblRemetente;
     private javax.swing.JTextArea txtMensagem;
     // End of variables declaration//GEN-END:variables

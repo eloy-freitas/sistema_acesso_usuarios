@@ -1,5 +1,6 @@
 package com.ufes.sistemaacessousuarios.presenter;
 
+import com.ufes.sistemaacessousuarios.model.NotificacaoDTO;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.notificacao.NotificacaoService;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
@@ -15,7 +16,7 @@ import java.sql.SQLException;
 import javax.swing.JInternalFrame;
 
 
-public class PrincipalPresenter implements LoginObserver, NotificarUsuarioObserver{
+public class PrincipalPresenter implements LoginObserver, NotificarUsuarioObserver, VisualizarNotificacoesObserver{
     private PrincipalView principalView;
     private ManterUsuarioPresenter manterUsuarioPresenter;
     private PrincipalPresenterState estado;
@@ -172,4 +173,11 @@ public class PrincipalPresenter implements LoginObserver, NotificarUsuarioObserv
         notificacaoService.notificarNovoUsuario(remetente);
     }
 
+    @Override
+    public void visualizarNotificacao(NotificacaoDTO dto) {
+        VisualizarNotificacaoPresenter visualizarNotificacaoPresenter;
+        visualizarNotificacaoPresenter = new VisualizarNotificacaoPresenter(dto);
+        principalView.getDpMenu().add(visualizarNotificacaoPresenter.getView());
+        visualizarNotificacaoPresenter.getView().setVisible(true);
+    }
 }

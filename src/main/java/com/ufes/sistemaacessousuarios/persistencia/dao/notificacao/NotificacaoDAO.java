@@ -96,6 +96,8 @@ public class NotificacaoDAO implements INotificacaoDAO{
                 .concat("\n 	, un.fl_lida")
                 .concat("\n 	, un.dt_visualizacao")
                 .concat("\n 	, un.dt_envio")
+                .concat("\n , n.ds_mensagem")
+                .concat("\n , n.fl_tipo")
                 .concat("\n FROM usuarios_notificados un")
                 .concat("\n LEFT join usuario d ON un.id_destinatario = d.id_usuario")
                 .concat("\n LEFT join usuario r ON un.id_remetente = r.id_usuario")
@@ -115,8 +117,15 @@ public class NotificacaoDAO implements INotificacaoDAO{
                     Long idDestinatario = rs.getLong(4);
                     String destinatarioUsername = rs.getString(5);
                     boolean flLida = rs.getBoolean(6);
-                    LocalDateTime dataVisualizacao = rs.getTimestamp(7).toLocalDateTime();
-                    LocalDateTime dataEnvio = rs.getTimestamp(9).toLocalDateTime();
+                    LocalDateTime dataVisualizacao;
+                    try{
+                        dataVisualizacao = rs.getTimestamp(7).toLocalDateTime();
+                    }catch(Exception e){
+                        dataVisualizacao = null;
+                    }
+                    LocalDateTime dataEnvio = rs.getTimestamp(8).toLocalDateTime();
+                    String mensagem = rs.getString(9);
+                    int flTipo = rs.getInt(10);
 
                     notificacoes.add(
                         new NotificacaoDTO(
@@ -127,7 +136,9 @@ public class NotificacaoDAO implements INotificacaoDAO{
                             destinatarioUsername, 
                             flLida, 
                             dataVisualizacao,
-                            dataEnvio
+                            dataEnvio,
+                            mensagem,
+                            flTipo
                         )
                     );
                 }while(rs.next());
@@ -159,6 +170,8 @@ public class NotificacaoDAO implements INotificacaoDAO{
                 .concat("\n 	, un.fl_lida")
                 .concat("\n 	, un.dt_visualizacao")
                 .concat("\n 	, un.dt_envio")
+                .concat("\n , n.ds_mensagem")
+                .concat("\n , n.fl_tipo")
                 .concat("\n FROM usuarios_notificados un")
                 .concat("\n LEFT join usuario d ON un.id_destinatario = d.id_usuario")
                 .concat("\n LEFT join usuario r ON un.id_remetente = r.id_usuario")
@@ -191,7 +204,10 @@ public class NotificacaoDAO implements INotificacaoDAO{
                     }
                     
                     LocalDateTime dataEnvio = rs.getTimestamp(8).toLocalDateTime();
-
+                    
+                    String mensagem = rs.getString(9);
+                    int flTipo = rs.getInt(10);
+                    
                     notificacoes.add(
                         new NotificacaoDTO(
                             idNotificacao, 
@@ -201,7 +217,9 @@ public class NotificacaoDAO implements INotificacaoDAO{
                             destinatarioUsername, 
                             flLida, 
                             dataVisualizacao,
-                            dataEnvio
+                            dataEnvio,
+                            mensagem,
+                            flTipo
                         )
                     );
                 }while(rs.next());
@@ -217,7 +235,6 @@ public class NotificacaoDAO implements INotificacaoDAO{
 
     @Override
     public int getTotalNotifies(String username) throws SQLException {
-        
         PreparedStatement ps = null;
         ResultSet rs = null;
         
@@ -252,7 +269,85 @@ public class NotificacaoDAO implements INotificacaoDAO{
             ConexaoSQLite.closeConnection(conexao, ps, rs);
         }
     }
-    
-    
-    
+
+    @Override
+    public NotificacaoDTO getNotficacaoByID(String idNotificacao) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        NotificacaoDTO notificacao;
+        
+        try {
+            String query = ""
+                .concat("\n SELECT")
+                .concat("\n 	un.id_notificacao")
+                .concat("\n 	, un.id_remetente")
+                .concat("\n 	, r.nm_username remetente")
+                .concat("\n 	, un.id_destinatario")
+                .concat("\n 	, d.nm_username destinatario")
+                .concat("\n 	, un.fl_lida")
+                .concat("\n 	, un.dt_visualizacao")
+                .concat("\n 	, un.dt_envio")
+                .concat("\n , n.ds_mensagem")
+                .concat("\n , n.fl_tipo")
+                .concat("\n FROM usuarios_notificados un")
+                .concat("\n LEFT join usuario d ON un.id_destinatario = d.id_usuario")
+                .concat("\n LEFT join usuario r ON un.id_remetente = r.id_usuario")
+                .concat("\n LEFT join notificacao n ON un.id_notificacao = n.id_notificacao")
+                .concat("\n WHERE un.id_notificacao = ?");
+            
+            conexao = ConexaoSQLite.getConnection();
+            
+            ps = conexao.prepareStatement(query);
+            
+            ps.setString(1, idNotificacao);
+            
+            rs = ps.executeQuery();
+            if (!rs.next())
+                throw new SQLException("Usuário possui notificações");
+
+            LocalDateTime Notificacao = rs.getTimestamp(1).toLocalDateTime();
+            Long idRemetente = rs.getLong(2);
+            String remetenteUsername = rs.getString(3);
+            Long idDestinatario = rs.getLong(4);
+            String destinatarioUsername = rs.getString(5);
+            boolean flLida = rs.getBoolean(6);
+            LocalDateTime dataVisualizacao;
+            try{
+                dataVisualizacao = rs.getTimestamp(7).toLocalDateTime();
+            }catch(Exception e){
+                dataVisualizacao = null;
+            }
+
+            LocalDateTime dataEnvio = rs.getTimestamp(8).toLocalDateTime();
+
+            String mensagem = rs.getString(9);
+            int flTipo = rs.getInt(10);
+
+            notificacao = new NotificacaoDTO(
+                Notificacao, 
+                idRemetente, 
+                remetenteUsername, 
+                idDestinatario, 
+                destinatarioUsername, 
+                flLida, 
+                dataVisualizacao,
+                dataEnvio,
+                mensagem,
+                flTipo
+            );
+            
+            return notificacao;
+        } catch (SQLException ex) {
+            throw new SQLException("Erro ao buscar notificacões.\n"
+                    + ex.getMessage());
+        } finally {
+            ConexaoSQLite.closeConnection(conexao, ps, rs);
+        }
+    }
+
+    @Override
+    public void readNotificacao(String idNotificacao) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
