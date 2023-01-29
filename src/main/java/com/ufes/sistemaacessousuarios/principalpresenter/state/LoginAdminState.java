@@ -1,5 +1,6 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.VisualizarUsuarioState;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioObserver;
@@ -39,6 +40,8 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     @Override
     public void alterarSenha(){
+        manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
+        manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
         if(!manterUsuarioPresenter.getView().isVisible()){
             principalView.getDpMenu().add(manterUsuarioPresenter.getView());
             manterUsuarioPresenter.getView().setVisible(true);

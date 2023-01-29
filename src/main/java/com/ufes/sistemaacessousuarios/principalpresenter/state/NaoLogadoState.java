@@ -32,16 +32,15 @@ public class NaoLogadoState extends PrincipalPresenterState{
     }
     
     @Override
-    public void login(){ 
-        LoginView loginView = loginPresenter.getView();
-        if(!loginView.isVisible()){
-            principalView.getDpMenu().add(loginView);
-            loginView.setVisible(true);
-        }  
+    public void login(){
+        presenter.fecharJanelasInternas();
+        principalView.getDpMenu().add(loginPresenter.getView());
+        loginPresenter.getView().setVisible(true);
     }
     
     @Override
     public void cadastrar(){
+        presenter.fecharJanelasInternas();
         manterUsuarioPresenter = new ManterUsuarioPresenter();
         manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
         if(!manterUsuarioPresenter.getView().isVisible()){

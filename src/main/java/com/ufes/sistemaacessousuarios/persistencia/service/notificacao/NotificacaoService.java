@@ -21,7 +21,6 @@ public class NotificacaoService implements INotificacaoService{
     @Override
     public void notificarNovoUsuario(Usuario remetenteSemId) throws SQLException {
         if(notificacaoRepository.buscarTodos().size() > 1 && !remetenteSemId.isAdmin()){
-            System.out.println("aqui");
             Usuario remetente = notificacaoRepository.buscarPorUsername(remetenteSemId.getLogin());
             List<Usuario> admins = notificacaoRepository.buscarAdmins();
 

@@ -27,7 +27,6 @@ public class NotificacaoDAO implements INotificacaoDAO{
             conexao = ConexaoSQLite.getConnection();
             
             for(Usuario destinatario : destinatarios){
-                System.out.println(destinatario.getLogin());
                 String query = ""
                     .concat("\n insert into usuarios_notificados (")
                     .concat("\n     id_notificacao")

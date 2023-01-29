@@ -87,6 +87,8 @@ public class PrincipalPresenter implements LoginObserver, NotificarUsuarioObserv
         if(principalView.getDpMenu().getAllFrames().length > 0)
             for(JInternalFrame frame : principalView.getDpMenu().getAllFrames())
                 frame.dispose();
+         
+        principalView.getDpMenu().removeAll();
     }
     
     public void initServices(){

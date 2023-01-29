@@ -1,5 +1,6 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
@@ -34,6 +35,8 @@ public class LoginUsuarioState extends PrincipalPresenterState{
     
     @Override
     public void alterarSenha(){
+        manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
+        manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
         if(!manterUsuarioPresenter.getView().isVisible()){
             principalView.getDpMenu().add(manterUsuarioPresenter.getView());
             manterUsuarioPresenter.getView().setVisible(true);
