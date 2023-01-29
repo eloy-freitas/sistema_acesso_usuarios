@@ -1,5 +1,6 @@
 package com.ufes.sistemaacessousuarios.presenter;
 
+import com.pss.senha.validacao.ValidadorSenha;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.IUsuarioService;
@@ -151,7 +152,11 @@ public class ManterUsuarioPresenter {
         
         if(senha.isBlank())
             throw new NullPointerException("senha inválida");
-            
+        
+        List<String> validacao = new ValidadorSenha().validar(senha);
+        for(String s : validacao)
+            System.out.println(s);
+
         return new Usuario(
             nome,
             login,

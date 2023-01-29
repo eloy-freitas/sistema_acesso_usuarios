@@ -62,7 +62,7 @@ public class VisualizarNotificacoesPresenter {
                     
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(view,
-                            "Erro ao buscar notificação.\n\n"
+                            "Erro ao buscar notificação .\n\n"
                             + ex.getMessage(),
                             "ERRO",
                             JOptionPane.ERROR_MESSAGE);
