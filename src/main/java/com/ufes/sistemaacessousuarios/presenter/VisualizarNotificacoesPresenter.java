@@ -62,17 +62,20 @@ public class VisualizarNotificacoesPresenter {
                     
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(view,
-                            "Erro ao buscar usuario.\n\n"
+                            "Erro ao buscar notificação.\n\n"
                             + ex.getMessage(),
                             "ERRO",
                             JOptionPane.ERROR_MESSAGE);
                 } catch(ArrayIndexOutOfBoundsException ex){
                     JOptionPane.showMessageDialog(view,
-                            "Você deve selecionar um usuario.\n\n",
+                            "Você deve selecionar uma mensagem.\n\n",
                             "ERRO",
                             JOptionPane.ERROR_MESSAGE);
                 } catch (ParseException ex) {
-                  
+                    JOptionPane.showMessageDialog(view,
+                            "Formato de data inválido.\n\n" + ex.getMessage(),
+                            "ERRO",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -185,6 +188,7 @@ public class VisualizarNotificacoesPresenter {
         String strEpoch = String.valueOf(epoch);
         dto = notificacaoService.buscarNotificacaoPorID(strEpoch);
         notificacaoService.visualizarNotificacao(strEpoch);
+        atualizarTabela();
         for(VisualizarNotificacoesObserver observer : notificacoesObservers)
             observer.visualizarNotificacao(dto);
     }
