@@ -35,6 +35,9 @@ public class VisualizarNotificacoesView extends javax.swing.JInternalFrame {
         btnAtualizar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
+
         tblNotificacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
