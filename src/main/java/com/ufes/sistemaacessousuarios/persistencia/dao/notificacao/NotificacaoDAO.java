@@ -351,11 +351,13 @@ public class NotificacaoDAO implements INotificacaoDAO{
         String query = ""
                 .concat("\n UPDATE usuarios_notificados ")
                 .concat("\n SET fl_lida = 1")
+                .concat("\n , dt_visualizacao = ?")
                 .concat("\n WHERE id_notificacao = ?");
         try {
             conexao = ConexaoSQLite.getConnection();
             ps = conexao.prepareStatement(query);
-            ps.setString(1, idNotificacao);
+            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(2, idNotificacao);
 
             ps.executeUpdate();  
         } catch (SQLException ex) {
