@@ -50,7 +50,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         popularTabela();
     }
     
-    private void atualizarTabela(){
+    public void atualizarTabela(){
         try {
             usuarios = usuarioService.buscarTodos();
         } catch (SQLException ex) {
