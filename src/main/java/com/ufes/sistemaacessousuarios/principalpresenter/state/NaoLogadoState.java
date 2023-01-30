@@ -1,6 +1,7 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
 import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
+import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.view.LoginView;
 
@@ -31,17 +32,17 @@ public class NaoLogadoState extends PrincipalPresenterState{
     }
     
     @Override
-    public void login(){ 
-        LoginView loginView = loginPresenter.getView();
-        if(!loginView.isVisible()){
-            principalView.getDpMenu().add(loginView);
-            loginView.setVisible(true);
-        }  
+    public void login(){
+        presenter.fecharJanelasInternas();
+        principalView.getDpMenu().add(loginPresenter.getView());
+        loginPresenter.getView().setVisible(true);
     }
     
     @Override
     public void cadastrar(){
-        manterUsuarioPresenter.limparCampos();
+        presenter.fecharJanelasInternas();
+        manterUsuarioPresenter = new ManterUsuarioPresenter();
+        manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
         if(!manterUsuarioPresenter.getView().isVisible()){
             principalView.getDpMenu().add(manterUsuarioPresenter.getView());
             manterUsuarioPresenter.getView().setVisible(true);

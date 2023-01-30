@@ -20,4 +20,5 @@ public interface IUsuarioDAO {
     int getTotalNotifications(Usuario usuario) throws SQLException;
     void update(Usuario usuario) throws SQLException;
     List<Usuario> getByNome(String nome) throws SQLException;
+    Usuario getByUsername(String username) throws SQLException;
 }

@@ -42,6 +42,10 @@ public abstract class PrincipalPresenterState {
         throw new RuntimeException("Operação inválida para o estado atual");
     }
     
+    public void visualizarNotificacoes(){
+        throw new RuntimeException("Operação inválida para o estado atual");
+    }
+
     public final String criarInfoUsuario(Usuario usuario){
         String texto = ""
                 .concat((usuario.isAdmin()) ? "Administrador: " : "Usuário: ")
@@ -54,7 +58,9 @@ public abstract class PrincipalPresenterState {
     }
     
     public int totalNotificacoes() throws SQLException{
-        return presenter.getUsuarioService().buscarTotalNotificacoes(presenter.getUsuario());
+        return presenter
+                .getNotificacaoService()
+                .totalNotificacoes(presenter.getUsuario().getLogin());
     }
     
     public void decorarBotaoNotificacoes(){

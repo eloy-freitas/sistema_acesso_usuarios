@@ -5,6 +5,7 @@ import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.ManterUsuarioCommand;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.SalvarUsuarioCommand;
+import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -34,10 +35,17 @@ public class CadastroUsuarioState extends ManterUsuarioPresenterState{
     }
     
     @Override
-    public void salvar() throws SQLException{
-        Usuario usuario = presenter.lerCampos();
+    public void salvar() throws SQLException, IOException{
+        Usuario usuario;
+        try{
+            usuario = presenter.lerCampos();
+        }catch(IOException ex){
+            throw new IOException(ex);
+        }
         presenter.setUsuario(usuario);
         command.executar();
+        if(!presenter.getNotificarUsuarioObservers().isEmpty())
+            presenter.notificarNovoUsuario(usuario);
         if(!presenter.getManterUsuarioObservers().isEmpty())
             presenter.notificar();
         presenter.fechar();

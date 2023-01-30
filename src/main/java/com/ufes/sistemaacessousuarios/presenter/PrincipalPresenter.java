@@ -1,6 +1,8 @@
 package com.ufes.sistemaacessousuarios.presenter;
 
+import com.ufes.sistemaacessousuarios.model.NotificacaoDTO;
 import com.ufes.sistemaacessousuarios.model.Usuario;
+import com.ufes.sistemaacessousuarios.persistencia.service.notificacao.NotificacaoService;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginAdminState;
 import com.ufes.sistemaacessousuarios.principalpresenter.state.LoginNaoAutorizadoState;
@@ -10,16 +12,18 @@ import com.ufes.sistemaacessousuarios.principalpresenter.state.PrincipalPresente
 import com.ufes.sistemaacessousuarios.view.PrincipalView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.JInternalFrame;
 
 
-public class PrincipalPresenter implements LoginObserver{
+public class PrincipalPresenter implements LoginObserver, NotificarUsuarioObserver, VisualizarNotificacoesObserver{
     private PrincipalView principalView;
     private ManterUsuarioPresenter manterUsuarioPresenter;
     private PrincipalPresenterState estado;
     private UsuarioService usuarioService;
     private Usuario usuario;
     private int totalNotificacoes;
+    private NotificacaoService notificacaoService;
     
     public PrincipalPresenter() {
         this.usuario = null;
@@ -69,17 +73,29 @@ public class PrincipalPresenter implements LoginObserver{
             }
             
         });
+        
+        this.principalView.getBtnNotificacoes().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                visualizarNotificacoes();
+            }
+            
+        });
     }
     
     public void fecharJanelasInternas(){
         if(principalView.getDpMenu().getAllFrames().length > 0)
             for(JInternalFrame frame : principalView.getDpMenu().getAllFrames())
                 frame.dispose();
+         
+        principalView.getDpMenu().removeAll();
     }
     
     public void initServices(){
-        this.usuarioService = new UsuarioService();
+        usuarioService = new UsuarioService();
+        notificacaoService = new NotificacaoService();
     }
+    
     
     public void sair(){
         estado.sair();
@@ -99,6 +115,10 @@ public class PrincipalPresenter implements LoginObserver{
     
     public void buscarUsuarios(){
         estado.buscarUsuarios();
+    }
+    
+    public void visualizarNotificacoes(){
+        estado.visualizarNotificacoes();
     }
 
     public PrincipalView getPrincipalView() {
@@ -145,7 +165,22 @@ public class PrincipalPresenter implements LoginObserver{
     public void setTotalNotificacoes(int totalNotificacoes) {
         this.totalNotificacoes = totalNotificacoes;
     }
-    
-    
-    
+
+    public NotificacaoService getNotificacaoService() {
+        return notificacaoService;
+    }
+
+    @Override
+    public void notificarNovoUsuario(Usuario remetente) throws SQLException{
+        notificacaoService.notificarNovoUsuario(remetente);
+    }
+
+    @Override
+    public void visualizarNotificacao(NotificacaoDTO dto) {
+        estado.decorarBotaoNotificacoes();
+        VisualizarNotificacaoPresenter visualizarNotificacaoPresenter;
+        visualizarNotificacaoPresenter = new VisualizarNotificacaoPresenter(dto);
+        principalView.getDpMenu().add(visualizarNotificacaoPresenter.getView());
+        visualizarNotificacaoPresenter.getView().setVisible(true);
+    }
 }

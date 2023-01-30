@@ -1,11 +1,13 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.VisualizarUsuarioState;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioObserver;
 import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
 
 
 public class LoginAdminState extends PrincipalPresenterState implements BuscarUsuarioObserver{
@@ -13,6 +15,7 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     public LoginAdminState(PrincipalPresenter presenter) {
         super(presenter);
+        buscarUsuarioPresenter = new BuscarUsuarioPresenter();
         initComponents();
     }
     
@@ -37,6 +40,8 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     @Override
     public void alterarSenha(){
+        manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
+        manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
         if(!manterUsuarioPresenter.getView().isVisible()){
             principalView.getDpMenu().add(manterUsuarioPresenter.getView());
             manterUsuarioPresenter.getView().setVisible(true);
@@ -46,7 +51,8 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     @Override
     public void cadastrar(){
         manterUsuarioPresenter = new ManterUsuarioPresenter();
-        manterUsuarioPresenter.subscribe(buscarUsuarioPresenter);
+        manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
+        manterUsuarioPresenter.subscribeManterUsuarioObserver(buscarUsuarioPresenter);
         if(!manterUsuarioPresenter.getView().isVisible()){
             principalView.getDpMenu().add(manterUsuarioPresenter.getView());
             manterUsuarioPresenter.getView().setVisible(true);
@@ -55,7 +61,6 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     @Override
     public void buscarUsuarios(){
-        buscarUsuarioPresenter = new BuscarUsuarioPresenter();
         if(!buscarUsuarioPresenter.getView().isVisible()){
             buscarUsuarioPresenter.subscribe(this);
             principalView.getDpMenu().add(buscarUsuarioPresenter.getView());
@@ -66,10 +71,19 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     @Override
     public void visualizarUsuario(Usuario usuario) {
         manterUsuarioPresenter = new ManterUsuarioPresenter(usuario);
-        manterUsuarioPresenter.subscribe(buscarUsuarioPresenter);
+        manterUsuarioPresenter.subscribeManterUsuarioObserver(buscarUsuarioPresenter);
         manterUsuarioPresenter.setEstado(new VisualizarUsuarioState(manterUsuarioPresenter));
         principalView.getDpMenu().add(manterUsuarioPresenter.getView());
         manterUsuarioPresenter.getView().setVisible(true);
+    }
+    
+    @Override
+    public void visualizarNotificacoes(){
+        VisualizarNotificacoesPresenter visualizarNotificacoesPresenter;
+        visualizarNotificacoesPresenter = new VisualizarNotificacoesPresenter(presenter.getUsuario());
+        visualizarNotificacoesPresenter.subscribeNotificacaoObserver(presenter);
+        principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
+        visualizarNotificacoesPresenter.getView().setVisible(true);
     }
 
 }

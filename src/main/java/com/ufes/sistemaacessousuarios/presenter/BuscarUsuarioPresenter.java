@@ -117,7 +117,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
                 Usuario usuario = iterator.next();
                 tmUsuarios.addRow(new Object[]{
                     usuario.getId(),
-                    usuario.getNome(),
+                    usuario.getLogin(),
                     usuario.getDataModificacao().format(formatter),
                     usuario.getDataCadastro().format(formatter),
                     usuario.isAdmin(),
@@ -131,7 +131,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         JTable tabela = view.getTblUsuarios();
         tmUsuarios = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"id","nome", "data modificação","data cadastro", "admin", "autorizado"}
+                new String[]{"id","username", "data modificação","data cadastro", "admin", "autorizado"}
         ){
             Class[] types = new Class [] {
                 java.lang.Long.class,
