@@ -3,14 +3,14 @@ package com.ufes.sistemaacessousuarios.principalpresenter.state;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.VisualizarUsuarioState;
 import com.ufes.sistemaacessousuarios.model.Usuario;
-import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioObserver;
 import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
+import com.ufes.sistemaacessousuarios.presenter.VisualizarUsuarioObserver;
 
 
-public class LoginAdminState extends PrincipalPresenterState implements BuscarUsuarioObserver{
+public class LoginAdminState extends PrincipalPresenterState implements VisualizarUsuarioObserver{
     private BuscarUsuarioPresenter buscarUsuarioPresenter;
     
     public LoginAdminState(PrincipalPresenter presenter) {
@@ -50,6 +50,7 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     @Override
     public void cadastrar(){
+        ManterUsuarioPresenter manterUsuarioPresenter;
         manterUsuarioPresenter = new ManterUsuarioPresenter();
         manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
         manterUsuarioPresenter.subscribeManterUsuarioObserver(buscarUsuarioPresenter);
@@ -61,6 +62,8 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
     
     @Override
     public void buscarUsuarios(){
+        buscarUsuarioPresenter.fechar();
+        buscarUsuarioPresenter = new BuscarUsuarioPresenter();
         buscarUsuarioPresenter.atualizarTabela();
         if(!buscarUsuarioPresenter.getView().isVisible()){
             buscarUsuarioPresenter.subscribe(this);
@@ -71,7 +74,9 @@ public class LoginAdminState extends PrincipalPresenterState implements BuscarUs
 
     @Override
     public void visualizarUsuario(Usuario usuario) {
+        ManterUsuarioPresenter manterUsuarioPresenter;
         manterUsuarioPresenter = new ManterUsuarioPresenter(usuario);
+        buscarUsuarioPresenter.subscribe(manterUsuarioPresenter);
         manterUsuarioPresenter.subscribeManterUsuarioObserver(buscarUsuarioPresenter);
         manterUsuarioPresenter.setEstado(new VisualizarUsuarioState(manterUsuarioPresenter));
         principalView.getDpMenu().add(manterUsuarioPresenter.getView());

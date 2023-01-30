@@ -22,11 +22,13 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
     private IUsuarioService usuarioService;
     private DefaultTableModel tmUsuarios;
     private List<Usuario> usuarios;
-    private List<BuscarUsuarioObserver> observers;
+    private List<VisualizarUsuarioObserver> observers;
+    private List<SubJanelaObserver> subJanelaObservers;
     
     public BuscarUsuarioPresenter() {
         view = new BuscarUsuarioView();
         observers = new ArrayList<>();
+        subJanelaObservers = new ArrayList<>();
         initServices();
         atualizarTabela();
         initListeners();
@@ -97,8 +99,15 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
                 atualizarTabela();
             }
         });
+        
+        view.getBtnCancelar().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fechar();
+            }
+        });
     }
-    
+   
     private void limpaTabela() {
         int rowCount = tmUsuarios.getRowCount();
         if (rowCount > 0) {
@@ -174,7 +183,7 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         try {
             Object id = tabela.getModel().getValueAt(linha, 0);
             usuario = usuarioService.buscarPorID(Long.parseLong(id.toString()));
-            for(BuscarUsuarioObserver observer: observers)
+            for(VisualizarUsuarioObserver observer: observers)
                 observer.visualizarUsuario(usuario);
             
         } catch (SQLException ex) {
@@ -191,8 +200,20 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         }
     }
     
-    public void subscribe(BuscarUsuarioObserver observer){
+    public void subscribe(VisualizarUsuarioObserver observer){
         this.observers.add(observer);
     }
     
+    public void subscribe(SubJanelaObserver observer){
+        this.subJanelaObservers.add(observer);
+    }
+    
+    public void fechar(){
+        for(SubJanelaObserver o : subJanelaObservers)
+            o.fecharJanela();
+        
+        subJanelaObservers = new ArrayList<>();
+        observers = new ArrayList<>();
+        view.dispose();
+    }
 }

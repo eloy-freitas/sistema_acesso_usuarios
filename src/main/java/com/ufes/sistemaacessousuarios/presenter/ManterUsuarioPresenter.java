@@ -20,7 +20,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 
-public class ManterUsuarioPresenter {
+public class ManterUsuarioPresenter implements SubJanelaObserver{
     
     private ManterUsuarioView view;
     private ValidadorSenhaService validadorSenhaService;
@@ -250,7 +250,9 @@ public class ManterUsuarioPresenter {
     }
     
     public void fechar(){
-        this.view.dispose();
+        notificarUsuarioObservers.clear();
+        manterUsuarioObservers.clear();
+        view.dispose();
     }
     
     public ManterUsuarioView getView() {
@@ -313,6 +315,11 @@ public class ManterUsuarioPresenter {
 
     public List<NotificarUsuarioObserver> getNotificarUsuarioObservers() {
         return notificarUsuarioObservers;
+    }
+
+    @Override
+    public void fecharJanela() {
+        fechar();
     }
     
     
