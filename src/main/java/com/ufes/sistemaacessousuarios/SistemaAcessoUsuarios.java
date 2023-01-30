@@ -1,16 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.ufes.sistemaacessousuarios;
 
-/**
- *
- * @author eloy
- */
-public class SistemaAcessoUsuarios {
+import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
+import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.view.PrincipalView;
 
+public class SistemaAcessoUsuarios {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        new PrincipalPresenter();
     }
 }
