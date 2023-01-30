@@ -1,7 +1,6 @@
 package com.ufes.sistemaacessousuarios.manterusuariopresenter.state;
 
 import com.ufes.sistemaacessousuarios.model.Usuario;
-import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.ManterUsuarioCommand;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.SalvarUsuarioCommand;

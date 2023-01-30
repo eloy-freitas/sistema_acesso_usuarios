@@ -1,7 +1,6 @@
 package com.ufes.sistemaacessousuarios.model;
 
 import java.time.LocalDateTime;
-import java.time.LocalDateTime;
 
 public class Usuario {
     protected long id;

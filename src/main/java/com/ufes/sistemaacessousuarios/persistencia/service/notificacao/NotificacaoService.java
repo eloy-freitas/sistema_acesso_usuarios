@@ -8,7 +8,6 @@ import com.ufes.sistemaacessousuarios.persistencia.repository.notificacao.Notifi
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.mockito.internal.matchers.Not;
 
 
 public class NotificacaoService implements INotificacaoService{

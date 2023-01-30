@@ -3,7 +3,6 @@ package com.ufes.sistemaacessousuarios.principalpresenter.state;
 import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
-import com.ufes.sistemaacessousuarios.view.LoginView;
 
 public class NaoLogadoState extends PrincipalPresenterState{
     private LoginPresenter loginPresenter;

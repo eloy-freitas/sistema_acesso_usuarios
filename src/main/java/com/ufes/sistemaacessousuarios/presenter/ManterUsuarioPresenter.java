@@ -1,6 +1,5 @@
 package com.ufes.sistemaacessousuarios.presenter;
 
-import com.pss.senha.validacao.ValidadorSenha;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.IUsuarioService;
