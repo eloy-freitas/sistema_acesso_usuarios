@@ -50,7 +50,8 @@ public class LoginUsuarioState extends PrincipalPresenterState{
         command = new AlterarSenhaCommand(
             manterUsuarioPresenter, 
             presenter, 
-            principalView
+            principalView,
+            presenter.getUsuario()
         );
         command.executar();
     }
