@@ -21,6 +21,7 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     @Override
     public void initComponents(){
         decorarInfoUsuario();
+        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
         presenter.getPrincipalView().getDpMenu().add(naoAutorizadoView);
         principalView.getMiLogin().setEnabled(false);
         principalView.getMiAlterarSenha().setEnabled(true);
@@ -34,12 +35,11 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     
     @Override
     public void alterarSenha(){
-        manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
+        principalView.getDpMenu().remove(manterUsuarioPresenter.getView());
         manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
-        if(!manterUsuarioPresenter.getView().isVisible()){
-            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-            manterUsuarioPresenter.getView().setVisible(true);
-        }  
+        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
+        manterUsuarioPresenter.getView().setVisible(true);
+        
     }
     
     @Override

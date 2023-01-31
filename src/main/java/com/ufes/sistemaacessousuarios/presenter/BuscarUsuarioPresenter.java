@@ -212,8 +212,6 @@ public class BuscarUsuarioPresenter implements ManterUsuarioObserver{
         for(SubJanelaObserver o : subJanelaObservers)
             o.fecharJanela();
         
-        subJanelaObservers = new ArrayList<>();
-        observers = new ArrayList<>();
         view.dispose();
     }
 }

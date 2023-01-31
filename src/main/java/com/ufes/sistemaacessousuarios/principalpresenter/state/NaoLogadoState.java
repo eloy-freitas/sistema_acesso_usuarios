@@ -11,11 +11,14 @@ public class NaoLogadoState extends PrincipalPresenterState{
         super(presenter);
         loginPresenter = new LoginPresenter();
         loginPresenter.subscribe(presenter);
+        manterUsuarioPresenter = new ManterUsuarioPresenter();
+        manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
         initComponents();
     }
     
      @Override
     public void initComponents(){
+        principalView.getDpMenu().add(loginPresenter.getView());
         principalView.getMiLogin().setEnabled(true);
         principalView.getMiCadastrar().setEnabled(true);
         principalView.getBtnNotificacoes().setVisible(false);
@@ -32,19 +35,16 @@ public class NaoLogadoState extends PrincipalPresenterState{
     
     @Override
     public void login(){
-        presenter.fecharJanelasInternas();
+        principalView.getDpMenu().remove(loginPresenter.getView());
         principalView.getDpMenu().add(loginPresenter.getView());
         loginPresenter.getView().setVisible(true);
     }
     
     @Override
     public void cadastrar(){
-        presenter.fecharJanelasInternas();
-        manterUsuarioPresenter = new ManterUsuarioPresenter();
-        manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
-        if(!manterUsuarioPresenter.getView().isVisible()){
-            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-            manterUsuarioPresenter.getView().setVisible(true);
-        }   
+        principalView.getDpMenu().remove(manterUsuarioPresenter.getView());
+        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
+        manterUsuarioPresenter.getView().setVisible(true);
+        
     }
 }

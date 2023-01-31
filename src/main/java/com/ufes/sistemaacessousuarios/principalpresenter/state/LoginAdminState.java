@@ -15,7 +15,18 @@ public class LoginAdminState extends PrincipalPresenterState implements Visualiz
     
     public LoginAdminState(PrincipalPresenter presenter) {
         super(presenter);
+        manterUsuarioPresenter = new ManterUsuarioPresenter(
+            presenter.getUsuario()
+        );
+        visualizarNotificacoesPresenter = new VisualizarNotificacoesPresenter(
+                presenter.getUsuario()
+        );
+        visualizarNotificacoesPresenter.subscribeNotificacaoObserver(
+                presenter
+        );
         buscarUsuarioPresenter = new BuscarUsuarioPresenter();
+        buscarUsuarioPresenter.subscribe(this);
+        
         initComponents();
     }
     
@@ -23,6 +34,9 @@ public class LoginAdminState extends PrincipalPresenterState implements Visualiz
     public void initComponents(){
         decorarBotaoNotificacoes();
         decorarInfoUsuario();
+        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
+        principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
+        principalView.getDpMenu().add(buscarUsuarioPresenter.getView());
         principalView.getMiLogin().setEnabled(false);
         principalView.getMiCadastrar().setEnabled(true);
         principalView.getBtnNotificacoes().setVisible(true);
@@ -40,12 +54,10 @@ public class LoginAdminState extends PrincipalPresenterState implements Visualiz
     
     @Override
     public void alterarSenha(){
-        manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
+        principalView.getDpMenu().remove(manterUsuarioPresenter.getView());
         manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
-        if(!manterUsuarioPresenter.getView().isVisible()){
-            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-            manterUsuarioPresenter.getView().setVisible(true);
-        }  
+        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
+        manterUsuarioPresenter.getView().setVisible(true);
     }
     
     @Override
@@ -54,22 +66,18 @@ public class LoginAdminState extends PrincipalPresenterState implements Visualiz
         manterUsuarioPresenter = new ManterUsuarioPresenter();
         manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
         manterUsuarioPresenter.subscribeManterUsuarioObserver(buscarUsuarioPresenter);
-        if(!manterUsuarioPresenter.getView().isVisible()){
-            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-            manterUsuarioPresenter.getView().setVisible(true);
-        }   
+        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
+        manterUsuarioPresenter.getView().setVisible(true);
     }
     
     @Override
     public void buscarUsuarios(){
         buscarUsuarioPresenter.fechar();
-        buscarUsuarioPresenter = new BuscarUsuarioPresenter();
+        principalView.getDpMenu().remove(buscarUsuarioPresenter.getView());
         buscarUsuarioPresenter.atualizarTabela();
-        if(!buscarUsuarioPresenter.getView().isVisible()){
-            buscarUsuarioPresenter.subscribe(this);
-            principalView.getDpMenu().add(buscarUsuarioPresenter.getView());
-            buscarUsuarioPresenter.getView().setVisible(true);
-        }  
+        principalView.getDpMenu().add(buscarUsuarioPresenter.getView());
+        buscarUsuarioPresenter.getView().setVisible(true);
+        
     }
 
     @Override
@@ -85,9 +93,7 @@ public class LoginAdminState extends PrincipalPresenterState implements Visualiz
     
     @Override
     public void visualizarNotificacoes(){
-        VisualizarNotificacoesPresenter visualizarNotificacoesPresenter;
-        visualizarNotificacoesPresenter = new VisualizarNotificacoesPresenter(presenter.getUsuario());
-        visualizarNotificacoesPresenter.subscribeNotificacaoObserver(presenter);
+        principalView.getDpMenu().remove(visualizarNotificacoesPresenter.getView());
         principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
         visualizarNotificacoesPresenter.getView().setVisible(true);
     }

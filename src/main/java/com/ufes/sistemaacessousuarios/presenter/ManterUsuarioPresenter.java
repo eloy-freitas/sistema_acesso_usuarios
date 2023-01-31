@@ -249,8 +249,6 @@ public class ManterUsuarioPresenter implements SubJanelaObserver{
     }
     
     public void fechar(){
-        notificarUsuarioObservers.clear();
-        manterUsuarioObservers.clear();
         view.dispose();
     }
     
