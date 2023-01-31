@@ -1,15 +1,25 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
-import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.AlterarSenhaCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.PrincipalPresenterCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.VisualizarNotificacoesCommand;
 
 public class LoginUsuarioState extends PrincipalPresenterState{
+    
+    private PrincipalPresenterCommand command;
     public LoginUsuarioState(PrincipalPresenter presenter) {
         super(presenter);
         manterUsuarioPresenter = new ManterUsuarioPresenter(
             presenter.getUsuario()
+        );
+        visualizarNotificacoesPresenter = new VisualizarNotificacoesPresenter(
+                presenter.getUsuario()
+        );
+        visualizarNotificacoesPresenter.subscribeNotificacaoObserver(
+                presenter
         );
         initComponents();
     }
@@ -18,6 +28,8 @@ public class LoginUsuarioState extends PrincipalPresenterState{
     public void initComponents() {
         decorarInfoUsuario();
         decorarBotaoNotificacoes();
+        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
+        principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
         principalView.getMiLogin().setEnabled(false);
         principalView.getMiCadastrar().setEnabled(false);
         principalView.getLblInfoUsuario().setVisible(true);
@@ -35,20 +47,21 @@ public class LoginUsuarioState extends PrincipalPresenterState{
     
     @Override
     public void alterarSenha(){
-        manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
-        manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
-        if(!manterUsuarioPresenter.getView().isVisible()){
-            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-            manterUsuarioPresenter.getView().setVisible(true);
-        }  
+        command = new AlterarSenhaCommand(
+            manterUsuarioPresenter, 
+            presenter, 
+            principalView
+        );
+        command.executar();
     }
     
     @Override
     public void visualizarNotificacoes(){
-        VisualizarNotificacoesPresenter visualizarNotificacoesPresenter;
-        visualizarNotificacoesPresenter = new VisualizarNotificacoesPresenter(presenter.getUsuario());
-        visualizarNotificacoesPresenter.subscribeNotificacaoObserver(presenter);
-        principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
-        visualizarNotificacoesPresenter.getView().setVisible(true);
+        command = new VisualizarNotificacoesCommand(
+            presenter, 
+            principalView, 
+            visualizarNotificacoesPresenter
+        );
+        command.executar();
     }
 }

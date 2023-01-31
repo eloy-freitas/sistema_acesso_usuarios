@@ -1,13 +1,15 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
-import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.AlterarSenhaCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.PrincipalPresenterCommand;
 import com.ufes.sistemaacessousuarios.view.NaoAutorizadoView;
 
 
 public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     private NaoAutorizadoView naoAutorizadoView;
+    private PrincipalPresenterCommand command;
     
     public LoginNaoAutorizadoState(PrincipalPresenter presenter) {
         super(presenter);
@@ -21,6 +23,7 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     @Override
     public void initComponents(){
         decorarInfoUsuario();
+        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
         presenter.getPrincipalView().getDpMenu().add(naoAutorizadoView);
         principalView.getMiLogin().setEnabled(false);
         principalView.getMiAlterarSenha().setEnabled(true);
@@ -34,12 +37,12 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     
     @Override
     public void alterarSenha(){
-        manterUsuarioPresenter = new ManterUsuarioPresenter(presenter.getUsuario());
-        manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
-        if(!manterUsuarioPresenter.getView().isVisible()){
-            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-            manterUsuarioPresenter.getView().setVisible(true);
-        }  
+        command = new AlterarSenhaCommand(
+            manterUsuarioPresenter, 
+            presenter, 
+            principalView
+        );
+        command.executar();
     }
     
     @Override

@@ -10,14 +10,11 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -88,7 +85,7 @@ public class VisualizarNotificacoesPresenter {
         });
     }
     
-    private void atualizarTabela(){
+    public void atualizarTabela(){
         try {
             notificacoes = notificacaoService
                     .buscarNotificacoesPorUsername(usuario.getLogin());

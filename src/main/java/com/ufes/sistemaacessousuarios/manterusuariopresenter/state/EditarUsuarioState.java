@@ -1,6 +1,5 @@
 package com.ufes.sistemaacessousuarios.manterusuariopresenter.state;
 
-import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.AlterarSenhaCommand;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.command.EditarUsuarioCommand;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;

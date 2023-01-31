@@ -1,7 +1,6 @@
 package com.ufes.sistemaacessousuarios.presenter;
 
 import com.ufes.sistemaacessousuarios.model.NotificacaoDTO;
-import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.notificacao.NotificacaoService;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.UsuarioService;
 import com.ufes.sistemaacessousuarios.view.VisualizarNotificacaoView;

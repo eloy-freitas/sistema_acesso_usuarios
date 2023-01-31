@@ -4,7 +4,6 @@ import com.ufes.sistemaacessousuarios.model.Notificacao;
 import com.ufes.sistemaacessousuarios.model.NotificacaoDTO;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
