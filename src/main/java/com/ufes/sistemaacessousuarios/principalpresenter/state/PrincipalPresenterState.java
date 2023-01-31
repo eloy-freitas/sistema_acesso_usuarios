@@ -1,5 +1,6 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;

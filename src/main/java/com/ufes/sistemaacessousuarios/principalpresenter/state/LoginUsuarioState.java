@@ -1,6 +1,5 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
-import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;

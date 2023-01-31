@@ -1,6 +1,5 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
-import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.principalpresenter.command.AlterarSenhaCommand;
@@ -38,7 +37,11 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     
     @Override
     public void alterarSenha(){
-        command = new AlterarSenhaCommand(manterUsuarioPresenter, presenter, principalView);
+        command = new AlterarSenhaCommand(
+            manterUsuarioPresenter, 
+            presenter, 
+            principalView
+        );
         command.executar();
     }
     
