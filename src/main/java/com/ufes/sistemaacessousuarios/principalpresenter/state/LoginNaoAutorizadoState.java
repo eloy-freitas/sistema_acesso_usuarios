@@ -3,11 +3,14 @@ package com.ufes.sistemaacessousuarios.principalpresenter.state;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.AlterarSenhaCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.PrincipalPresenterCommand;
 import com.ufes.sistemaacessousuarios.view.NaoAutorizadoView;
 
 
 public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     private NaoAutorizadoView naoAutorizadoView;
+    private PrincipalPresenterCommand command;
     
     public LoginNaoAutorizadoState(PrincipalPresenter presenter) {
         super(presenter);
@@ -35,11 +38,8 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
     
     @Override
     public void alterarSenha(){
-        principalView.getDpMenu().remove(manterUsuarioPresenter.getView());
-        manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
-        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-        manterUsuarioPresenter.getView().setVisible(true);
-        
+        command = new AlterarSenhaCommand(manterUsuarioPresenter, presenter, principalView);
+        command.executar();
     }
     
     @Override

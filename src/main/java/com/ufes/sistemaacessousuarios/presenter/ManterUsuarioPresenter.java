@@ -236,12 +236,13 @@ public class ManterUsuarioPresenter implements SubJanelaObserver{
         );
     }
     
-    private void carregarCampos(){
+    public void carregarCampos(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         view.getTxtId().setText(String.valueOf(usuario.getId()));
         view.getTxtNome().setText(usuario.getNome());
         view.getTxtUserName().setText(usuario.getLogin());
         view.getTxtEmail().setText(usuario.getEmail());
+        view.getPsSenha().setText("");
         view.getCbAdmin().setSelected(usuario.isAdmin());
         view.getCbAutorizado().setSelected(usuario.isAutorizado());
         view.getLblDataCriacao().setText(usuario.getDataCadastro().format(formatter));

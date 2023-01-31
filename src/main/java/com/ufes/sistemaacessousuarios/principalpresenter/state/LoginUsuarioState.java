@@ -4,8 +4,12 @@ import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaS
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.AlterarSenhaCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.PrincipalPresenterCommand;
 
 public class LoginUsuarioState extends PrincipalPresenterState{
+    
+    private PrincipalPresenterCommand command;
     public LoginUsuarioState(PrincipalPresenter presenter) {
         super(presenter);
         manterUsuarioPresenter = new ManterUsuarioPresenter(
@@ -43,10 +47,8 @@ public class LoginUsuarioState extends PrincipalPresenterState{
     
     @Override
     public void alterarSenha(){
-        principalView.getDpMenu().remove(manterUsuarioPresenter.getView());
-        manterUsuarioPresenter.setEstado(new AlterarSenhaState(manterUsuarioPresenter));
-        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-        manterUsuarioPresenter.getView().setVisible(true);
+        command = new AlterarSenhaCommand(manterUsuarioPresenter, presenter, principalView);
+        command.executar();
     }
     
     @Override
