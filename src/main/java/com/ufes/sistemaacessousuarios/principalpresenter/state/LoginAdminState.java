@@ -10,6 +10,7 @@ import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
 import com.ufes.sistemaacessousuarios.presenter.VisualizarUsuarioObserver;
 import com.ufes.sistemaacessousuarios.principalpresenter.command.AlterarSenhaCommand;
 import com.ufes.sistemaacessousuarios.principalpresenter.command.PrincipalPresenterCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.VisualizarNotificacoesCommand;
 
 
 public class LoginAdminState extends PrincipalPresenterState implements VisualizarUsuarioObserver{
@@ -94,9 +95,12 @@ public class LoginAdminState extends PrincipalPresenterState implements Visualiz
     
     @Override
     public void visualizarNotificacoes(){
-        principalView.getDpMenu().remove(visualizarNotificacoesPresenter.getView());
-        principalView.getDpMenu().add(visualizarNotificacoesPresenter.getView());
-        visualizarNotificacoesPresenter.getView().setVisible(true);
+        command = new VisualizarNotificacoesCommand(
+            presenter, 
+            principalView, 
+            visualizarNotificacoesPresenter
+        );
+        command.executar();
     }
 
 }

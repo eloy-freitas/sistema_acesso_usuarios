@@ -85,7 +85,7 @@ public class VisualizarNotificacoesPresenter {
         });
     }
     
-    private void atualizarTabela(){
+    public void atualizarTabela(){
         try {
             notificacoes = notificacaoService
                     .buscarNotificacoesPorUsername(usuario.getLogin());

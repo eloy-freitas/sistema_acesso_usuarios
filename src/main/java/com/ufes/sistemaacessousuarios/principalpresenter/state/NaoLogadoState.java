@@ -3,10 +3,12 @@ package com.ufes.sistemaacessousuarios.principalpresenter.state;
 import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.CadastrarUsuarioNaoLogadoCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.LoginCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.PrincipalPresenterCommand;
 
 public class NaoLogadoState extends PrincipalPresenterState{
-    private LoginPresenter loginPresenter;
-    
+    private PrincipalPresenterCommand command;
     public NaoLogadoState(PrincipalPresenter presenter) {
         super(presenter);
         loginPresenter = new LoginPresenter();
@@ -35,16 +37,19 @@ public class NaoLogadoState extends PrincipalPresenterState{
     
     @Override
     public void login(){
-        principalView.getDpMenu().remove(loginPresenter.getView());
-        principalView.getDpMenu().add(loginPresenter.getView());
-        loginPresenter.getView().setVisible(true);
+        command = new LoginCommand(loginPresenter, presenter, principalView);
+        command.executar();
     }
     
     @Override
     public void cadastrar(){
-        principalView.getDpMenu().remove(manterUsuarioPresenter.getView());
-        principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-        manterUsuarioPresenter.getView().setVisible(true);
+        command = new CadastrarUsuarioNaoLogadoCommand(
+            presenter,
+            principalView, 
+            manterUsuarioPresenter
+        );
+        
+        command.executar();
         
     }
 }

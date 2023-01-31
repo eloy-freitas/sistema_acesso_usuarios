@@ -60,6 +60,11 @@ public class LoginPresenter {
         });
     }   
     
+    public void limparCampos(){
+        view.getTxtLogin().setText("");
+        view.getPfSenha().setText("");
+    }
+    
     private void lerCampos(){
         this.senha = "";
         this.login = "";
