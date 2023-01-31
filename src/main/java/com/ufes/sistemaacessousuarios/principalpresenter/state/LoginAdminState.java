@@ -62,7 +62,8 @@ public class LoginAdminState extends PrincipalPresenterState implements Visualiz
         command = new AlterarSenhaCommand(
             manterUsuarioPresenter, 
             presenter, 
-            principalView
+            principalView,
+            presenter.getUsuario()
         );
         command.executar();
     }
