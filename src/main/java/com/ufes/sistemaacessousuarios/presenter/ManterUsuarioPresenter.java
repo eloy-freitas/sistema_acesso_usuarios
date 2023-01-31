@@ -1,6 +1,5 @@
 package com.ufes.sistemaacessousuarios.presenter;
 
-import com.pss.senha.validacao.ValidadorSenha;
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
 import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.persistencia.service.usuario.IUsuarioService;
@@ -20,7 +19,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 
-public class ManterUsuarioPresenter {
+public class ManterUsuarioPresenter implements SubJanelaObserver{
     
     private ManterUsuarioView view;
     private ValidadorSenhaService validadorSenhaService;
@@ -237,12 +236,13 @@ public class ManterUsuarioPresenter {
         );
     }
     
-    private void carregarCampos(){
+    public void carregarCampos(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         view.getTxtId().setText(String.valueOf(usuario.getId()));
         view.getTxtNome().setText(usuario.getNome());
         view.getTxtUserName().setText(usuario.getLogin());
         view.getTxtEmail().setText(usuario.getEmail());
+        view.getPsSenha().setText("");
         view.getCbAdmin().setSelected(usuario.isAdmin());
         view.getCbAutorizado().setSelected(usuario.isAutorizado());
         view.getLblDataCriacao().setText(usuario.getDataCadastro().format(formatter));
@@ -250,7 +250,7 @@ public class ManterUsuarioPresenter {
     }
     
     public void fechar(){
-        this.view.dispose();
+        view.dispose();
     }
     
     public ManterUsuarioView getView() {
@@ -313,6 +313,11 @@ public class ManterUsuarioPresenter {
 
     public List<NotificarUsuarioObserver> getNotificarUsuarioObservers() {
         return notificarUsuarioObservers;
+    }
+
+    @Override
+    public void fecharJanela() {
+        fechar();
     }
     
     

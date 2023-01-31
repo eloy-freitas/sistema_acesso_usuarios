@@ -1,8 +1,12 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+
 import com.ufes.sistemaacessousuarios.model.Usuario;
+import com.ufes.sistemaacessousuarios.presenter.BuscarUsuarioPresenter;
+import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
+import com.ufes.sistemaacessousuarios.presenter.VisualizarNotificacoesPresenter;
 import com.ufes.sistemaacessousuarios.view.PrincipalView;
 import java.sql.SQLException;
 
@@ -11,11 +15,13 @@ public abstract class PrincipalPresenterState {
     protected PrincipalPresenter presenter;
     protected PrincipalView principalView;
     protected ManterUsuarioPresenter manterUsuarioPresenter;
+    protected BuscarUsuarioPresenter buscarUsuarioPresenter;
+    protected LoginPresenter loginPresenter;
+    protected VisualizarNotificacoesPresenter visualizarNotificacoesPresenter;
 
     public PrincipalPresenterState(PrincipalPresenter presenter) {
         this.presenter = presenter;
-        manterUsuarioPresenter = new ManterUsuarioPresenter();
-        principalView = this.presenter.getPrincipalView();
+        principalView = presenter.getPrincipalView();
     }
     
     public void initComponents(){

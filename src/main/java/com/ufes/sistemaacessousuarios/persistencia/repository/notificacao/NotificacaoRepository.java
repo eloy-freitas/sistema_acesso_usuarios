@@ -8,8 +8,6 @@ import com.ufes.sistemaacessousuarios.persistencia.dao.notificacao.NotificacaoDA
 import com.ufes.sistemaacessousuarios.persistencia.dao.usuario.IUsuarioDAO;
 import com.ufes.sistemaacessousuarios.persistencia.dao.usuario.UsuarioDAO;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 

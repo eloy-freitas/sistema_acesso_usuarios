@@ -1,22 +1,27 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.state;
 
+
 import com.ufes.sistemaacessousuarios.presenter.LoginPresenter;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
-import com.ufes.sistemaacessousuarios.view.LoginView;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.CadastrarUsuarioNaoLogadoCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.LoginCommand;
+import com.ufes.sistemaacessousuarios.principalpresenter.command.PrincipalPresenterCommand;
 
 public class NaoLogadoState extends PrincipalPresenterState{
-    private LoginPresenter loginPresenter;
-    
+    private PrincipalPresenterCommand command;
     public NaoLogadoState(PrincipalPresenter presenter) {
         super(presenter);
         loginPresenter = new LoginPresenter();
         loginPresenter.subscribe(presenter);
+        manterUsuarioPresenter = new ManterUsuarioPresenter();
+        manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
         initComponents();
     }
     
      @Override
     public void initComponents(){
+        principalView.getDpMenu().add(loginPresenter.getView());
         principalView.getMiLogin().setEnabled(true);
         principalView.getMiCadastrar().setEnabled(true);
         principalView.getBtnNotificacoes().setVisible(false);
@@ -33,19 +38,19 @@ public class NaoLogadoState extends PrincipalPresenterState{
     
     @Override
     public void login(){
-        presenter.fecharJanelasInternas();
-        principalView.getDpMenu().add(loginPresenter.getView());
-        loginPresenter.getView().setVisible(true);
+        command = new LoginCommand(loginPresenter, presenter, principalView);
+        command.executar();
     }
     
     @Override
     public void cadastrar(){
-        presenter.fecharJanelasInternas();
-        manterUsuarioPresenter = new ManterUsuarioPresenter();
-        manterUsuarioPresenter.subscribeNotificarUsuarioObserver(presenter);
-        if(!manterUsuarioPresenter.getView().isVisible()){
-            principalView.getDpMenu().add(manterUsuarioPresenter.getView());
-            manterUsuarioPresenter.getView().setVisible(true);
-        }   
+        command = new CadastrarUsuarioNaoLogadoCommand(
+            presenter,
+            principalView, 
+            manterUsuarioPresenter
+        );
+        
+        command.executar();
+        
     }
 }
