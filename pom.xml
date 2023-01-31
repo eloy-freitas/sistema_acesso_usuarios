@@ -29,12 +29,7 @@
             <groupId>com.pss.senha.validacao</groupId>
             <artifactId>ValidadorSenha</artifactId>
             <version>1.08-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/ValidadorSenha-1.08-SNAPSHOT-jar-with-dependencies.jar</systemPath>
         </dependency>
-
     </dependencies>
-    
-    
 
 </project>
