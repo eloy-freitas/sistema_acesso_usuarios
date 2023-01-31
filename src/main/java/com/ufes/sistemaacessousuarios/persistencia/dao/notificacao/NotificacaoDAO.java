@@ -240,11 +240,15 @@ public class NotificacaoDAO implements INotificacaoDAO{
         try {
             String query = ""
                 .concat("\n SELECT ")
-                .concat("\n 	COUNT(un.id_notificacao) qtd_notificacoes ")
-                .concat("\n FROM usuario u")
+                .concat("\n     COUNT(un.id_notificacao) qtd_notificacoes ")
+                .concat("\n FROM usuario d")
                 .concat("\n LEFT JOIN usuarios_notificados un ")
-                .concat("\n ON u.id_usuario = un.id_destinatario")
-                .concat("\n WHERE u.nm_username = ? AND un.fl_lida = 0;");
+                .concat("\n     ON d.id_usuario = un.id_destinatario")
+                .concat("\n LEFT JOiN usuario r ")
+                .concat("\n     ON r.id_usuario = un.id_remetente ")
+                .concat("\n WHERE d.nm_username = ?")
+                .concat("\n     AND un.fl_lida = 0 ")
+                .concat("\n     AND r.fl_ativo = 1");
 
             conexao = ConexaoSQLite.getConnection();
             
