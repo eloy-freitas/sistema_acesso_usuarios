@@ -40,7 +40,8 @@ public class LoginNaoAutorizadoState extends PrincipalPresenterState{
         command = new AlterarSenhaCommand(
             manterUsuarioPresenter, 
             presenter, 
-            principalView
+            principalView,
+            presenter.getUsuario()
         );
         command.executar();
     }

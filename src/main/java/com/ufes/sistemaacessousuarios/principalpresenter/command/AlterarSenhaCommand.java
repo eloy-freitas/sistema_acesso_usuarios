@@ -1,6 +1,7 @@
 package com.ufes.sistemaacessousuarios.principalpresenter.command;
 
 import com.ufes.sistemaacessousuarios.manterusuariopresenter.state.AlterarSenhaState;
+import com.ufes.sistemaacessousuarios.model.Usuario;
 import com.ufes.sistemaacessousuarios.presenter.ManterUsuarioPresenter;
 import com.ufes.sistemaacessousuarios.presenter.PrincipalPresenter;
 import com.ufes.sistemaacessousuarios.view.PrincipalView;
@@ -12,10 +13,13 @@ public class AlterarSenhaCommand extends PrincipalPresenterCommand{
     public AlterarSenhaCommand(
             ManterUsuarioPresenter manterUsuarioPresenter, 
             PrincipalPresenter presenter,
-            PrincipalView principalView) 
+            PrincipalView principalView,
+            Usuario usuario
+    ) 
     {
         super(presenter, principalView);
         this.manterUsuarioPresenter = manterUsuarioPresenter;
+        this.manterUsuarioPresenter.setUsuario(usuario);
     }
     
     @Override
