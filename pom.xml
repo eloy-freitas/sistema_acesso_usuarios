@@ -26,10 +26,9 @@
         </dependency>
         <dependency>
             <groupId>com.pss.senha.validacao</groupId>
-            <artifactId>validadorsenha</artifactId>
-            <version>1.0.8</version>
-          </dependency>
-
+            <artifactId>ValidadorSenha</artifactId>
+            <version>1.08-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
